@@ -10,23 +10,14 @@ public class Block : MonoBehaviour
     {
         OnClick();
     }
-
     public void OnClick()
     {
         var controler = Level.Instance;
-        controler.Shuffle(this);
-        controler.lsLockDelete.Add(1);
+        controler.SortBlocks(this);
         this.transform.DOMove(Level.Instance.GetPost(idElement).post.position,  0.5f).OnComplete(delegate
         { 
-           
-            if(controler.lsLockDelete.Count > 0)
-            {
-                controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
-              
-            }
-            //controler.CheckDelete();
-            controler.TestDelete(this) ;
-            controler.SortIdElement();
+            controler.HandleDeleteBlocks(this) ;
+            controler.SortIdElementBlocks();
         });
     }
 
