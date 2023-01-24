@@ -8,6 +8,8 @@ using System.Linq;
 public class Level : MonoBehaviour
 {
     public static Level Instance;
+    public List<Block> lsBlock;
+
     public List<IdAndNumb> lsIdAndNumb;
     public IdAndNumb GetIdAndNumb(int id)
     {
@@ -20,7 +22,6 @@ public class Level : MonoBehaviour
         }
         return null;
     }
-    public List<Block> lsBlock;
     public List<Post> lsPost;
     public Post GetPost(int id)
     {
@@ -46,19 +47,29 @@ public class Level : MonoBehaviour
         }
         else
         {
-            for(int i = 0; i < lsBlock.Count; i ++)
+            bool same = false;
+            int order = 0;
+            for (int i = 0; i < lsBlock.Count; i ++)
             {
                 if(lsBlock[i].id == block.id)
-                {
-                    lsBlock.Insert(i+1, block);                 
-                    break;
+                {              
+                    same = true;
+                    order = i;
                 }
-                else
-                {
-                    lsBlock.Add(block);       
-                    break; 
-                }             
+                       
             }      
+
+            if(same)
+            {
+                lsBlock.Insert(order + 1, block);
+                Debug.LogError("Same");
+            }
+            else
+            {
+                lsBlock.Add(block);
+                Debug.LogError("Orther");
+            }
+
         }     
         SortIdElementBlocks();
         MoveBlocks();
@@ -79,6 +90,7 @@ public class Level : MonoBehaviour
     }
     public void HandleDeleteBlocks(Block paramBlock)
     {
+   
         var temp = GetIdAndNumb(paramBlock.id);
       if (temp != null)
         {      
