@@ -9,7 +9,8 @@ public class Level : MonoBehaviour
 {
     public static Level Instance;
     public List<Block> lsBlock;
-
+    public List<int> tesst;
+    public List<int> lsLockDelete;
     public List<IdAndNumb> lsIdAndNumb;
     public IdAndNumb GetIdAndNumb(int id)
     {
@@ -44,6 +45,7 @@ public class Level : MonoBehaviour
         if(lsBlock.Count <= 0)
         {
             lsBlock.Add(block);
+            tesst.Add(block.id);
         }
         else
         {
@@ -55,21 +57,18 @@ public class Level : MonoBehaviour
                 {              
                     same = true;
                     order = i;
-                }
-                       
+                }                   
             }      
-
             if(same)
             {
                 lsBlock.Insert(order + 1, block);
-                Debug.LogError("Same");
+                tesst.Insert(order + 1, block.id);
             }
             else
             {
                 lsBlock.Add(block);
-                Debug.LogError("Orther");
+                tesst.Add(block.id);
             }
-
         }     
         SortIdElementBlocks();
         MoveBlocks();
@@ -100,10 +99,16 @@ public class Level : MonoBehaviour
                 temp.lsBlock.Add(paramBlock);
                 if(temp.numb == 3)
                 {
+                    //if (lsLockDelete.Count > 0)
+                    //{
+                    //    return;
+                    //}
+
                     for (int i = temp.lsBlock.Count - 1; i >= 0; i--)
                     {
-                        lsBlock.Remove(temp.lsBlock[i]);
-                      
+                        lsBlock.RemoveAt(temp.lsBlock[i].idElement);
+                        tesst.RemoveAt(temp.lsBlock[i].idElement);
+
                     }
                     for (int i = temp.lsBlock.Count - 1; i >= 0; i--)
                     {
@@ -111,10 +116,12 @@ public class Level : MonoBehaviour
                         Destroy(temp.lsBlock[i].gameObject);
                         temp.lsBlock.RemoveAt(i);
                     }
-                    temp.numb = 0;               
+                    temp.numb = 0;
+                    SortIdElementBlocks();
+                    MoveBlocks();
                 }
             }      
-            MoveBlocks();
+        
         }
     }
 
