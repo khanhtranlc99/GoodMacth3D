@@ -12,13 +12,13 @@ public class Block : MonoBehaviour
         if(!wasLock)
         {
             OnClick();
-        }
-       
+        }    
     }
     public void OnClick()
     {
         wasLock = true;
-           var controler = Level.Instance;
+        var controler = Level.Instance;
+        controler.HandleEndGame(this); 
         controler.SortBlocks(this);
         controler.lsLockDelete.Add(1);
         this.transform.DOMove(Level.Instance.GetPost(idElement).post.position, 0.35f).OnComplete(delegate
@@ -26,13 +26,8 @@ public class Block : MonoBehaviour
             if (controler.lsLockDelete.Count > 0)
             {
                 controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
-
-            }
-         
+            }       
             controler.HandleDeleteBlocks(this);
-
         });
     }
-
-
 }

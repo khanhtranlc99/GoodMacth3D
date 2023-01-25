@@ -138,11 +138,18 @@ public class Level : MonoBehaviour
         }
     }
 
-    public void HandleEndGame()
+    public void HandleEndGame(Block paramBlock)
     {
-        if(lsBlock.Count == 7)
+        if(lsBlock.Count >= 6)
         {
-
+            var temp = GetIdAndNumb(paramBlock.id);
+            if (temp != null)
+            {
+                if (temp.numb < 2)
+                {
+                    losePanel.SetActive(true);
+                }
+            }
         }
     }
 
