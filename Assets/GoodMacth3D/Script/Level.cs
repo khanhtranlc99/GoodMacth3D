@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using DG.Tweening;
 using System.Linq;
 
@@ -12,6 +13,8 @@ public class Level : MonoBehaviour
     public List<int> tesst;
     public List<int> lsLockDelete;
     public List<IdAndNumb> lsIdAndNumb;
+    public GameObject losePanel;
+
     public IdAndNumb GetIdAndNumb(int id)
     {
         foreach (var item in lsIdAndNumb)
@@ -131,6 +134,14 @@ public class Level : MonoBehaviour
                 SortIdElementBlocks();
                 MoveBlocks();
             }
+
+        }
+    }
+
+    public void HandleEndGame()
+    {
+        if(lsBlock.Count == 7)
+        {
 
         }
     }
