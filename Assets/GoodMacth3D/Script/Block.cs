@@ -6,24 +6,31 @@ public class Block : MonoBehaviour
 {
     public int id;
     public int idElement;
+    public bool wasLock;
     public void OnMouseDown()
     {
-        OnClick();
+        if(!wasLock)
+        {
+            OnClick();
+        }
+       
     }
     public void OnClick()
     {
-        var controler = Level.Instance;
+        wasLock = true;
+           var controler = Level.Instance;
         controler.SortBlocks(this);
         controler.lsLockDelete.Add(1);
-        this.transform.DOMove(Level.Instance.GetPost(idElement).post.position,  0.5f).OnComplete(delegate
+        this.transform.DOMove(Level.Instance.GetPost(idElement).post.position, 0.35f).OnComplete(delegate
         {
             if (controler.lsLockDelete.Count > 0)
             {
                 controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
 
             }
-            controler.HandleDeleteBlocks(this) ;
-            controler.SortIdElementBlocks();
+         
+            controler.HandleDeleteBlocks(this);
+
         });
     }
 

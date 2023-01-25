@@ -84,12 +84,11 @@ public class Level : MonoBehaviour
     {
         for (int i = 0; i < lsBlock.Count; i++)
         {
-            lsBlock[i].transform.DOMove(lsPost[i].post.position, 0.5f).OnComplete(delegate { SortIdElementBlocks(); });
+            lsBlock[i].transform.DOMove(lsPost[i].post.position, 0.35f).OnComplete(delegate { SortIdElementBlocks(); DeleteBlocks(); });
         }
     }
     public void HandleDeleteBlocks(Block paramBlock)
     {
-   
         var temp = GetIdAndNumb(paramBlock.id);
       if (temp != null)
         {      
@@ -97,31 +96,42 @@ public class Level : MonoBehaviour
             {
                 temp.numb += 1;
                 temp.lsBlock.Add(paramBlock);
-                if(temp.numb == 3)
+                if (lsLockDelete.Count > 0)
                 {
-                    //if (lsLockDelete.Count > 0)
-                    //{
-                    //    return;
-                    //}
+                    return;
 
-                    for (int i = temp.lsBlock.Count - 1; i >= 0; i--)
-                    {
-                        lsBlock.RemoveAt(temp.lsBlock[i].idElement);
-                        tesst.RemoveAt(temp.lsBlock[i].idElement);
-
-                    }
-                    for (int i = temp.lsBlock.Count - 1; i >= 0; i--)
-                    {
-
-                        Destroy(temp.lsBlock[i].gameObject);
-                        temp.lsBlock.RemoveAt(i);
-                    }
-                    temp.numb = 0;
-                    SortIdElementBlocks();
-                    MoveBlocks();
                 }
+                DeleteBlocks();
+              
             }      
         
+        }
+    }
+
+
+    private void DeleteBlocks()
+    {
+        for(int i = lsIdAndNumb.Count -1; i >=0 ; i --)
+        {
+            if(lsIdAndNumb[i].numb == 3)
+            {
+                for(int j = lsIdAndNumb[i].lsBlock.Count - 1 ; j >= 0; j --)
+                {
+
+                    lsBlock.RemoveAt(lsIdAndNumb[i].lsBlock[j].idElement);
+                    tesst.RemoveAt(lsIdAndNumb[i].lsBlock[j].idElement);
+                }
+                for (int j = lsIdAndNumb[i].lsBlock.Count - 1; j >= 0; j--)
+                {
+
+                    Destroy(lsIdAndNumb[i].lsBlock[j].gameObject);
+                    lsIdAndNumb[i].lsBlock.RemoveAt(j);
+                }
+                lsIdAndNumb[i].numb = 0;
+                SortIdElementBlocks();
+                MoveBlocks();
+            }
+
         }
     }
 
