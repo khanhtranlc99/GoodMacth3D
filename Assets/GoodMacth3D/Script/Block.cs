@@ -21,7 +21,7 @@ public class Block : MonoBehaviour
         controler.HandleEndGame(this); 
         controler.SortBlocks(this);
         controler.lsLockDelete.Add(1);
-        this.transform.DOMove(Level.Instance.GetPost(idElement).post.position, 0.35f).OnComplete(delegate
+        this.transform.DOMove(Level.Instance.GetPost(idElement).post.position, 0.2f).OnComplete(delegate
         {
             if (controler.lsLockDelete.Count > 0)
             {

@@ -9,11 +9,13 @@ using System.Linq;
 public class Level : MonoBehaviour
 {
     public static Level Instance;
+    public List<Block> lsBlockEndGame;
     public List<Block> lsBlock;
     public List<int> tesst;
     public List<int> lsLockDelete;
     public List<IdAndNumb> lsIdAndNumb;
     public GameObject losePanel;
+
 
     public IdAndNumb GetIdAndNumb(int id)
     {
@@ -91,7 +93,7 @@ public class Level : MonoBehaviour
     {
         for (int i = 0; i < lsBlock.Count; i++)
         {
-            lsBlock[i].transform.DOMove(lsPost[i].post.position, 0.2f).OnComplete(delegate { SortIdElementBlocks(); DeleteBlocks(); });
+            lsBlock[i].transform.DOMove(lsPost[i].post.position, 0.15f).OnComplete(delegate { SortIdElementBlocks(); DeleteBlocks();  });
         }
     }
     public void HandleDeleteBlocks(Block paramBlock)
@@ -149,59 +151,62 @@ public class Level : MonoBehaviour
         bool secondCondition = false;
         if (lsBlock.Count >= 6)
         {
-            var temp = GetIdAndNumb(paramBlock.id);
-            if (temp != null)
-            {
-                if (temp.numb == 2)
-                {
-                    firtCondition = true;
-                  
-                }
-            }
-            for (int i = lsIdAndNumb.Count - 1; i >= 0; i--)
-            {
-                if (lsIdAndNumb[i].numb == 2)
-                {
-                    secondCondition = true;
-                   
-                }
+            
+            lsBlockEndGame.Add(paramBlock);
 
-            }
-            Debug.LogError("firtCondition " + firtCondition);
-            Debug.LogError("secondCondition " + secondCondition);
-
-            if (firtCondition)
-            {
-                return;
-            }
-
-            if (!firtCondition && secondCondition)
-            {
-
-                return;
-            }
-
-            //if (firtCondition == true && secondCondition == false)
+            //var temp = GetIdAndNumb(paramBlock.id);
+            //if (temp != null)
             //{
-            //    losePanel.SetActive(true);
+            //    if (temp.numb == 2)
+            //    {
+            //        firtCondition = true;
+
+            //    }
             //}
+            //for (int i = lsIdAndNumb.Count - 1; i >= 0; i--)
+            //{
+            //    if (lsIdAndNumb[i].numb == 2)
+            //    {
+            //        secondCondition = true;
+
+            //    }
+
+            //}
+            if(lsBlockEndGame.Count <= 1)
+            {
+              var temp =  GetIdAndNumb(lsBlockEndGame[0].id);
+                if(temp.numb >= 2)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                for (int i = lsBlockEndGame.Count - 1; i >= 0; i--)
+                {
+                    var temp = GetIdAndNumb(lsBlockEndGame[i].id);
+                    if (temp.numb >= 2)
+                    {
+                        return;
+                    }
+
+                }
+
+            }
+
 
             losePanel.SetActive(true);
-            
+
+
+            lsBlockEndGame.Clear();
+
         }
-     
+
+      
     }
     public void Test()
     {
-        if (lsLockDelete.Count > 0)
-        {
-            return;
-
-        }
-        if (lsBlock.Count >= 7)
-        {
-            losePanel.SetActive(true);
-        }
+        lsBlockEndGame.Clear();
     }
 
 }
