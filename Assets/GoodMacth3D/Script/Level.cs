@@ -42,6 +42,10 @@ public class Level : MonoBehaviour
     {
         Instance = this;
     }
+    public void Start()
+    {
+        //Input.multiTouchEnabled = false;
+    }
 
     public void SortBlocks(Block block)
     {
@@ -87,7 +91,7 @@ public class Level : MonoBehaviour
     {
         for (int i = 0; i < lsBlock.Count; i++)
         {
-            lsBlock[i].transform.DOMove(lsPost[i].post.position, 0.35f).OnComplete(delegate { SortIdElementBlocks(); DeleteBlocks(); });
+            lsBlock[i].transform.DOMove(lsPost[i].post.position, 0.2f).OnComplete(delegate { SortIdElementBlocks(); DeleteBlocks(); });
         }
     }
     public void HandleDeleteBlocks(Block paramBlock)
@@ -133,6 +137,7 @@ public class Level : MonoBehaviour
                 lsIdAndNumb[i].numb = 0;
                 SortIdElementBlocks();
                 MoveBlocks();
+              
             }
 
         }
@@ -140,16 +145,62 @@ public class Level : MonoBehaviour
 
     public void HandleEndGame(Block paramBlock)
     {
-        if(lsBlock.Count >= 6)
+        bool firtCondition = false;
+        bool secondCondition = false;
+        if (lsBlock.Count >= 6)
         {
             var temp = GetIdAndNumb(paramBlock.id);
             if (temp != null)
             {
-                if (temp.numb < 2)
+                if (temp.numb == 2)
                 {
-                    losePanel.SetActive(true);
+                    firtCondition = true;
+                  
                 }
             }
+            for (int i = lsIdAndNumb.Count - 1; i >= 0; i--)
+            {
+                if (lsIdAndNumb[i].numb == 2)
+                {
+                    secondCondition = true;
+                   
+                }
+
+            }
+            Debug.LogError("firtCondition " + firtCondition);
+            Debug.LogError("secondCondition " + secondCondition);
+
+            if (firtCondition)
+            {
+                return;
+            }
+
+            if (!firtCondition && secondCondition)
+            {
+
+                return;
+            }
+
+            //if (firtCondition == true && secondCondition == false)
+            //{
+            //    losePanel.SetActive(true);
+            //}
+
+            losePanel.SetActive(true);
+            
+        }
+     
+    }
+    public void Test()
+    {
+        if (lsLockDelete.Count > 0)
+        {
+            return;
+
+        }
+        if (lsBlock.Count >= 7)
+        {
+            losePanel.SetActive(true);
         }
     }
 

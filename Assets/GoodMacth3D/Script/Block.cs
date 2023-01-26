@@ -28,6 +28,7 @@ public class Block : MonoBehaviour
                 controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
             }       
             controler.HandleDeleteBlocks(this);
+          
         });
     }
 }
