@@ -6,5 +6,5 @@ public class Post : MonoBehaviour
 {
     public int id;
     public Transform post;
-    public Block block;
+
 }

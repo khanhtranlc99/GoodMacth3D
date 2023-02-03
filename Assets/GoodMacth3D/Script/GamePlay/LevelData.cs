@@ -41,10 +41,10 @@ public class LevelData : SerializedMonoBehaviour
             {
                 for (int k = 0; k < lsData[index].data.GetLength(1); k++)
                 {
-                    lsData[index].data[j, k].GetComponent<Block>().LockClick();
+                    lsData[index].data[j, k].GetComponent<BirdMechanic>().LockClick();
                     if (index + 1 < lsData.Count)
                     {
-                        lsData[index].data[j, k].GetComponent<Block>().unlockBlock = lsData[index + 1].data[j, k].GetComponent<Block>();
+                        lsData[index].data[j, k].GetComponent<BirdMechanic>().unlockBlock = lsData[index + 1].data[j, k].GetComponent<BirdMechanic>();
                     }
                 }
             }
@@ -56,7 +56,7 @@ public class LevelData : SerializedMonoBehaviour
             for (int k = 0; k < lsData[0].data.GetLength(1); k++)
             {
 
-                lsData[0].data[j, k].GetComponent<Block>().UnlockClick();
+                lsData[0].data[j, k].GetComponent<BirdMechanic>().UnlockClick();
 
             }
         }

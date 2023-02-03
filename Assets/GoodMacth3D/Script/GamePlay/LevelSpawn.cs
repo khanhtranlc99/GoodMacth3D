@@ -10,8 +10,8 @@ public class LevelSpawn : SerializedMonoBehaviour
     public List<LevelData> levelDatas;
     public void Init()
     {
-        SpawnLevel();
-        levelData.Init();
+        //SpawnLevel();
+        //levelData.Init();
     }
 
     public void SpawnLevel()

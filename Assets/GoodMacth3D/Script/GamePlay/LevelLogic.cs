@@ -7,8 +7,8 @@ using System.Linq;
 
 public class LevelLogic : MonoBehaviour
 {
-    public List<Block> lsBlockEndGame;
-    public List<Block> lsBlock;
+    public List<BirdMechanic> lsBirdEndGame;
+    public List<BirdMechanic> lsBird;
     public List<int> tesst;
     public List<int> lsLockDelete;
     public List<IdAndNumb> lsIdAndNumb;
@@ -55,25 +55,25 @@ public class LevelLogic : MonoBehaviour
     }
     public void SetUp()
     {
-        for(int i = 0; i < level.levelSpawn.levelData.idBlock.Count; i ++)
-        {
-            lsIdAndNumb.Add(new IdAndNumb() { id = level.levelSpawn.levelData.idBlock[i], numb = 0 });
-        }
+        //for(int i = 0; i < level.levelSpawn.levelData.idBlock.Count; i ++)
+        //{
+        //    lsIdAndNumb.Add(new IdAndNumb() { id = level.levelSpawn.levelData.idBlock[i], numb = 0 });
+        //}
     }
-    public void SortBlocks(Block block)
+    public void SortBird(BirdMechanic bird)
     {
-        if (lsBlock.Count <= 0)
+        if (lsBird.Count <= 0)
         {
-            lsBlock.Add(block);
-            tesst.Add(block.id);
+            lsBird.Add(bird);
+            tesst.Add(bird.id);
         }
         else
         {
             bool same = false;
             int order = 0;
-            for (int i = 0; i < lsBlock.Count; i++)
+            for (int i = 0; i < lsBird.Count; i++)
             {
-                if (lsBlock[i].id == block.id)
+                if (lsBird[i].id == bird.id)
                 {
                     same = true;
                     order = i;
@@ -81,33 +81,33 @@ public class LevelLogic : MonoBehaviour
             }
             if (same)
             {
-                lsBlock.Insert(order + 1, block);
-                tesst.Insert(order + 1, block.id);
+                lsBird.Insert(order + 1, bird);
+                tesst.Insert(order + 1, bird.id);
             }
             else
             {
-                lsBlock.Add(block);
-                tesst.Add(block.id);
+                lsBird.Add(bird);
+                tesst.Add(bird.id);
             }
         }
-        SortIdElementBlocks();
+        SortIdElementBirds();
         MoveBlocks();
     }
-    public void SortIdElementBlocks()
+    public void SortIdElementBirds()
     {
-        for (int i = 0; i < lsBlock.Count; i++)
+        for (int i = 0; i < lsBird.Count; i++)
         {
-            lsBlock[i].idElement = i;
+            lsBird[i].idElement = i;
         }
     }
     public void MoveBlocks()
     {
-        for (int i = 0; i < lsBlock.Count; i++)
+        for (int i = 0; i < lsBird.Count; i++)
         {
-            lsBlock[i].transform.DOMove(lsPost[i].post.position, 0.15f).OnComplete(delegate { SortIdElementBlocks(); DeleteBlocks();  });
+            lsBird[i].transform.DOMove(lsPost[i].post.position, 0.15f).OnComplete(delegate { SortIdElementBirds(); DeleteBirds();  });
         }
     }
-    public void HandleDeleteBlocks(Block paramBlock)
+    public void HandleDeleteBirds(BirdMechanic paramBlock)
     {
         var temp = GetIdAndNumb(paramBlock.id);
         if (temp != null)
@@ -120,13 +120,13 @@ public class LevelLogic : MonoBehaviour
                 {
                     return;
                 }
-                DeleteBlocks();
+                DeleteBirds();
             }
         }
     }
 
 
-    private void DeleteBlocks()
+    private void DeleteBirds()
     {
         for (int i = lsIdAndNumb.Count - 1; i >= 0; i--)
         {
@@ -134,7 +134,7 @@ public class LevelLogic : MonoBehaviour
             {
                 for (int j = lsIdAndNumb[i].lsBlock.Count - 1; j >= 0; j--)
                 {
-                    lsBlock.RemoveAt(lsIdAndNumb[i].lsBlock[j].idElement);
+                    lsBird.RemoveAt(lsIdAndNumb[i].lsBlock[j].idElement);
                     tesst.RemoveAt(lsIdAndNumb[i].lsBlock[j].idElement);
                 }
                 for (int j = lsIdAndNumb[i].lsBlock.Count - 1; j >= 0; j--)
@@ -144,7 +144,7 @@ public class LevelLogic : MonoBehaviour
                     lsIdAndNumb[i].lsBlock.RemoveAt(j);
                 }
                 lsIdAndNumb[i].numb = 0;
-                SortIdElementBlocks();
+                SortIdElementBirds();
                 MoveBlocks();
             }
 
@@ -152,14 +152,14 @@ public class LevelLogic : MonoBehaviour
       
     }
 
-    public void HandleEndGame(Block paramBlock)
+    public void HandleEndGame(BirdMechanic paramBlock)
     {
-        if (lsBlock.Count >= 6)
+        if (lsBird.Count >= 6)
         {
-            lsBlockEndGame.Add(paramBlock);
-            if (lsBlockEndGame.Count <= 1)
+            lsBirdEndGame.Add(paramBlock);
+            if (lsBirdEndGame.Count <= 1)
             {
-                var temp = GetIdAndNumb(lsBlockEndGame[0].id);
+                var temp = GetIdAndNumb(lsBirdEndGame[0].id);
                 if (temp.numb >= 2)
                 {
                     return;
@@ -167,9 +167,9 @@ public class LevelLogic : MonoBehaviour
             }
             else
             {
-                for (int i = lsBlockEndGame.Count - 1; i >= 0; i--)
+                for (int i = lsBirdEndGame.Count - 1; i >= 0; i--)
                 {
-                    var temp = GetIdAndNumb(lsBlockEndGame[i].id);
+                    var temp = GetIdAndNumb(lsBirdEndGame[i].id);
                     if (temp.numb >= 2)
                     {
                         return;
@@ -177,7 +177,7 @@ public class LevelLogic : MonoBehaviour
                 }
             }
             losePanel.SetActive(true);
-            lsBlockEndGame.Clear();
+            lsBirdEndGame.Clear();
         }
 
         
@@ -185,10 +185,10 @@ public class LevelLogic : MonoBehaviour
 
     public void Win()
     {
-        if (level.levelSpawn.levelData.IsWin)
-        {
-            winPanel.SetActive(true);
-        }
+        //if (level.levelSpawn.levelData.IsWin)
+        //{
+        //    winPanel.SetActive(true);
+        //}
     }
 
 
@@ -198,9 +198,9 @@ public class IdAndNumb
 {
     public int id;
     public int numb;
-    public List<Block> lsBlock;
+    public List<BirdMechanic> lsBlock;
     public IdAndNumb()
     {
-        lsBlock = new List<Block>();
+        lsBlock = new List<BirdMechanic>();
     }
 }
