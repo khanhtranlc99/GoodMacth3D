@@ -10,7 +10,8 @@ public class BirdMechanic : MonoBehaviour
     public int idElement;
     public bool wasLock;
     public BirdMechanic unlockBlock;
-
+    public GameObject postBird;
+    public Button buttonBird;
     public void OnMouseDown()
     {
         if(!wasLock)
