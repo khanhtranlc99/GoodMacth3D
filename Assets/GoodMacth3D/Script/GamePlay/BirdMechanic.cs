@@ -6,26 +6,74 @@ using DG.Tweening;
 using Spine.Unity;
 public class BirdMechanic : MonoBehaviour
 {
-    public int id;
-    public int idElement;
+    public int idCowInData;
+
+   [HideInInspector] public int id;
+   [HideInInspector] public int idElement;
     public bool wasLock;
-    public BirdMechanic unlockBlock;
+    public BirdMechanic behindBird;
     public GameObject postBird;
-    public Button buttonBird;
-    public void OnMouseDown()
+
+    public AnimBird animBird;
+    public bool right;
+
+    public void Init()
     {
-        if(!wasLock)
+        var SpawnBird = Level.Instance.levelSpawn;
+        var CurrentScale = new Vector3();
+        id = SpawnBird.levelData2.GetDataLevel(idCowInData);
+        animBird = Instantiate(SpawnBird.GetAnimBird(id).animBird, right ? SpawnBird.leftPost.position : SpawnBird.rightPost.position, Quaternion.identity);
+        animBird.SetAnim(animBird.FlY, true);
+        if(right)
         {
-            OnClick();
-        }    
+            CurrentScale = new Vector3(-animBird.transform.localScale.x , animBird.transform.localScale.y, animBird.transform.localScale.z);
+        }
+        else
+        {
+            CurrentScale = animBird.transform.localScale;
+        }
+
+        animBird.transform.SetParent(this.transform);
+        animBird.transform.localScale = CurrentScale;
+        animBird.transform.DOMove(postBird.transform.position, 0.5f).OnComplete(
+            delegate
+            {
+                animBird.transform.SetParent(postBird.transform);
+                animBird.transform.localScale = CurrentScale;
+                animBird.SetAnim(animBird.IDLE, true);
+            }
+         );
+ 
+
+
+        if (behindBird != null)
+        {
+            behindBird.LockClick();
+            behindBird.Init();
+            behindBird.animBird.SetColor(true);
+            behindBird.animBird.SetAnim(behindBird.animBird.IDLE, true);
+       
+        }
     }
+
+
+
+
     public void OnClick()
     {
-        wasLock = true;
+        Debug.LogError("OnClick1111");
+        if (wasLock)
+        {
+            Debug.LogError("OnClick2222");
+            return;
+        }
+        Debug.LogError("OnClick3333");
+        UnlockClickBlockBehide();
         var controler = Level.Instance.levelLogic;
         controler.HandleEndGame(this); 
         controler.SortBird(this);
         controler.lsLockDelete.Add(1);
+        animBird.SetAnim(animBird.FlY, true);
         this.transform.DOMove(controler.GetPost(idElement).post.position, 0.2f).OnComplete(delegate
         {
             if (controler.lsLockDelete.Count > 0)
@@ -33,9 +81,10 @@ public class BirdMechanic : MonoBehaviour
                 controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
             }       
             controler.HandleDeleteBirds(this);
-          
+            animBird.SetAnim(animBird.IDLE, true);
+
         });
-        UnlockClickBlockBehide();
+        wasLock = true;
         Debug.LogError("OnClick");
     }
 
@@ -49,17 +98,34 @@ public class BirdMechanic : MonoBehaviour
     }
     public void UnlockClickBlockBehide()
     {
-        if(unlockBlock != null)
+        var SpawnBird = Level.Instance.levelSpawn;
+        
+        if (behindBird != null )
         {
-            unlockBlock.UnlockClick();
-            unlockBlock.transform.DOJump(this.transform.position, 3, 1, 0.5f);
+
+            var CurrentScale = new Vector3();
+            var CurrentPossition = new Vector3();
+            CurrentPossition = behindBird.transform.position;
+            if (SpawnBird.levelData2.GetCountLsDataLevel(idCowInData) > 0)
+            {
+                behindBird.behindBird = Instantiate(SpawnBird.birdMechanic, CurrentPossition, Quaternion.identity);
+                behindBird.behindBird.right = behindBird.right;        
+                CurrentScale = behindBird.behindBird.transform.localScale;
+                behindBird.behindBird.transform.SetParent(SpawnBird.levelData2.gameObject.transform);
+                behindBird.behindBird.transform.localScale = CurrentScale;
+                behindBird.behindBird.transform.SetAsFirstSibling();
+                behindBird.behindBird.idCowInData = behindBird.idCowInData;
+                behindBird.behindBird.Init();
+                behindBird.behindBird.animBird.SetColor(true);
+               behindBird.behindBird.LockClick();
+            }
+
+
+         
+            behindBird.transform.DOJump(this.transform.position, 3, 1, 0.5f).OnComplete(delegate { behindBird.UnlockClick(); });
+            behindBird.animBird.SetColor(false);
+
         }
     }
-    private void OnDestroy()
-    {
-        //if(Level.Instance.levelSpawn.levelData.numBlock > 0)
-        //{
-        //    Level.Instance.levelSpawn.levelData.numBlock -= 1;
-        //}
-    }
+
 }

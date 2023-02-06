@@ -493,11 +493,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905976db745b81c4d87c3d2e2a537d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelData: {fileID: 0}
-  cow: 0
-  row: 0
-  deep: 0
-  btnEdit: {fileID: 0}
+  lsElementInLevels:
+  - idRow: 0
+    lsIdBird: 0000000000000000
+  - idRow: 1
+    lsIdBird: 
 --- !u!4 &1875635017
 Transform:
   m_ObjectHideFlags: 0

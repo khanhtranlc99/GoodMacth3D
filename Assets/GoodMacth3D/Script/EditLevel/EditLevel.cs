@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class EditLevel : MonoBehaviour
 {
-    public LevelData levelData;
-    public int cow;
-    public int row;
-    public int deep;
-    public List<Data> datas;
-    public BtnEdit btnEdit;
-    public void SpawnButtonEdit()
-    {
-        
-       
-
-    }
+    public List<ElementInLevel> lsElementInLevels;
+  
 }
 
- 
+[System.Serializable]
+ public class ElementInLevel
+{
+    public int idRow;
+    public List<int> lsIdBird;
+}

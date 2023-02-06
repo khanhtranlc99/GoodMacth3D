@@ -1,33 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
 
-public class LevelSpawn : SerializedMonoBehaviour
+public class LevelSpawn : MonoBehaviour
 {
-    public LevelData levelData;
-    public List<LevelData> levelDatas;
+ 
+    public List<AnimBirdWithId> prefaptBird;
+    public LevelData2 levelData2;
+    public Transform rightPost;
+    public Transform leftPost;
+    public BirdMechanic birdMechanic;
+    public AnimBirdWithId GetAnimBird(int id)
+    {
+        foreach (var item in prefaptBird)
+        {
+            if(item.id == id)
+            {
+                return item;
+            }
+        }
+        return null;
+    }
     public void Init()
     {
-        //SpawnLevel();
-        //levelData.Init();
+        levelData2.Init();
     }
 
-    public void SpawnLevel()
-    {
-        levelData = Instantiate(levelDatas[Test.Instance.id]);
-    }
+ 
 
-    public void OnClickLevel1()
-    {
-
-        Test.Instance.id = 0;
-        SceneManager.LoadScene("SceneGamePlay");
-    }
-    public void OnClickLevel2()
-    {
-        Test.Instance.id = 1;
-        SceneManager.LoadScene("SceneGamePlay");
-    }
+    
+}
+[System.Serializable]
+public class AnimBirdWithId
+{
+    public int id;
+    public AnimBird animBird;
 }
