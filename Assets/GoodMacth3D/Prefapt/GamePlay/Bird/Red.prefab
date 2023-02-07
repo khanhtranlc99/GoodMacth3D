@@ -108,4 +108,4 @@ MonoBehaviour:
   FlY: GAMEPLAY/fly
   JUMP: DANCE/WIN
   body: {fileID: 2202305009604566967}
-  blackColor: {r: 0.36862746, g: 0.36862746, b: 0.36862746, a: 1}
+  blackColor: {r: 1, g: 1, b: 1, a: 0.78039217}

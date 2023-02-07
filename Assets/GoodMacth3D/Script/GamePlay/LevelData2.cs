@@ -39,13 +39,13 @@ public class LevelData2 : MonoBehaviour
 
 
 
-    public List<BirdMechanic> birdMechanics;
+    public List<DoubleBird> doubleBird;
 
 
 
     public void Init()
     {
-       foreach(var item in birdMechanics)
+       foreach(var item in doubleBird)
         {
             item.Init();
         }

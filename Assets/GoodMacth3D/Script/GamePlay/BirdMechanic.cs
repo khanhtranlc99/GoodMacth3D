@@ -19,6 +19,7 @@ public class BirdMechanic : MonoBehaviour
 
     public void Init()
     {
+        
         var SpawnBird = Level.Instance.levelSpawn;
         var CurrentScale = new Vector3();
         id = SpawnBird.levelData2.GetDataLevel(idCowInData);
@@ -61,13 +62,13 @@ public class BirdMechanic : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.LogError("OnClick1111");
+       
         if (wasLock)
         {
-            Debug.LogError("OnClick2222");
+          
             return;
         }
-        Debug.LogError("OnClick3333");
+        wasLock = true;
         UnlockClickBlockBehide();
         var controler = Level.Instance.levelLogic;
         controler.HandleEndGame(this); 
@@ -84,7 +85,7 @@ public class BirdMechanic : MonoBehaviour
             animBird.SetAnim(animBird.IDLE, true);
 
         });
-        wasLock = true;
+    
         Debug.LogError("OnClick");
     }
 
