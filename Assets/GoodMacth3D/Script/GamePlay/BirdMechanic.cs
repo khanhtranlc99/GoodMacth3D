@@ -6,20 +6,22 @@ using DG.Tweening;
 using Spine.Unity;
 public class BirdMechanic : MonoBehaviour
 {
-    public int idCowInData;
+    [HideInInspector] public int idCowInData;
 
    [HideInInspector] public int id;
    [HideInInspector] public int idElement;
     public bool wasLock;
     public BirdMechanic behindBird;
     public GameObject postBird;
-
     public AnimBird animBird;
+    public BoxCollider2D boxCollider2;
+    public SpriteRenderer note;
     public bool right;
-
+    public int orderIndex;
+   
     public void Init()
     {
-        
+        note.color = new Color32(0, 0, 0, 0);
         var SpawnBird = Level.Instance.levelSpawn;
         var CurrentScale = new Vector3();
         id = SpawnBird.levelData2.GetDataLevel(idCowInData);
@@ -44,8 +46,8 @@ public class BirdMechanic : MonoBehaviour
                 animBird.SetAnim(animBird.IDLE, true);
             }
          );
- 
-
+        animBird.SetOrderInLayer(2);
+        orderIndex = 2;
 
         if (behindBird != null)
         {
@@ -53,21 +55,29 @@ public class BirdMechanic : MonoBehaviour
             behindBird.Init();
             behindBird.animBird.SetColor(true);
             behindBird.animBird.SetAnim(behindBird.animBird.IDLE, true);
-       
+            behindBird.animBird.SetOrderInLayer(1);
+            behindBird.orderIndex = 1;
+
         }
     }
+  
 
-
-
+   public void OnMouseDown()
+    {
+        Debug.Log("Before " + this.gameObject.name);
+        if (!wasLock)
+        {
+       
+            OnClick();
+            Debug.Log("After");
+        }
+       
+    }
 
     public void OnClick()
     {
        
-        if (wasLock)
-        {
-          
-            return;
-        }
+      
         wasLock = true;
         UnlockClickBlockBehide();
         var controler = Level.Instance.levelLogic;
@@ -92,10 +102,12 @@ public class BirdMechanic : MonoBehaviour
     public void UnlockClick()
     {
         wasLock = false;
+        boxCollider2.enabled = true;
     }
     public void LockClick()
     {
         wasLock = true;
+        boxCollider2.enabled = false;
     }
     public void UnlockClickBlockBehide()
     {
@@ -114,16 +126,25 @@ public class BirdMechanic : MonoBehaviour
                 CurrentScale = behindBird.behindBird.transform.localScale;
                 behindBird.behindBird.transform.SetParent(SpawnBird.levelData2.gameObject.transform);
                 behindBird.behindBird.transform.localScale = CurrentScale;
-                behindBird.behindBird.transform.SetAsFirstSibling();
                 behindBird.behindBird.idCowInData = behindBird.idCowInData;
                 behindBird.behindBird.Init();
                 behindBird.behindBird.animBird.SetColor(true);
-               behindBird.behindBird.LockClick();
+
+                behindBird.behindBird.orderIndex = behindBird.orderIndex;
+                behindBird.behindBird.animBird.SetOrderInLayer(behindBird.orderIndex);
+                behindBird.behindBird.LockClick();
+
             }
 
 
-         
-            behindBird.transform.DOJump(this.transform.position, 3, 1, 0.5f).OnComplete(delegate { behindBird.UnlockClick(); });
+            behindBird.orderIndex = this.orderIndex;
+            behindBird.animBird.SetOrderInLayer(this.orderIndex);
+            behindBird.transform.DOJump(this.transform.position, 0.5f, 1, 0.5f).OnComplete(delegate {
+
+              
+                behindBird.UnlockClick();
+            
+            });
             behindBird.animBird.SetColor(false);
 
         }

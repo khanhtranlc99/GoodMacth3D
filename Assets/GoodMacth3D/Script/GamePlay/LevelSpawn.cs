@@ -7,7 +7,7 @@ public class LevelSpawn : MonoBehaviour
 {
  
     public List<AnimBirdWithId> prefaptBird;
-    public LevelData2 levelData2;
+    public LevelData levelData2;
     public Transform rightPost;
     public Transform leftPost;
     public BirdMechanic birdMechanic;

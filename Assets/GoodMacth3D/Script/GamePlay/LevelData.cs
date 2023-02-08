@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelData2 : MonoBehaviour
+public class LevelData : MonoBehaviour
 {
     public List<DataLevel> lsDataLevel;
     public int GetDataLevel(int idCown)

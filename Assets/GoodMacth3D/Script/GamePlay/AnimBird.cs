@@ -9,18 +9,20 @@ public class AnimBird : MonoBehaviour
     public string FlY = "GAMEPLAY/fly";
     public string JUMP = "DANCE/WIN";
 
-    public SkeletonGraphic body;
+    public SkeletonAnimation body;
     public Color blackColor;
 
     public void SetColor(bool offColor)
     {
         if(offColor)
         {
-            body.color = blackColor;
+            body.skeleton.SetColor(blackColor);
         }
         else
         {
-            body.color = new Color32(255, 255, 255, 255);
+            body.skeleton.SetColor(new Color32(255, 255, 255, 255));
+        
+        
         }
     }
     public void SetAnim(string param, bool loop, Action callBack = null)
@@ -34,5 +36,9 @@ public class AnimBird : MonoBehaviour
                 
           }) ;
     }
- 
+    public void SetOrderInLayer(int param )
+    {
+        this.gameObject.GetComponent<MeshRenderer>().sortingOrder = param;
+        
+    }
 }
