@@ -14,7 +14,21 @@ public class Level : MonoBehaviour
     public List<int> lsLockDelete;
     public List<IdAndNumb> lsIdAndNumb;
     public GameObject losePanel;
-
+    public List<AnimBirdWithId> prefaptBird;
+    public Transform rightPost;
+    public Transform leftPost;
+    public List<Block> lsBlock111;
+    public AnimBirdWithId GetAnimBird(int id)
+    {
+        foreach (var item in prefaptBird)
+        {
+            if (item.id == id)
+            {
+                return item;
+            }
+        }
+        return null;
+    }
     public IdAndNumb GetIdAndNumb(int id)
     {
         foreach (var item in lsIdAndNumb)
@@ -41,6 +55,10 @@ public class Level : MonoBehaviour
     public void Awake()
     {
         Instance = this;
+        for(int i = 0; i < lsBlock111.Count; i ++)
+        {
+            lsBlock111[i].Init();
+        }
     }
 
     public void SortBlocks(Block block)
@@ -87,7 +105,7 @@ public class Level : MonoBehaviour
     {
         for (int i = 0; i < lsBlock.Count; i++)
         {
-            lsBlock[i].transform.DOMove(lsPost[i].post.position, 0.35f).OnComplete(delegate { SortIdElementBlocks(); DeleteBlocks(); });
+            lsBlock[i].transform.DOMove(lsPost[i].post.position, 0.6f).OnComplete(delegate { SortIdElementBlocks(); DeleteBlocks(); });
         }
     }
     public void HandleDeleteBlocks(Block paramBlock)
@@ -157,4 +175,10 @@ public class IdAndNumb
         {
         lsBlock = new List<Block>();
         }
+}
+[System.Serializable]
+public class AnimBirdWithId
+{
+    public int id;
+    public AnimBird animBird;
 }
