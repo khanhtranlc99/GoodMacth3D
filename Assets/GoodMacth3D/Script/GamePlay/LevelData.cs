@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelData : MonoBehaviour
 {
     public List<DataLevel> lsDataLevel;
+    public int sumBird;
     public int GetDataLevel(int idCown)
     {
         int tempId = 0;
@@ -12,7 +13,7 @@ public class LevelData : MonoBehaviour
         {
             if(item.id == idCown)
             {
-                for(int i = item.lsIdItem.Count -1; i >= 0 ; i --)
+                for(int i = item.lsIdItem.Count -1; i >= 0 ; i--)
                 {                  
                     tempId = item.lsIdItem[0];
                     item.lsIdItem.RemoveAt(0);
@@ -49,10 +50,14 @@ public class LevelData : MonoBehaviour
         {
             item.Init();
         }
-    }    
+        foreach (var item in lsDataLevel)
+        {
+            sumBird += item.lsIdItem.Count;
+        }
+    }
 
+ 
 
-  
 }
 [System.Serializable]
 public class DataLevel

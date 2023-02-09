@@ -15,6 +15,8 @@ public class LevelLogic : MonoBehaviour
     public GameObject losePanel;
     public GameObject winPanel;
     private Level level;
+    public List<IdAndNumbBirdDuplicate> lsCount;
+    public List<int> lsBirdTemp;
     public void Init(Level param)
     {
         level = param;
@@ -45,14 +47,7 @@ public class LevelLogic : MonoBehaviour
         }
         return null;
     }
-    private void Update()
-    {
-        if(level != null)
-        {
-            Win();
-        }
-      
-    }
+   
     public void SetUp()
     {
         //for(int i = 0; i < level.levelSpawn.levelData.idBlock.Count; i ++)
@@ -102,9 +97,15 @@ public class LevelLogic : MonoBehaviour
     }
     public void MoveBlocks()
     {
+        
         for (int i = 0; i < lsBird.Count; i++)
         {
-            lsBird[i].transform.DOMove(lsPost[i].post.position, 0.7f).OnComplete(delegate { SortIdElementBirds(); DeleteBirds();  });
+            if (lsBird[i] != null)
+            {
+                //lsBird[i].transform.DOKill();
+                lsBird[i].transform.DOMove(lsPost[i].post.position, 0.7f).OnComplete(delegate { SortIdElementBirds(); DeleteBirds(); });
+            }
+        
         }
     }
     public void HandleDeleteBirds(BirdMechanic paramBlock)
@@ -142,8 +143,9 @@ public class LevelLogic : MonoBehaviour
 
                 for (int j = lsIdAndNumb[i].lsBlock.Count - 1; j >= 0; j--)
                 {
-                   
-                    Destroy(lsIdAndNumb[i].lsBlock[j].gameObject);
+                    lsIdAndNumb[i].lsBlock[j].gameObject.gameObject.SetActive(false);
+                  //  Destroy(lsIdAndNumb[i].lsBlock[j].gameObject);
+                    level.levelSpawn.levelData2.sumBird -= 1;
                     lsIdAndNumb[i].lsBlock.RemoveAt(j);
                 }
 
@@ -158,9 +160,9 @@ public class LevelLogic : MonoBehaviour
 
         }
 
-     
 
 
+      //  HandleWin();
 
     }
     private void TestEffect()
@@ -192,6 +194,7 @@ public class LevelLogic : MonoBehaviour
                 {
                     return;
                 }
+                Debug.LogError("One ");
             }
             else
             {
@@ -202,7 +205,7 @@ public class LevelLogic : MonoBehaviour
                     ///
                     if (temp.numb >= 2)
                     {
-                        return;
+                       return;
                     }
                 }
 
@@ -243,9 +246,8 @@ public class LevelLogic : MonoBehaviour
 
         
     }
-    public List<IdAndNumbBirdDuplicate> lsCount;
-    public List<int> lsBirdTemp;
-    public bool SuportCheckLose
+
+    private bool SuportCheckLose
     {
         get
         {
@@ -268,19 +270,12 @@ public class LevelLogic : MonoBehaviour
 
             for (int i = 0; i < lsBird.Count - 1; i++)
             {
-                for (int j = i + 1; j < lsBird.Count; j++)
+                foreach (var item in lsCount)
                 {
-                    if (lsBird[i].id == lsBird[j].id)
+                    if (item.id == lsBird[i].id)
                     {
-                        foreach (var item in lsCount)
-                        {
-                            if (item.id == lsBird[i].id)
-                            {
-                                item.numb += 1;
-                            }
-                        }
+                        item.numb += 1;
                     }
-
                 }
             }
 
@@ -299,12 +294,12 @@ public class LevelLogic : MonoBehaviour
 
     }
 
-    public void Win()
+    public void HandleWin()
     {
-        //if (level.levelSpawn.levelData.IsWin)
-        //{
-        //    winPanel.SetActive(true);
-        //}
+        if (level.levelSpawn.levelData2.sumBird <= 0)
+        {
+            winPanel.SetActive(true);
+        }
     }
 
 

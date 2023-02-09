@@ -40,9 +40,11 @@ public class LevelSpawn : MonoBehaviour
             SimplePool2.Preload(item.animBird.gameObject);
         }
     }
- 
+   
 
-    
+
+
+
 }
 [System.Serializable]
 public class AnimBirdWithId
