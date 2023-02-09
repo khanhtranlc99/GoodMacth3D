@@ -18,18 +18,18 @@ public class BirdMechanic : MonoBehaviour
     public SpriteRenderer note;
     public bool right;
     public int orderIndex;
-   
+
     public void Init()
     {
-        note.color = new Color32(0, 0, 0, 0);
+
         var SpawnBird = Level.Instance.levelSpawn;
         var CurrentScale = new Vector3();
         id = SpawnBird.levelData2.GetDataLevel(idCowInData);
-        animBird = Instantiate(SpawnBird.GetAnimBird(id).animBird, right ? SpawnBird.leftPost.position : SpawnBird.rightPost.position, Quaternion.identity);
+        animBird = SimplePool2.Spawn(SpawnBird.GetAnimBird(id).animBird, right ? SpawnBird.leftPost.position : SpawnBird.rightPost.position, Quaternion.identity);
         animBird.SetAnim(animBird.FlY, true);
-        if(right)
+        if (right)
         {
-            CurrentScale = new Vector3(-animBird.transform.localScale.x , animBird.transform.localScale.y, animBird.transform.localScale.z);
+            CurrentScale = new Vector3(-animBird.transform.localScale.x, animBird.transform.localScale.y, animBird.transform.localScale.z);
         }
         else
         {
@@ -38,7 +38,8 @@ public class BirdMechanic : MonoBehaviour
 
         animBird.transform.SetParent(this.transform);
         animBird.transform.localScale = CurrentScale;
-        animBird.transform.DOMove(postBird.transform.position, 0.5f).OnComplete(
+
+        animBird.transform.DOMove(postBird.transform.position, 1).OnComplete(
             delegate
             {
                 animBird.transform.SetParent(postBird.transform);
@@ -59,44 +60,37 @@ public class BirdMechanic : MonoBehaviour
             behindBird.orderIndex = 1;
 
         }
-    }
-  
 
-   public void OnMouseDown()
-    {
-        Debug.Log("Before " + this.gameObject.name);
-        if (!wasLock)
-        {
-       
-            OnClick();
-            Debug.Log("After");
-        }
-       
     }
+
+    public void OnMouseDown()
+    {
+        if(!wasLock)
+        {
+            OnClick();
+        }
+    }
+
 
     public void OnClick()
     {
-       
-      
         wasLock = true;
         UnlockClickBlockBehide();
         var controler = Level.Instance.levelLogic;
-        controler.HandleEndGame(this); 
+        controler.HandleEndGame(this);
         controler.SortBird(this);
-        controler.lsLockDelete.Add(1);
+       // controler.lsLockDelete.Add(1);
+        animBird.transform.position = postBird.gameObject.transform.position;   
         animBird.SetAnim(animBird.FlY, true);
-        this.transform.DOMove(controler.GetPost(idElement).post.position, 0.2f).OnComplete(delegate
+        this.transform.DOMove(controler.GetPost(idElement).post.position, 1).OnComplete(delegate
         {
-            if (controler.lsLockDelete.Count > 0)
-            {
-                controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
-            }       
-            controler.HandleDeleteBirds(this);
+            //if (controler.lsLockDelete.Count > 0)
+            //{
+            //    controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
+            //}
             animBird.SetAnim(animBird.IDLE, true);
-
+            controler.HandleDeleteBirds(this);
         });
-    
-        Debug.LogError("OnClick");
     }
 
     public void UnlockClick()
@@ -121,7 +115,7 @@ public class BirdMechanic : MonoBehaviour
             CurrentPossition = behindBird.transform.position;
             if (SpawnBird.levelData2.GetCountLsDataLevel(idCowInData) > 0)
             {
-                behindBird.behindBird = Instantiate(SpawnBird.birdMechanic, CurrentPossition, Quaternion.identity);
+                behindBird.behindBird = SimplePool2.Spawn(SpawnBird.birdMechanic, CurrentPossition, Quaternion.identity);
                 behindBird.behindBird.right = behindBird.right;        
                 CurrentScale = behindBird.behindBird.transform.localScale;
                 behindBird.behindBird.transform.SetParent(SpawnBird.levelData2.gameObject.transform);
@@ -129,21 +123,16 @@ public class BirdMechanic : MonoBehaviour
                 behindBird.behindBird.idCowInData = behindBird.idCowInData;
                 behindBird.behindBird.Init();
                 behindBird.behindBird.animBird.SetColor(true);
-
                 behindBird.behindBird.orderIndex = behindBird.orderIndex;
                 behindBird.behindBird.animBird.SetOrderInLayer(behindBird.orderIndex);
                 behindBird.behindBird.LockClick();
 
             }
-
-
             behindBird.orderIndex = this.orderIndex;
             behindBird.animBird.SetOrderInLayer(this.orderIndex);
+           
             behindBird.transform.DOJump(this.transform.position, 0.5f, 1, 0.5f).OnComplete(delegate {
-
-              
                 behindBird.UnlockClick();
-            
             });
             behindBird.animBird.SetColor(false);
 

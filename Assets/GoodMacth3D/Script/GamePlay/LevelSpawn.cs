@@ -22,11 +22,24 @@ public class LevelSpawn : MonoBehaviour
         }
         return null;
     }
+
+
+
     public void Init()
     {
+        SetUpPrefaptBird();
         levelData2.Init();
     }
-
+    public void SetUpPrefaptBird()
+    {
+        foreach(var item in prefaptBird)
+        {
+            SimplePool2.Preload(item.animBird.gameObject);
+            SimplePool2.Preload(item.animBird.gameObject);
+            SimplePool2.Preload(item.animBird.gameObject);
+            SimplePool2.Preload(item.animBird.gameObject);
+        }
+    }
  
 
     
