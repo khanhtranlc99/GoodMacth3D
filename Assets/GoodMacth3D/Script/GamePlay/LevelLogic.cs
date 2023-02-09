@@ -174,7 +174,7 @@ public class LevelLogic : MonoBehaviour
         }
     }
 
-    public void HandleEndGame(BirdMechanic paramBlock)
+    public void HandleCheckLose(BirdMechanic paramBlock)
     {
         if (lsBird.Count >= 6)
         {
@@ -184,21 +184,11 @@ public class LevelLogic : MonoBehaviour
                 var temp = GetIdAndNumb(lsBirdEndGame[0].id);
                 if (temp.numb >= 2)
                 {
+                    Debug.LogError("numb " );
                     return;
                 }
-                var count = 0;
-                for (int i = 0; i < lsBird.Count - 1; i++)
-                {
-                    for (int j = i + 1; j < lsBird.Count; j++)
-                    {
-                        if (lsBird[i].id == lsBird[j].id)
-                        {
-                            count += 1;
-                        }
 
-                    }
-                }
-                if(count >= 3)
+                if (SuportCheckLose)
                 {
                     return;
                 }
@@ -253,6 +243,61 @@ public class LevelLogic : MonoBehaviour
 
         
     }
+    public List<IdAndNumbBirdDuplicate> lsCount;
+    public List<int> lsBirdTemp;
+    public bool SuportCheckLose
+    {
+        get
+        {
+            lsCount = new List<IdAndNumbBirdDuplicate>();
+            lsBirdTemp = new List<int>();
+
+            foreach (var item in lsBird)
+            {
+                lsBirdTemp.Add(item.id);
+            }
+
+            var ienum = lsBirdTemp.Distinct();
+            lsBirdTemp = ienum.ToList<int>();
+
+            foreach (var item in lsBirdTemp)
+            {
+                lsCount.Add(new IdAndNumbBirdDuplicate() { id = item });
+            }
+
+
+            for (int i = 0; i < lsBird.Count - 1; i++)
+            {
+                for (int j = i + 1; j < lsBird.Count; j++)
+                {
+                    if (lsBird[i].id == lsBird[j].id)
+                    {
+                        foreach (var item in lsCount)
+                        {
+                            if (item.id == lsBird[i].id)
+                            {
+                                item.numb += 1;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            foreach (var item in lsCount)
+            {
+                if (item.numb >= 3)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+
+        }
+    
+
+    }
 
     public void Win()
     {
@@ -297,4 +342,11 @@ public class IdAndNumb
 
       
     }
+}
+[System.Serializable]
+public class IdAndNumbBirdDuplicate
+{
+    public int id;
+    public int numb;
+  
 }

@@ -77,7 +77,7 @@ public class BirdMechanic : MonoBehaviour
         wasLock = true;
         UnlockClickBlockBehide();
         var controler = Level.Instance.levelLogic;
-        controler.HandleEndGame(this);
+        controler.HandleCheckLose(this);
         controler.SortBird(this);
        // controler.lsLockDelete.Add(1);
         animBird.transform.position = postBird.gameObject.transform.position;   
