@@ -104,7 +104,7 @@ public class LevelLogic : MonoBehaviour
     {
         for (int i = 0; i < lsBird.Count; i++)
         {
-            lsBird[i].transform.DOMove(lsPost[i].post.position, 1).OnComplete(delegate { SortIdElementBirds(); DeleteBirds();  });
+            lsBird[i].transform.DOMove(lsPost[i].post.position, 0.7f).OnComplete(delegate { SortIdElementBirds(); DeleteBirds();  });
         }
     }
     public void HandleDeleteBirds(BirdMechanic paramBlock)
@@ -186,7 +186,22 @@ public class LevelLogic : MonoBehaviour
                 {
                     return;
                 }
-                Debug.LogError("Double");
+                var count = 0;
+                for (int i = 0; i < lsBird.Count - 1; i++)
+                {
+                    for (int j = i + 1; j < lsBird.Count; j++)
+                    {
+                        if (lsBird[i].id == lsBird[j].id)
+                        {
+                            count += 1;
+                        }
+
+                    }
+                }
+                if(count >= 3)
+                {
+                    return;
+                }
             }
             else
             {
@@ -194,11 +209,38 @@ public class LevelLogic : MonoBehaviour
                 {
                     var temp = GetIdAndNumb(lsBirdEndGame[i].id);
                     /////dayyyyroiiiii
+                    ///
                     if (temp.numb >= 2)
                     {
                         return;
                     }
                 }
+
+                var conditionHas1Bird = false;
+                var conditionHas2BirdFlying = false;
+                var birdCondition = new BirdMechanic();
+                for (int i = 0; i < lsBirdEndGame.Count - 1; i++)
+                {
+                    for (int j = i + 1; j < lsBirdEndGame.Count; j++)
+                    {
+                        if (lsBirdEndGame.ElementAt(i) == lsBirdEndGame.ElementAt(j))
+                        {
+                            conditionHas2BirdFlying = true;
+                            birdCondition = lsBirdEndGame[i];
+                        }
+                       
+                    }
+                }
+                var tempBirdCount = GetIdAndNumb(birdCondition.id);
+                if (tempBirdCount.numb == 1)
+                {
+                    conditionHas1Bird = true;
+                }
+                if(conditionHas1Bird && conditionHas2BirdFlying)
+                {
+                    return;
+                }
+
                 Debug.LogError("Double");
             }
             losePanel.SetActive(true);
