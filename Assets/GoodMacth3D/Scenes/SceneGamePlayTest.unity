@@ -337,22 +337,24 @@ MonoBehaviour:
   lsIdAndNumb:
   - id: 1
     numb: 0
-    lsBlock: []
+    lsBird: []
     lsAnimBird: []
   - id: 2
     numb: 0
-    lsBlock: []
+    lsBird: []
     lsAnimBird: []
   - id: 3
     numb: 0
-    lsBlock: []
+    lsBird: []
     lsAnimBird: []
   - id: 4
     numb: 0
-    lsBlock: []
+    lsBird: []
     lsAnimBird: []
   losePanel: {fileID: 464473232}
   winPanel: {fileID: 1865994064}
+  lsCount: []
+  lsBirdTemp: 
   lsPost:
   - {fileID: 1097656402}
   - {fileID: 859555966}
@@ -4065,8 +4067,7 @@ MonoBehaviour:
     lsIdItem: 010000000200000003000000040000000100000002000000
   - id: 6
     lsIdItem: 010000000200000003000000040000000100000002000000
-  - id: 7
-    lsIdItem: 010000000200000003000000040000000100000002000000
+  sumBird: 0
   doubleBird:
   - {fileID: 260561477}
   - {fileID: 1900930376}

@@ -46,14 +46,15 @@ public class LevelData : MonoBehaviour
 
     public void Init()
     {
-       foreach(var item in doubleBird)
-        {
-            item.Init();
-        }
         foreach (var item in lsDataLevel)
         {
             sumBird += item.lsIdItem.Count;
         }
+        foreach (var item in doubleBird)
+        {
+            item.Init();
+        }
+      
     }
 
  

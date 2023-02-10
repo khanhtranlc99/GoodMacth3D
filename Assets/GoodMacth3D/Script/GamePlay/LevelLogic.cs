@@ -103,7 +103,7 @@ public class LevelLogic : MonoBehaviour
             if (lsBird[i] != null)
             {
                 //lsBird[i].transform.DOKill();
-                lsBird[i].transform.DOMove(lsPost[i].post.position, 0.7f).OnComplete(delegate { SortIdElementBirds(); DeleteBirds(); });
+                lsBird[i].transform.DOMove(lsPost[i].post.position, 1).OnComplete(delegate { SortIdElementBirds(); DeleteBirds(); });
             }
         
         }
@@ -113,10 +113,10 @@ public class LevelLogic : MonoBehaviour
         var temp = GetIdAndNumb(paramBlock.id);
         if (temp != null)
         {
-            if (temp.lsBlock.Count < 3)
+            if (temp.lsBird.Count < 3)
             {
                 temp.numb += 1;
-                temp.lsBlock.Add(paramBlock);
+                temp.lsBird.Add(paramBlock);
                 temp.lsAnimBird.Add(paramBlock.animBird);
                 if (lsLockDelete.Count > 0)
                 {
@@ -135,18 +135,18 @@ public class LevelLogic : MonoBehaviour
         {
             if (lsIdAndNumb[i].numb == 3)
             {
-                for (int j = lsIdAndNumb[i].lsBlock.Count - 1; j >= 0; j--)
+                for (int j = lsIdAndNumb[i].lsBird.Count - 1; j >= 0; j--)
                 {
-                    lsBird.RemoveAt(lsIdAndNumb[i].lsBlock[j].idElement);
-                    tesst.RemoveAt(lsIdAndNumb[i].lsBlock[j].idElement);
+                    lsBird.RemoveAt(lsIdAndNumb[i].lsBird[j].idElement);
+                    tesst.RemoveAt(lsIdAndNumb[i].lsBird[j].idElement);
                 }
 
-                for (int j = lsIdAndNumb[i].lsBlock.Count - 1; j >= 0; j--)
+                for (int j = lsIdAndNumb[i].lsBird.Count - 1; j >= 0; j--)
                 {
-                    lsIdAndNumb[i].lsBlock[j].gameObject.gameObject.SetActive(false);
+                    lsIdAndNumb[i].lsBird[j].gameObject.gameObject.SetActive(false);
                   //  Destroy(lsIdAndNumb[i].lsBlock[j].gameObject);
-                    level.levelSpawn.levelData2.sumBird -= 1;
-                    lsIdAndNumb[i].lsBlock.RemoveAt(j);
+                 level.levelSpawn.levelData2.sumBird -= 1;
+                    lsIdAndNumb[i].lsBird.RemoveAt(j);
                 }
 
 
@@ -160,9 +160,9 @@ public class LevelLogic : MonoBehaviour
 
         }
 
+        HandleWin();
 
-
-      //  HandleWin();
+      
 
     }
     private void TestEffect()
@@ -190,10 +190,15 @@ public class LevelLogic : MonoBehaviour
                     return;
                 }
 
-                if (SuportCheckLose)
+                if (SuportCheckLoseOneBird)
                 {
                     return;
                 }
+                if(SuportCheckLoseMethodOneBird(lsBirdEndGame[0]))
+                {
+                    return;
+                }
+
                 Debug.LogError("One ");
             }
             else
@@ -201,8 +206,7 @@ public class LevelLogic : MonoBehaviour
                 for (int i = lsBirdEndGame.Count - 1; i >= 0; i--)
                 {
                     var temp = GetIdAndNumb(lsBirdEndGame[i].id);
-                    /////dayyyyroiiiii
-                    ///
+        
                     if (temp.numb >= 2)
                     {
                        return;
@@ -224,15 +228,31 @@ public class LevelLogic : MonoBehaviour
                        
                     }
                 }
-                var tempBirdCount = GetIdAndNumb(birdCondition.id);
-                if (tempBirdCount.numb == 1)
+                if (birdCondition != null)
                 {
-                    conditionHas1Bird = true;
+                    var tempBirdCount = GetIdAndNumb(birdCondition.id);
+                    if (tempBirdCount.numb == 1)
+                    {
+                        conditionHas1Bird = true;
+                    }
+                    if (conditionHas1Bird && conditionHas2BirdFlying)
+                    {
+                        return;
+                    }
+                    Debug.LogError("1111111111");
                 }
-                if(conditionHas1Bird && conditionHas2BirdFlying)
+                else
                 {
-                    return;
+                    for (int i = lsBirdEndGame.Count - 1; i >= 0; i--)
+                    {
+                        if(SuportCheckLoseMethodOneBird(lsBirdEndGame[i]))
+                        {
+                            return;
+                        }
+                    }
+                    Debug.LogError("2222222222");
                 }
+              
 
                 Debug.LogError("Double");
             }
@@ -247,7 +267,7 @@ public class LevelLogic : MonoBehaviour
         
     }
 
-    private bool SuportCheckLose
+    private bool SuportCheckLoseOneBird
     {
         get
         {
@@ -268,7 +288,7 @@ public class LevelLogic : MonoBehaviour
             }
 
 
-            for (int i = 0; i < lsBird.Count - 1; i++)
+            for (int i = lsBird.Count -1; i >=0 ; i--)
             {
                 foreach (var item in lsCount)
                 {
@@ -288,10 +308,27 @@ public class LevelLogic : MonoBehaviour
             }
 
             return false;
-
         }
     
 
+    }
+    private bool SuportCheckLoseMethodOneBird(BirdMechanic birdMechanic)
+    {
+        var count = 0;
+        for (int i = 0; i < lsBird.Count; i++)
+        {
+            if(lsBird[i].id == birdMechanic.id)
+            {
+                count += 1;
+            }
+        }
+     
+        if (count >= 2)
+        {
+            return true;
+        }
+        
+        return false;
     }
 
     public void HandleWin()
@@ -309,11 +346,11 @@ public class IdAndNumb
 {
     public int id;
     public int numb;
-    public List<BirdMechanic> lsBlock;
+    public List<BirdMechanic> lsBird;
     public List<AnimBird> lsAnimBird;
     public IdAndNumb()
     {
-        lsBlock = new List<BirdMechanic>();
+        lsBird = new List<BirdMechanic>();
         lsAnimBird = new List<AnimBird>();
     }
     public void HandleOffBird(Transform param)

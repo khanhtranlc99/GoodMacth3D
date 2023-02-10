@@ -8,7 +8,7 @@ public class BirdMechanic : MonoBehaviour
 {
     [HideInInspector] public int idCowInData;
 
-   [HideInInspector] public int id;
+    public int id;
    [HideInInspector] public int idElement;
     public bool wasLock;
     public BirdMechanic behindBird;
@@ -138,5 +138,9 @@ public class BirdMechanic : MonoBehaviour
 
         }
     }
-
+    private void OnDisable()
+    {
+        //Level.Instance.levelSpawn.levelData2.sumBird -= 1;
+        //Level.Instance.levelLogic.HandleWin();
+    }
 }
