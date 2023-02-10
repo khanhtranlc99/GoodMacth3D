@@ -18,10 +18,11 @@ public class BirdMechanic : MonoBehaviour
     public SpriteRenderer note;
     public bool right;
     public int orderIndex;
+    public SpriteRenderer dot;
 
     public void Init()
     {
-
+        dot.color = new Color32(0, 0, 0, 0);
         var SpawnBird = Level.Instance.levelSpawn;
         var CurrentScale = new Vector3();
         id = SpawnBird.levelData2.GetDataLevel(idCowInData);
@@ -45,6 +46,7 @@ public class BirdMechanic : MonoBehaviour
                 animBird.transform.SetParent(postBird.transform);
                 animBird.transform.localScale = CurrentScale;
                 animBird.SetAnim(animBird.IDLE, true);
+                animBird.transform.position = postBird.gameObject.transform.position;
             }
          );
         animBird.SetOrderInLayer(2);

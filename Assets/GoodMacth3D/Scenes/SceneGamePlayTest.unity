@@ -180,7 +180,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 205695671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.122, y: 0.077, z: 0}
+  m_LocalPosition: {x: 0.13, y: 0.077, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 372156561}
@@ -287,6 +287,7 @@ MonoBehaviour:
   note: {fileID: 205695673}
   right: 1
   orderIndex: 0
+  dot: {fileID: 205695673}
 --- !u!1 &213674641
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429202136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.122, y: 0.077, z: 0}
+  m_LocalPosition: {x: 0.13, y: 0.077, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 439762858}
@@ -607,6 +608,7 @@ MonoBehaviour:
   note: {fileID: 429202140}
   right: 1
   orderIndex: 0
+  dot: {fileID: 429202140}
 --- !u!212 &429202140
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -954,6 +956,7 @@ MonoBehaviour:
   note: {fileID: 572065795}
   right: 1
   orderIndex: 0
+  dot: {fileID: 572065795}
 --- !u!1 &574097137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,6 +1401,7 @@ MonoBehaviour:
   note: {fileID: 765407896}
   right: 1
   orderIndex: 0
+  dot: {fileID: 765407896}
 --- !u!1 &851338136
 GameObject:
   m_ObjectHideFlags: 0
@@ -2118,6 +2122,7 @@ MonoBehaviour:
   note: {fileID: 1008884738}
   right: 1
   orderIndex: 0
+  dot: {fileID: 1008884738}
 --- !u!1 &1047470425
 GameObject:
   m_ObjectHideFlags: 0
@@ -2252,6 +2257,7 @@ MonoBehaviour:
   note: {fileID: 1047470427}
   right: 1
   orderIndex: 0
+  dot: {fileID: 1047470427}
 --- !u!1 &1082726713
 GameObject:
   m_ObjectHideFlags: 0
@@ -2294,6 +2300,7 @@ MonoBehaviour:
   note: {fileID: 1082726715}
   right: 1
   orderIndex: 0
+  dot: {fileID: 1082726715}
 --- !u!212 &1082726715
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2726,6 +2733,7 @@ MonoBehaviour:
   note: {fileID: 1258894489}
   right: 1
   orderIndex: 0
+  dot: {fileID: 1258894489}
 --- !u!1 &1352383266
 GameObject:
   m_ObjectHideFlags: 0
@@ -3017,6 +3025,7 @@ MonoBehaviour:
   note: {fileID: 1447760378}
   right: 1
   orderIndex: 0
+  dot: {fileID: 1447760378}
 --- !u!1 &1479406982
 GameObject:
   m_ObjectHideFlags: 0
@@ -4025,6 +4034,7 @@ MonoBehaviour:
   note: {fileID: 2066082701}
   right: 1
   orderIndex: 0
+  dot: {fileID: 2066082701}
 --- !u!1 &2069354333
 GameObject:
   m_ObjectHideFlags: 0
@@ -4279,6 +4289,7 @@ MonoBehaviour:
   note: {fileID: 2078542163}
   right: 1
   orderIndex: 0
+  dot: {fileID: 2078542163}
 --- !u!1 &2092426803
 GameObject:
   m_ObjectHideFlags: 0
@@ -4413,6 +4424,7 @@ MonoBehaviour:
   note: {fileID: 2092426805}
   right: 1
   orderIndex: 0
+  dot: {fileID: 2092426805}
 --- !u!1 &2129656346
 GameObject:
   m_ObjectHideFlags: 0
