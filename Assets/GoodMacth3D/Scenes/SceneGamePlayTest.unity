@@ -812,12 +812,16 @@ MonoBehaviour:
   prefaptBird:
   - id: 1
     animBird: {fileID: 8044306678672851299, guid: 5691c86e0d01aab4189ec30d48482cc6, type: 3}
+    lsAnimEffect: []
   - id: 2
     animBird: {fileID: 7799947639265429172, guid: 97611804034e56c4896b3f547cd94de4, type: 3}
+    lsAnimEffect: []
   - id: 3
     animBird: {fileID: 8766913208151240576, guid: b37e63e90798d7443b725673ec823233, type: 3}
+    lsAnimEffect: []
   - id: 4
     animBird: {fileID: 5925289518198493895, guid: ab868de595c0dc84c8e08167a5a4fb3a, type: 3}
+    lsAnimEffect: []
   levelData2: {fileID: 2069354334}
   rightPost: {fileID: 575096869}
   leftPost: {fileID: 329075165}

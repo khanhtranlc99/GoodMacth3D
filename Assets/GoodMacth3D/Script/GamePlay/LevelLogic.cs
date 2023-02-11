@@ -131,6 +131,7 @@ public class LevelLogic : MonoBehaviour
 
     private void DeleteBirds()
     {
+    
         for (int i = lsIdAndNumb.Count - 1; i >= 0; i--)
         {
             if (lsIdAndNumb[i].numb == 3)
@@ -140,12 +141,14 @@ public class LevelLogic : MonoBehaviour
                     lsBird.RemoveAt(lsIdAndNumb[i].lsBird[j].idElement);
                     tesst.RemoveAt(lsIdAndNumb[i].lsBird[j].idElement);
                 }
+               
 
                 for (int j = lsIdAndNumb[i].lsBird.Count - 1; j >= 0; j--)
                 {
-                    lsIdAndNumb[i].lsBird[j].gameObject.gameObject.SetActive(false);
+                   lsIdAndNumb[i].lsBird[j].gameObject.SetActive(false);
+                    //lsIdAndNumb[i].lsBird[j].TestSpawn();
                   //  Destroy(lsIdAndNumb[i].lsBlock[j].gameObject);
-                 level.levelSpawn.levelData2.sumBird -= 1;
+                    level.levelSpawn.levelData2.sumBird -= 1;
                     lsIdAndNumb[i].lsBird.RemoveAt(j);
                 }
 
@@ -157,9 +160,10 @@ public class LevelLogic : MonoBehaviour
                 MoveBlocks();
           
             }
+  
 
         }
-
+      
         HandleWin();
 
       
@@ -171,8 +175,10 @@ public class LevelLogic : MonoBehaviour
         {
             if (lsIdAndNumb[i].numb == 3)
             {
+              
                 lsIdAndNumb[i].HandleOffBird(this.transform);
             }
+           
         }
     }
 
@@ -355,25 +361,42 @@ public class IdAndNumb
     }
     public void HandleOffBird(Transform param)
     {
-       
-        foreach(var item in lsAnimBird)
+        var Temp = Level.Instance.levelLogic;
+        //for(int i = 0; i < lsBird.Count; i ++)
+        //{
+        //    lsAnimBird[i].idElement = lsBird[i].idCowInData;
+        //    lsAnimBird[i].gameObject.transform.SetParent(param);
+        //}
+
+
+        lsBird[0].transform.DOMoveY(Temp.GetPost(lsBird[0].idElement).post.position.y + 0.2f, 0.2f);
+        lsBird[1].transform.DOMoveY(Temp.GetPost(lsBird[1].idElement).post.position.y + 0.2f, 0.2f);
+        lsBird[2].transform.DOMoveY(Temp.GetPost(lsBird[2].idElement).post.position.y + 0.2f, 0.2f).OnComplete(delegate {
+
+            lsBird[0].transform.DOMove(lsBird[1].gameObject.transform.position, 0.2f);
+            lsBird[2].transform.DOMove(lsBird[1].gameObject.transform.position, 0.2f).OnComplete(delegate {
+                for (int j = lsBird.Count - 1; j >= 0; j--)
+                {
+                    SimplePool2.Despawn(lsBird[j].gameObject);
+                    //lsBird.RemoveAt(j);
+                }
+            });
+
+        });
+        Debug.LogError("HandleOffBird");
+    }
+    public void HandleOnBird()
+    {
+
+        foreach (var item in lsAnimBird)
         {
-            item.gameObject.transform.SetParent(param);
+            item.gameObject.SetActive(true);
         }
 
-        lsAnimBird[0].transform.DOMove(lsAnimBird[1].gameObject.transform.position, 0.2f);
-        lsAnimBird[2].transform.DOMove(lsAnimBird[1].gameObject.transform.position, 0.2f).OnComplete(delegate {
-            for (int j = lsAnimBird.Count - 1; j >= 0; j--)
-            {
-                SimplePool2.Despawn(lsAnimBird[j].gameObject);
-                lsAnimBird.RemoveAt(j);
-            }
-        });
 
-       
-
-      
+  
     }
+
 }
 [System.Serializable]
 public class IdAndNumbBirdDuplicate

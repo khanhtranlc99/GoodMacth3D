@@ -5,6 +5,7 @@ using Spine.Unity;
 using System;
 public class AnimBird : MonoBehaviour
 {
+
     public string IDLE = "GAMEPLAY/idle";
     public string FlY = "GAMEPLAY/fly";
     public string JUMP = "DANCE/WIN";
@@ -12,6 +13,19 @@ public class AnimBird : MonoBehaviour
     public SkeletonAnimation body;
     public Color blackColor;
 
+    public bool wasFollow;
+    public Transform transformFollow;
+    private void Update()
+    {
+        if (wasFollow)
+        {
+            if (transformFollow != null)
+            {
+                this.transform.position = transform.position;
+            }
+        }
+
+    }
     public void SetColor(bool offColor)
     {
         if(offColor)

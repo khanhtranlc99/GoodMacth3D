@@ -19,11 +19,13 @@ public class BirdMechanic : MonoBehaviour
     public bool right;
     public int orderIndex;
     public SpriteRenderer dot;
+    public Vector3 postWhenBirdMove;
 
     public void Init()
     {
-        dot.color = new Color32(0, 0, 0, 0);
-        var SpawnBird = Level.Instance.levelSpawn;
+        //  dot.color = new Color32(0, 0, 0, 0);
+        postWhenBirdMove = new Vector3();
+          var SpawnBird = Level.Instance.levelSpawn;
         var CurrentScale = new Vector3();
         id = SpawnBird.levelData2.GetDataLevel(idCowInData);
         animBird = SimplePool2.Spawn(SpawnBird.GetAnimBird(id).animBird, right ? SpawnBird.leftPost.position : SpawnBird.rightPost.position, Quaternion.identity);
@@ -81,11 +83,12 @@ public class BirdMechanic : MonoBehaviour
         var controler = Level.Instance.levelLogic;
         controler.HandleCheckLose(this);
         controler.SortBird(this);
-       // controler.lsLockDelete.Add(1);
+        // controler.lsLockDelete.Add(1);
         animBird.transform.position = postBird.gameObject.transform.position;   
         animBird.SetAnim(animBird.FlY, true);
         this.transform.DOMove(controler.GetPost(idElement).post.position, 1).OnComplete(delegate
         {
+
             //if (controler.lsLockDelete.Count > 0)
             //{
             //    controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
@@ -105,6 +108,7 @@ public class BirdMechanic : MonoBehaviour
         wasLock = true;
         boxCollider2.enabled = false;
     }
+
     public void UnlockClickBlockBehide()
     {
         var SpawnBird = Level.Instance.levelSpawn;
@@ -142,7 +146,10 @@ public class BirdMechanic : MonoBehaviour
     }
     private void OnDisable()
     {
-        //Level.Instance.levelSpawn.levelData2.sumBird -= 1;
-        //Level.Instance.levelLogic.HandleWin();
+        //this.transform.DOKill();
+        var controler = Level.Instance.levelLogic;
+        Level.Instance.levelSpawn.SpawnEffectBird(this.id, controler.GetPost(idElement).post);
+
     }
+
 }
