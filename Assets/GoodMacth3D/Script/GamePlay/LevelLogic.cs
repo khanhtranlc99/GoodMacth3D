@@ -86,7 +86,7 @@ public class LevelLogic : MonoBehaviour
             }
         }
         SortIdElementBirds();
-        MoveBlocks();
+        MoveBlocks(bird);
     }
     public void SortIdElementBirds()
     {
@@ -95,15 +95,24 @@ public class LevelLogic : MonoBehaviour
             lsBird[i].idElement = i;
         }
     }
-    public void MoveBlocks()
+    public void MoveBlocks(BirdMechanic birdMechanic =null)
     {
         
         for (int i = 0; i < lsBird.Count; i++)
         {
             if (lsBird[i] != null)
             {
+                if (lsBird[i] != birdMechanic)
+                {
+                    lsBird[i].Fly(delegate
+                    {
+                        SortIdElementBirds();
+                        DeleteBirds();
+                    });
+                }
                 //lsBird[i].transform.DOKill();
-                lsBird[i].transform.DOMove(lsPost[i].post.position, 1).OnComplete(delegate { SortIdElementBirds(); DeleteBirds(); });
+                //lsBird[i].transform.DOMove(lsPost[i].finalPost.position, 1).OnComplete(delegate { SortIdElementBirds(); DeleteBirds(); });
+          
             }
         
         }
@@ -369,20 +378,7 @@ public class IdAndNumb
         //}
 
 
-        lsBird[0].transform.DOMoveY(Temp.GetPost(lsBird[0].idElement).post.position.y + 0.2f, 0.2f);
-        lsBird[1].transform.DOMoveY(Temp.GetPost(lsBird[1].idElement).post.position.y + 0.2f, 0.2f);
-        lsBird[2].transform.DOMoveY(Temp.GetPost(lsBird[2].idElement).post.position.y + 0.2f, 0.2f).OnComplete(delegate {
-
-            lsBird[0].transform.DOMove(lsBird[1].gameObject.transform.position, 0.2f);
-            lsBird[2].transform.DOMove(lsBird[1].gameObject.transform.position, 0.2f).OnComplete(delegate {
-                for (int j = lsBird.Count - 1; j >= 0; j--)
-                {
-                    SimplePool2.Despawn(lsBird[j].gameObject);
-                    //lsBird.RemoveAt(j);
-                }
-            });
-
-        });
+       
         Debug.LogError("HandleOffBird");
     }
     public void HandleOnBird()

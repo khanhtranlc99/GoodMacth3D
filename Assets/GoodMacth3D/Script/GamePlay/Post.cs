@@ -5,6 +5,8 @@ using UnityEngine;
 public class Post : MonoBehaviour
 {
     public int id;
-    public Transform post;
+    public Transform midPost;
+    public Transform finalPost;
+    
 
 }

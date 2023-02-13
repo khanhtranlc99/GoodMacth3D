@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Spine.Unity;
+using System;
 public class BirdMechanic : MonoBehaviour
 {
     [HideInInspector] public int idCowInData;
@@ -20,6 +21,7 @@ public class BirdMechanic : MonoBehaviour
     public int orderIndex;
     public SpriteRenderer dot;
     public Vector3 postWhenBirdMove;
+    public Post post;
 
     public void Init()
     {
@@ -84,19 +86,68 @@ public class BirdMechanic : MonoBehaviour
         controler.HandleCheckLose(this);
         controler.SortBird(this);
         // controler.lsLockDelete.Add(1);
-        animBird.transform.position = postBird.gameObject.transform.position;   
-        animBird.SetAnim(animBird.FlY, true);
-        this.transform.DOMove(controler.GetPost(idElement).post.position, 1).OnComplete(delegate
-        {
+        animBird.transform.position = postBird.gameObject.transform.position;
 
-            //if (controler.lsLockDelete.Count > 0)
-            //{
-            //    controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
-            //}
+        animBird.SetAnim(animBird.FlY, true);
+        Fly(delegate {
             animBird.SetAnim(animBird.IDLE, true);
             controler.HandleDeleteBirds(this);
+       
         });
     }
+
+
+    public void Fly(Action callBack)
+    {
+        var controler = Level.Instance.levelLogic;
+        var tempPost = controler.GetPost(idElement);
+        this.transform.DOMove(tempPost.midPost.position, 1).OnComplete(delegate
+        {
+
+            this.transform.DOMove(tempPost.finalPost.position, 1).OnComplete(delegate
+            {
+
+                callBack?.Invoke();
+
+            });
+
+        });
+        //if (post == null)
+        //{
+        //    post = tempPost;
+        //    this.transform.DOMove(tempPost.midPost.position, 1).OnComplete(delegate
+        //    {
+
+        //        this.transform.DOMove(tempPost.finalPost.position, 1).OnComplete(delegate
+        //        {
+
+        //            callBack?.Invoke();
+
+        //        });
+
+        //    });
+        //}
+        //else
+        //{
+        //    if (post != tempPost)
+        //    {
+        //        post = tempPost;
+        //        this.transform.DOMove(tempPost.midPost.position, 1).OnComplete(delegate
+        //        {
+
+        //            this.transform.DOMove(tempPost.finalPost.position, 1).OnComplete(delegate
+        //            {
+
+        //                callBack?.Invoke();
+
+        //            });
+
+        //        });
+        //    }
+        //}
+
+    }
+
 
     public void UnlockClick()
     {
@@ -148,7 +199,7 @@ public class BirdMechanic : MonoBehaviour
     {
         //this.transform.DOKill();
         var controler = Level.Instance.levelLogic;
-        Level.Instance.levelSpawn.SpawnEffectBird(this.id, controler.GetPost(idElement).post);
+  //      Level.Instance.levelSpawn.SpawnEffectBird(this.id, controler.GetPost(idElement).post);
 
     }
 
