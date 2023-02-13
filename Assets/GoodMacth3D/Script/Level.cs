@@ -74,7 +74,7 @@ public class Level : MonoBehaviour
             }
         }     
         SortIdElementBlocks();
-        MoveBlocks();
+        MoveBlocks(block);
     }
     public void SortIdElementBlocks()
     {
@@ -83,11 +83,30 @@ public class Level : MonoBehaviour
             lsBlock[i].idElement = i;
         }
     }
-    public void MoveBlocks()
+    public void MoveBlocks(Block block = null)
     {
+        if(lsBlock.Count <= 1)
+        {
+            return;
+        }
         for (int i = 0; i < lsBlock.Count; i++)
         {
-            lsBlock[i].transform.DOMove(lsPost[i].post.position, 0.35f).OnComplete(delegate { SortIdElementBlocks(); DeleteBlocks(); });
+            //lsBlock[i].transform.DOMove(lsPost[i].post.position, 0.35f).OnComplete(delegate { });
+            if (block != null)
+            {
+                if (lsBlock[i] != block)
+                {
+                    lsBlock[i].Fly(delegate { SortIdElementBlocks(); DeleteBlocks(); });
+                    Debug.LogError("!=blockNull");
+                }
+           
+            }
+            else
+            {
+                lsBlock[i].Fly(delegate { SortIdElementBlocks(); DeleteBlocks(); });
+                Debug.LogError("blockNull");
+            }
+       
         }
     }
     public void HandleDeleteBlocks(Block paramBlock)
@@ -126,8 +145,8 @@ public class Level : MonoBehaviour
                 }
                 for (int j = lsIdAndNumb[i].lsBlock.Count - 1; j >= 0; j--)
                 {
-
-                    Destroy(lsIdAndNumb[i].lsBlock[j].gameObject);
+                    lsIdAndNumb[i].lsBlock[j].gameObject.SetActive(false);
+                    //Destroy(lsIdAndNumb[i].lsBlock[j].gameObject);
                     lsIdAndNumb[i].lsBlock.RemoveAt(j);
                 }
                 lsIdAndNumb[i].numb = 0;

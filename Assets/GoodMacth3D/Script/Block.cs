@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 public class Block : MonoBehaviour
 {
     public int id;
@@ -21,15 +22,25 @@ public class Block : MonoBehaviour
            var controler = Level.Instance;
         controler.SortBlocks(this);
         controler.lsLockDelete.Add(1);
-        this.transform.DOMove(Level.Instance.GetPost(idElement).post.position, 0.35f).OnComplete(delegate
-        {
+        Fly(delegate {
             if (controler.lsLockDelete.Count > 0)
             {
                 controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
 
             }
-         
             controler.HandleDeleteBlocks(this);
+        });
+    }
+    public void Fly(Action callback)
+    {
+      
+        var controler = Level.Instance;
+        //controler.lsLockDelete.Add(1);
+        this.transform.DOMove(controler.GetPost(idElement).post.position, 1).OnComplete(delegate
+        {
+
+            callback?.Invoke();
+     
 
         });
     }
