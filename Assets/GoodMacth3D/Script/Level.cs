@@ -85,10 +85,10 @@ public class Level : MonoBehaviour
     }
     public void MoveBlocks(Block block = null)
     {
-        if(lsBlock.Count <= 1)
-        {
-            return;
-        }
+        //if(lsBlock.Count <= 1)
+        //{
+        //    return;
+        //}
         for (int i = 0; i < lsBlock.Count; i++)
         {
             //lsBlock[i].transform.DOMove(lsPost[i].post.position, 0.35f).OnComplete(delegate { });

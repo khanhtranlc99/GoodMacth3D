@@ -21,27 +21,25 @@ public class Block : MonoBehaviour
         wasLock = true;
            var controler = Level.Instance;
         controler.SortBlocks(this);
-        controler.lsLockDelete.Add(1);
+       // controler.lsLockDelete.Add(1);
         Fly(delegate {
-            if (controler.lsLockDelete.Count > 0)
-            {
-                controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
+            //if (controler.lsLockDelete.Count > 0)
+            //{
+            //    controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
 
-            }
+            //}
             controler.HandleDeleteBlocks(this);
         });
     }
     public void Fly(Action callback)
     {
-      
+        //Debug.LogError("Fly");
         var controler = Level.Instance;
-        //controler.lsLockDelete.Add(1);
+        var temp = controler.GetPost(idElement).post;
+
         this.transform.DOMove(controler.GetPost(idElement).post.position, 1).OnComplete(delegate
         {
-
             callback?.Invoke();
-     
-
         });
     }
 
