@@ -17,6 +17,10 @@ public class LevelLogic : MonoBehaviour
     private Level level;
     public List<IdAndNumbBirdDuplicate> lsCount;
     public List<int> lsBirdTemp;
+    public Transform parentSlotBird;
+    public SlotBird slotBird;
+    public List<SlotBird> lsSlotBird = new List<SlotBird>();
+    public List<SlotBird> listCheckUndo_ItemTileSlots = new List<SlotBird>();
     public void Init(Level param)
     {
         level = param;
@@ -55,67 +59,95 @@ public class LevelLogic : MonoBehaviour
         //    lsIdAndNumb.Add(new IdAndNumb() { id = level.levelSpawn.levelData.idBlock[i], numb = 0 });
         //}
     }
-    public void SortBird(BirdMechanic bird)
+   
+
+    public void AddBirdToListSlot(BirdMechanic bird)
     {
-        if (lsBird.Count <= 0)
-        {
-            lsBird.Add(bird);
-            tesst.Add(bird.id);
-        }
-        else
-        {
-            bool same = false;
-            int order = 0;
-            for (int i = 0; i < lsBird.Count; i++)
-            {
-                if (lsBird[i].id == bird.id)
-                {
-                    same = true;
-                    order = i;
-                }
-            }
-            if (same)
-            {
-                lsBird.Insert(order + 1, bird);
-                tesst.Insert(order + 1, bird.id);
-            }
-            else
-            {
-                lsBird.Add(bird);
-                tesst.Add(bird.id);
-            }
-        }
-        SortIdElementBirds();
-        MoveBlocks(bird);
+        int indexNewSlot = GetPostOfSlot(bird);
+
+
+        var tempSlot = SimplePool2.Spawn(slotBird, GetPost(indexNewSlot).finalPost.transform.position, Quaternion.identity);
+
+        tempSlot.birdMechanic = bird;
+        tempSlot.transform.parent = parentSlotBird;
+        bird.transform.parent = tempSlot.transform;
+
+        bird.Fly(tempSlot.transform);
+  
+        listCheckUndo_ItemTileSlots.Add(tempSlot);
+        lsSlotBird.Insert(indexNewSlot, tempSlot);
+
+        StartCoroutine(SetListSlot_ResetPosition_Now());
+
+        Debug.LogError(GetPost(indexNewSlot).gameObject.name);
     }
+
+    public int GetPostOfSlot(BirdMechanic bird)
+    {
+        int indexSlot = lsSlotBird.Count;
+        for (int i = lsSlotBird.Count - 1; i >= 0; i--)
+        {
+            if (lsSlotBird[i].birdMechanic.id == bird.id)
+            {
+                return i + 1;
+            }
+        }
+        return indexSlot;
+    }
+
+    public IEnumerator SetListSlot_ResetPosition_Now()
+    {
+        yield return new WaitForSeconds(0.01f);
+        for (int i = 0; i < lsSlotBird.Count; i++)
+        {
+            lsSlotBird[i].ResetPosSlot(GetPost(i).finalPost);
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+    public void MoveSlotBird()
+    {
+        //if(lsSlotBird.Count > 0)
+        //{
+        //    for (int i = 0; i < lsSlotBird.Count; i++)
+        //    {
+        //        var index = i;
+        //        lsSlotBird[index].MoveSlot(GetPost(lsSlotBird[index].idElement).finalPost, 1, delegate {
+
+                   
+        //        });
+        //    }
+
+        //}
+
+    }
+
     public void SortIdElementBirds()
     {
-        for (int i = 0; i < lsBird.Count; i++)
-        {
-            lsBird[i].idElement = i;
-        }
+        //for (int i = 0; i < lsBird.Count; i++)
+        //{
+        //    lsBird[i].idElement = i;
+        //}
+        //for (int i = 0; i < lsBird.Count; i++)
+        //{
+        //    if (lsBird[i].slotBird != null)
+        //    {
+        //        lsBird[i].slotBird.idElement = lsBird[i].idElement;
+        //    }
+           
+        //}
     }
     public void MoveBlocks(BirdMechanic birdMechanic =null)
     {
-        
-        for (int i = 0; i < lsBird.Count; i++)
-        {
-            if (lsBird[i] != null)
-            {
-                if (lsBird[i] != birdMechanic)
-                {
-                    lsBird[i].Fly(delegate
-                    {
-                        SortIdElementBirds();
-                        DeleteBirds();
-                    });
-                }
-                //lsBird[i].transform.DOKill();
-                //lsBird[i].transform.DOMove(lsPost[i].finalPost.position, 1).OnComplete(delegate { SortIdElementBirds(); DeleteBirds(); });
-          
-            }
-        
-        }
+     
     }
     public void HandleDeleteBirds(BirdMechanic paramBlock)
     {
@@ -166,7 +198,7 @@ public class LevelLogic : MonoBehaviour
                 lsIdAndNumb[i].numb = 0;
          
                 SortIdElementBirds();
-                MoveBlocks();
+                //MoveBlocks();
           
             }
   

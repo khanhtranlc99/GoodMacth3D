@@ -604,6 +604,9 @@ MonoBehaviour:
   winPanel: {fileID: 1865994064}
   lsCount: []
   lsBirdTemp: 
+  slotBird: {fileID: 633133549096910036, guid: facf735916eb3124c85597e9bb0bb363, type: 3}
+  lsSlotBird: []
+  parentSlotBird: {fileID: 1945617734}
   lsPost:
   - {fileID: 1097656402}
   - {fileID: 859555966}

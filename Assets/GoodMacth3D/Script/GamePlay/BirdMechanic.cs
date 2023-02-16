@@ -22,6 +22,7 @@ public class BirdMechanic : MonoBehaviour
     public SpriteRenderer dot;
     public Vector3 postWhenBirdMove;
     public Post post;
+    public SlotBird slotBird;
 
     public void Init()
     {
@@ -84,68 +85,42 @@ public class BirdMechanic : MonoBehaviour
         UnlockClickBlockBehide();
         var controler = Level.Instance.levelLogic;
         controler.HandleCheckLose(this);
-        controler.SortBird(this);
-        // controler.lsLockDelete.Add(1);
+        controler.AddBirdToListSlot(this);
         animBird.transform.position = postBird.gameObject.transform.position;
-
         animBird.SetAnim(animBird.FlY, true);
-        Fly(delegate {
-            animBird.SetAnim(animBird.IDLE, true);
-            controler.HandleDeleteBirds(this);
-       
-        });
+
+        //Fly(delegate {
+        //    animBird.SetAnim(animBird.IDLE, true);
+        //  //  controler.AddBirdToListSlot(this);
+        //});
     }
 
 
-    public void Fly(Action callBack)
+    public void Fly( Transform post)
     {
         var controler = Level.Instance.levelLogic;
-        var tempPost = controler.GetPost(idElement);
-        this.transform.DOMove(tempPost.midPost.position, 1).OnComplete(delegate
+        DOTween.Kill(this.transform);
+        this.transform.DOLocalMove(Vector3.zero, 1).OnComplete(delegate
         {
 
-            this.transform.DOMove(tempPost.finalPost.position, 1).OnComplete(delegate
-            {
 
-                callBack?.Invoke();
-
-            });
 
         });
-        //if (post == null)
-        //{
-        //    post = tempPost;
-        //    this.transform.DOMove(tempPost.midPost.position, 1).OnComplete(delegate
-        //    {
 
-        //        this.transform.DOMove(tempPost.finalPost.position, 1).OnComplete(delegate
-        //        {
+       // StartCoroutine(iEnumFly(post));
 
-        //            callBack?.Invoke();
+    }
+    public IEnumerator iEnumFly(Transform post)
+    {
+        yield return new WaitForSeconds(1);
+        DOTween.Kill(this.transform);
+        var controler = Level.Instance.levelLogic;
+        this.transform.DOMove(post.position, 1).OnComplete(delegate
+        {
 
-        //        });
 
-        //    });
-        //}
-        //else
-        //{
-        //    if (post != tempPost)
-        //    {
-        //        post = tempPost;
-        //        this.transform.DOMove(tempPost.midPost.position, 1).OnComplete(delegate
-        //        {
 
-        //            this.transform.DOMove(tempPost.finalPost.position, 1).OnComplete(delegate
-        //            {
-
-        //                callBack?.Invoke();
-
-        //            });
-
-        //        });
-        //    }
-        //}
-
+        });
     }
 
 
