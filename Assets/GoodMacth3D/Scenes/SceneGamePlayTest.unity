@@ -536,6 +536,7 @@ MonoBehaviour:
   dot: {fileID: 205695673}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
+  slotBird: {fileID: 0}
 --- !u!1 &213674641
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,26 +588,23 @@ MonoBehaviour:
   - id: 1
     numb: 0
     lsBird: []
-    lsAnimBird: []
   - id: 2
     numb: 0
     lsBird: []
-    lsAnimBird: []
   - id: 3
     numb: 0
     lsBird: []
-    lsAnimBird: []
   - id: 4
     numb: 0
     lsBird: []
-    lsAnimBird: []
   losePanel: {fileID: 464473232}
   winPanel: {fileID: 1865994064}
   lsCount: []
   lsBirdTemp: 
+  parentSlotBird: {fileID: 1945617734}
   slotBird: {fileID: 633133549096910036, guid: facf735916eb3124c85597e9bb0bb363, type: 3}
   lsSlotBird: []
-  parentSlotBird: {fileID: 1945617734}
+  listCheckUndo_ItemTileSlots: []
   lsPost:
   - {fileID: 1097656402}
   - {fileID: 859555966}
@@ -664,7 +662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idCowInData: 6
-  right: 1
+  right: 0
   birdInFront: {fileID: 205695675}
   birdInTheBack: {fileID: 2092426807}
 --- !u!1 &260561475
@@ -944,6 +942,7 @@ MonoBehaviour:
   dot: {fileID: 429202140}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
+  slotBird: {fileID: 0}
 --- !u!212 &429202140
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1298,6 +1297,7 @@ MonoBehaviour:
   dot: {fileID: 572065795}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
+  slotBird: {fileID: 0}
 --- !u!1 &574097137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1911,6 +1911,7 @@ MonoBehaviour:
   dot: {fileID: 765407896}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
+  slotBird: {fileID: 0}
 --- !u!1 &795198112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2806,6 +2807,7 @@ MonoBehaviour:
   dot: {fileID: 1008884738}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
+  slotBird: {fileID: 0}
 --- !u!1 &1047470425
 GameObject:
   m_ObjectHideFlags: 0
@@ -2943,6 +2945,7 @@ MonoBehaviour:
   dot: {fileID: 1047470427}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
+  slotBird: {fileID: 0}
 --- !u!1 &1082726713
 GameObject:
   m_ObjectHideFlags: 0
@@ -2988,6 +2991,7 @@ MonoBehaviour:
   dot: {fileID: 1082726715}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
+  slotBird: {fileID: 0}
 --- !u!212 &1082726715
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3425,6 +3429,7 @@ MonoBehaviour:
   dot: {fileID: 1258894489}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
+  slotBird: {fileID: 0}
 --- !u!1 &1352383266
 GameObject:
   m_ObjectHideFlags: 0
@@ -3721,6 +3726,7 @@ MonoBehaviour:
   dot: {fileID: 1447760378}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
+  slotBird: {fileID: 0}
 --- !u!1 &1479406982
 GameObject:
   m_ObjectHideFlags: 0
@@ -3767,7 +3773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idCowInData: 5
-  right: 1
+  right: 0
   birdInFront: {fileID: 1047470429}
   birdInTheBack: {fileID: 1258894491}
 --- !u!1 &1551731742
@@ -4902,6 +4908,7 @@ MonoBehaviour:
   dot: {fileID: 2066082701}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
+  slotBird: {fileID: 0}
 --- !u!1 &2069354333
 GameObject:
   m_ObjectHideFlags: 0
@@ -5019,7 +5026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idCowInData: 4
-  right: 1
+  right: 0
   birdInFront: {fileID: 2078542165}
   birdInTheBack: {fileID: 765407898}
 --- !u!1 &2078542161
@@ -5159,6 +5166,7 @@ MonoBehaviour:
   dot: {fileID: 2078542163}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
+  slotBird: {fileID: 0}
 --- !u!1 &2092426803
 GameObject:
   m_ObjectHideFlags: 0
@@ -5296,6 +5304,7 @@ MonoBehaviour:
   dot: {fileID: 2092426805}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
+  slotBird: {fileID: 0}
 --- !u!1 &2129656346
 GameObject:
   m_ObjectHideFlags: 0

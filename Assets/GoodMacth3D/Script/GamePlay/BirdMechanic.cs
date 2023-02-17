@@ -84,44 +84,42 @@ public class BirdMechanic : MonoBehaviour
         wasLock = true;
         UnlockClickBlockBehide();
         var controler = Level.Instance.levelLogic;
-        controler.HandleCheckLose(this);
+       
         controler.AddBirdToListSlot(this);
         animBird.transform.position = postBird.gameObject.transform.position;
         animBird.SetAnim(animBird.FlY, true);
 
-        //Fly(delegate {
-        //    animBird.SetAnim(animBird.IDLE, true);
-        //  //  controler.AddBirdToListSlot(this);
-        //});
+    
     }
 
 
-    public void Fly( Transform post)
+    public void Fly(Action action)
     {
         var controler = Level.Instance.levelLogic;
         DOTween.Kill(this.transform);
-        this.transform.DOLocalMove(Vector3.zero, 1).OnComplete(delegate
+        controler.lsLockDelete.Add(1);
+        this.transform.DOLocalMove(new Vector3(0,0.2f,0), 1).OnComplete(delegate
         {
+            animBird.SetAnim(animBird.IDLE, true);
+            this.transform.DOLocalMove(new Vector3(0, 0, 0), 0.2f).OnComplete(delegate {
+                if (controler.lsLockDelete.Count > 0)
+                {
+                    controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
+                }
+            
+                // controler.SetSlotFinished(this);
+                if (action != null)
+                {
+                    action?.Invoke();
+                }
+            });
+           
+        }).SetEase(Ease.InOutFlash);
 
-
-
-        });
-
-       // StartCoroutine(iEnumFly(post));
+   
 
     }
-    public IEnumerator iEnumFly(Transform post)
-    {
-        yield return new WaitForSeconds(1);
-        DOTween.Kill(this.transform);
-        var controler = Level.Instance.levelLogic;
-        this.transform.DOMove(post.position, 1).OnComplete(delegate
-        {
-
-
-
-        });
-    }
+   
 
 
     public void UnlockClick()
@@ -177,5 +175,15 @@ public class BirdMechanic : MonoBehaviour
   //      Level.Instance.levelSpawn.SpawnEffectBird(this.id, controler.GetPost(idElement).post);
 
     }
+    //Ease easy = Ease.OutSine;
+    //int random = Random.Range(1, 6);
+    //        if (random == 1)
+    //            easy = Ease.OutQuad;
+    //        else if (random == 2)
+    //            easy = Ease.OutQuart;
+    //        else if (random == 3)
+    //            easy = Ease.OutFlash;
+    //        else if (random == 4)
+    //            easy = Ease.InOutFlash;
 
 }

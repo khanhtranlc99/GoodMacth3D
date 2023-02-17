@@ -66,21 +66,21 @@ public class LevelLogic : MonoBehaviour
         int indexNewSlot = GetPostOfSlot(bird);
 
 
-        var tempSlot = SimplePool2.Spawn(slotBird, GetPost(indexNewSlot).finalPost.transform.position, Quaternion.identity);
+        var tempSlot = Instantiate(slotBird, GetPost(indexNewSlot).finalPost.transform.position, Quaternion.identity);
 
         tempSlot.birdMechanic = bird;
         tempSlot.transform.parent = parentSlotBird;
         bird.transform.parent = tempSlot.transform;
-
-        bird.Fly(tempSlot.transform);
+        RotateBird(bird, tempSlot.transform);
+        bird.Fly(delegate { SetSlotFinished2(tempSlot); });
   
         listCheckUndo_ItemTileSlots.Add(tempSlot);
         lsSlotBird.Insert(indexNewSlot, tempSlot);
 
-        StartCoroutine(SetListSlot_ResetPosition_Now());
+        StartCoroutine(SetListSlot_ResetPosition_Now(0.01f));
 
-        Debug.LogError(GetPost(indexNewSlot).gameObject.name);
     }
+
 
     public int GetPostOfSlot(BirdMechanic bird)
     {
@@ -94,13 +94,38 @@ public class LevelLogic : MonoBehaviour
         }
         return indexSlot;
     }
+    
+  
 
-    public IEnumerator SetListSlot_ResetPosition_Now()
+    public void SetSlotFinished2(SlotBird slotBird)
     {
-        yield return new WaitForSeconds(0.01f);
-        for (int i = 0; i < lsSlotBird.Count; i++)
+        var tempCount = GetIdAndNumb(slotBird.birdMechanic.id);
+
+        tempCount.numb += 1;
+        tempCount.lsBird.Add(slotBird);
+
+        foreach (var item in lsIdAndNumb)
         {
-            lsSlotBird[i].ResetPosSlot(GetPost(i).finalPost);
+            if(item.numb >= 3)
+            {
+                //if (lsLockDelete.Count > 0)
+                //{
+                //    return;
+                //}
+               
+                for(int i = 2; i >= 0; i --)
+                {
+                    lsSlotBird.Remove(item.lsBird[i]);
+                }
+                for (int i = 2; i >= 0; i--)
+                {
+                    item.lsBird[i].gameObject.SetActive(false);
+                    item.lsBird.RemoveAt(i);
+                    item.numb -= 1;
+                }
+               
+                StartCoroutine(SetListSlot_ResetPosition_Now(0.01f));
+            }
         }
 
     }
@@ -108,6 +133,159 @@ public class LevelLogic : MonoBehaviour
 
 
 
+
+
+
+
+
+
+
+
+    public void SetSlotFinished(BirdMechanic bird)
+    {
+        List<SlotBird> listCheckBird = FindMatch3_Slots(bird);
+
+        if(listCheckBird.Count == 3)
+        {
+            if(lsLockDelete.Count >0)
+            {
+                return;
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                lsSlotBird.Remove(listCheckBird[i]);
+                //Undo
+                listCheckUndo_ItemTileSlots.Remove(listCheckBird[i]);
+                Destroy(listCheckBird[i].gameObject);
+             //   listCheckMatch3Slots[i].SetItemSlot_Match3();
+            }
+            StartCoroutine(SetListSlot_ResetPosition_Now(0.3f));
+
+        }
+       else
+        {
+            StartCoroutine(CheckGameOver_IEnumerator());
+        }
+
+
+    }
+
+
+
+    public List<SlotBird> FindMatch3_Slots(BirdMechanic bird)
+    {
+
+        List<SlotBird> lsTempSlot = new List<SlotBird>();
+
+        for (int i = 0; i < lsSlotBird.Count; i++)
+        {
+            if (lsSlotBird[i].birdMechanic.id == bird.id)
+            {
+                lsTempSlot.Add(lsSlotBird[i]);
+
+                if (lsTempSlot.Count == 3)
+                {
+                    return lsTempSlot;
+                }
+            }
+        }
+
+        return lsTempSlot;
+    }
+
+
+
+    public IEnumerator SetListSlot_ResetPosition_Now(float time)
+    {
+        yield return new WaitForSeconds(time);
+        for (int i = 0; i < lsSlotBird.Count; i++)
+        {
+            lsSlotBird[i].ResetPosSlot(GetPost(i));
+        }
+
+    }
+    public IEnumerator CheckGameOver_IEnumerator()
+    {
+        //if (!IsItemTileMoveToSlot()) SoundManager.instance.PlaySound_NoMoreMove();
+        yield return new WaitForSeconds(1f);
+        if (CheckGameOver())
+        {
+            SetGameOver();
+        }
+    }
+    public bool IsBirdMoveToSlot()
+    {
+        if (lsSlotBird.Count >= 7)
+        {
+            return false;
+        }
+        return true;
+    }
+    public bool CheckGameOver()
+    {
+        if (lsSlotBird.Count < 7)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < lsSlotBird.Count; i++)
+        {
+            int countItem_ItemTile = CountItemTileSlot_Have_ItemData(lsSlotBird[i]);
+            if (countItem_ItemTile == 3) return false;
+        }
+
+        return true;
+    }
+
+    public int CountItemTileSlot_Have_ItemData(SlotBird itemData)
+    {
+        int countItemSlot_Have_ItemData = 0;
+        for (int i = 0; i < lsSlotBird.Count; i++)
+        {
+            if (lsSlotBird[i].birdMechanic.id == itemData.birdMechanic.id)
+            {
+                countItemSlot_Have_ItemData++;
+            }
+        }
+
+        return countItemSlot_Have_ItemData;
+    }
+
+    public void SetGameOver()
+    {
+        losePanel.SetActive(true);
+
+    }
+
+
+
+    private void RotateBird(BirdMechanic paramBird, Transform paramTranform)
+    {
+        var tempBirdLocalScale = paramBird.animBird.transform.localScale;
+        if (paramBird.transform.position.x >= paramTranform.transform.position.x)
+        {
+            if (paramBird.right)
+            {
+                paramBird.animBird.transform.localScale = new Vector3(tempBirdLocalScale.x, tempBirdLocalScale.y, tempBirdLocalScale.z);
+            }
+            else
+            {
+                paramBird.animBird.transform.localScale = new Vector3(-tempBirdLocalScale.x, tempBirdLocalScale.y, tempBirdLocalScale.z);
+            }
+        }
+        else
+        {
+            if (paramBird.right)
+            {
+                paramBird.animBird.transform.localScale = new Vector3(-tempBirdLocalScale.x, tempBirdLocalScale.y, tempBirdLocalScale.z);
+            }
+            else
+            {
+                paramBird.animBird.transform.localScale = new Vector3(tempBirdLocalScale.x, tempBirdLocalScale.y, tempBirdLocalScale.z);
+            }
+
+        }
+    }
 
 
 
@@ -157,8 +335,8 @@ public class LevelLogic : MonoBehaviour
             if (temp.lsBird.Count < 3)
             {
                 temp.numb += 1;
-                temp.lsBird.Add(paramBlock);
-                temp.lsAnimBird.Add(paramBlock.animBird);
+                //temp.lsBird.Add(paramBlock);
+            //    temp.lsAnimBird.Add(paramBlock.animBird);
                 if (lsLockDelete.Count > 0)
                 {
                     return;
@@ -179,8 +357,8 @@ public class LevelLogic : MonoBehaviour
             {
                 for (int j = lsIdAndNumb[i].lsBird.Count - 1; j >= 0; j--)
                 {
-                    lsBird.RemoveAt(lsIdAndNumb[i].lsBird[j].idElement);
-                    tesst.RemoveAt(lsIdAndNumb[i].lsBird[j].idElement);
+                    //lsBird.RemoveAt(lsIdAndNumb[i].lsBird[j].idElement);
+                    //tesst.RemoveAt(lsIdAndNumb[i].lsBird[j].idElement);
                 }
                
 
@@ -217,7 +395,7 @@ public class LevelLogic : MonoBehaviour
             if (lsIdAndNumb[i].numb == 3)
             {
               
-                lsIdAndNumb[i].HandleOffBird(this.transform);
+               // lsIdAndNumb[i].HandleOffBird(this.transform);
             }
            
         }
@@ -393,38 +571,15 @@ public class IdAndNumb
 {
     public int id;
     public int numb;
-    public List<BirdMechanic> lsBird;
-    public List<AnimBird> lsAnimBird;
+    public List<SlotBird> lsBird;
+   
     public IdAndNumb()
     {
-        lsBird = new List<BirdMechanic>();
-        lsAnimBird = new List<AnimBird>();
+        lsBird = new List<SlotBird>();
+     
     }
-    public void HandleOffBird(Transform param)
-    {
-        var Temp = Level.Instance.levelLogic;
-        //for(int i = 0; i < lsBird.Count; i ++)
-        //{
-        //    lsAnimBird[i].idElement = lsBird[i].idCowInData;
-        //    lsAnimBird[i].gameObject.transform.SetParent(param);
-        //}
-
-
-       
-        Debug.LogError("HandleOffBird");
-    }
-    public void HandleOnBird()
-    {
-
-        foreach (var item in lsAnimBird)
-        {
-            item.gameObject.SetActive(true);
-        }
-
 
   
-    }
-
 }
 [System.Serializable]
 public class IdAndNumbBirdDuplicate
