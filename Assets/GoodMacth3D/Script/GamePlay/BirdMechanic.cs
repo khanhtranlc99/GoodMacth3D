@@ -24,11 +24,11 @@ public class BirdMechanic : MonoBehaviour
     public Post post;
     public SlotBird slotBird;
 
-    public void Init()
+    public void Init(bool isSleep = false)
     {
         //  dot.color = new Color32(0, 0, 0, 0);
         postWhenBirdMove = new Vector3();
-          var SpawnBird = Level.Instance.levelSpawn;
+        var SpawnBird = Level.Instance.levelSpawn;
         var CurrentScale = new Vector3();
         id = SpawnBird.levelData2.GetDataLevel(idCowInData);
         animBird = SimplePool2.Spawn(SpawnBird.GetAnimBird(id).animBird, right ? SpawnBird.leftPost.position : SpawnBird.rightPost.position, Quaternion.identity);
@@ -44,25 +44,40 @@ public class BirdMechanic : MonoBehaviour
 
         animBird.transform.SetParent(this.transform);
         animBird.transform.localScale = CurrentScale;
+        Ease easy = Ease.OutSine;
+        int random = UnityEngine.Random.Range(1, 6);
+        if (random == 1)
+            easy = Ease.OutQuad;
+        else if (random == 2)
+            easy = Ease.OutQuart;
+        else if (random == 3)
+            easy = Ease.OutFlash;
+        else if (random == 4)
+            easy = Ease.InOutFlash;
 
-        animBird.transform.DOMove(postBird.transform.position, 1).OnComplete(
-            delegate
-            {
-                animBird.transform.SetParent(postBird.transform);
-                animBird.transform.localScale = CurrentScale;
-                animBird.SetAnim(animBird.IDLE, true);
-                animBird.transform.position = postBird.gameObject.transform.position;
-            }
-         );
+        animBird.transform.DOMove(new Vector3(postBird.transform.position.x, postBird.transform.position.y+0.15f, postBird.transform.position.z), 1.5f).SetEase(easy).OnComplete(delegate {
+            animBird.transform.DOMove(postBird.transform.position, 0.2f).OnComplete(
+              delegate
+              {
+                  animBird.transform.SetParent(postBird.transform);
+                  animBird.transform.localScale = CurrentScale;
+                  animBird.SetAnim(animBird.IDLE, true);
+                  animBird.transform.position = postBird.gameObject.transform.position;
+                  if (isSleep)
+                  {
+                      animBird.SetAnim(animBird.PRESLEEP, false, delegate { animBird.SetAnim(animBird.SLEEP, true); });
+                  }
+              }
+           );
+        }); 
         animBird.SetOrderInLayer(2);
         orderIndex = 2;
 
         if (behindBird != null)
         {
             behindBird.LockClick();
-            behindBird.Init();
+            behindBird.Init(true);
             behindBird.animBird.SetColor(true);
-            behindBird.animBird.SetAnim(behindBird.animBird.IDLE, true);
             behindBird.animBird.SetOrderInLayer(1);
             behindBird.orderIndex = 1;
 
@@ -71,6 +86,7 @@ public class BirdMechanic : MonoBehaviour
 
     }
 
+   
     public void OnMouseDown()
     {
         if(!wasLock)
@@ -85,7 +101,7 @@ public class BirdMechanic : MonoBehaviour
         wasLock = true;
         UnlockClickBlockBehide();
         var controler = Level.Instance.levelLogic;
-       
+        controler.HandleCheckLose(this);
         controler.AddBirdToListSlot(this);
         animBird.transform.position = postBird.gameObject.transform.position;
         animBird.SetAnim(animBird.FlY, true);
@@ -98,27 +114,17 @@ public class BirdMechanic : MonoBehaviour
     {
         var controler = Level.Instance.levelLogic;
         DOTween.Kill(this.transform);
-        controler.lsLockDelete.Add(1);
         this.transform.DOLocalMove(new Vector3(0,0.2f,0), 1).OnComplete(delegate
         {
             animBird.SetAnim(animBird.IDLE, true);
-            this.transform.DOLocalMove(new Vector3(0, 0, 0), 0.2f).OnComplete(delegate {
-                if (controler.lsLockDelete.Count > 0)
-                {
-                    controler.lsLockDelete.Remove(controler.lsLockDelete[0]);
-                }
-            
-                // controler.SetSlotFinished(this);
+            this.transform.DOLocalMove(new Vector3(0, 0, 0), 0.2f).OnComplete(
+            delegate {
                 if (action != null)
                 {
                     action?.Invoke();
                 }
-            });
-           
+            });          
         }).SetEase(Ease.InOutFlash);
-
-   
-
     }
    
 
@@ -152,7 +158,7 @@ public class BirdMechanic : MonoBehaviour
                 behindBird.behindBird.transform.SetParent(SpawnBird.levelData2.gameObject.transform);
                 behindBird.behindBird.transform.localScale = CurrentScale;
                 behindBird.behindBird.idCowInData = behindBird.idCowInData;
-                behindBird.behindBird.Init();
+                behindBird.behindBird.Init(true);
                 behindBird.behindBird.animBird.SetColor(true);
                 behindBird.behindBird.orderIndex = behindBird.orderIndex;
                 behindBird.behindBird.animBird.SetOrderInLayer(behindBird.orderIndex);
@@ -161,9 +167,11 @@ public class BirdMechanic : MonoBehaviour
             }
             behindBird.orderIndex = this.orderIndex;
             behindBird.animBird.SetOrderInLayer(this.orderIndex);
-           
+            behindBird.animBird.SetAnim(animBird.IDLE, true);
+            DOTween.Kill(behindBird.transform);
             behindBird.transform.DOJump(this.transform.position, 0.5f, 1, 0.5f).OnComplete(delegate {
                 behindBird.UnlockClick();
+                behindBird.animBird.SetAnim(animBird.IDLE, true);
             });
             behindBird.animBird.SetColor(false);
 

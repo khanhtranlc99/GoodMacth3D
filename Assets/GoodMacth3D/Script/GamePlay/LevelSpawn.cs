@@ -58,8 +58,8 @@ public class LevelSpawn : MonoBehaviour
             if (GetAnimBird(idBird).lsAnimEffect.Count == 3)
             {
 
-                GetAnimBird(idBird).lsAnimEffect[0].transform.DOMove(GetAnimBird(idBird).lsAnimEffect[1].gameObject.transform.position, 0.2f);
-                GetAnimBird(idBird).lsAnimEffect[2].transform.DOMove(GetAnimBird(idBird).lsAnimEffect[1].gameObject.transform.position, 0.2f).OnComplete(delegate {
+                GetAnimBird(idBird).lsAnimEffect[0].transform.DOMove(GetAnimBird(idBird).lsAnimEffect[1].gameObject.transform.position, 0.1f);
+                GetAnimBird(idBird).lsAnimEffect[2].transform.DOMove(GetAnimBird(idBird).lsAnimEffect[1].gameObject.transform.position, 0.1f).OnComplete(delegate {
                     for (int j = GetAnimBird(idBird).lsAnimEffect.Count - 1; j >= 0; j--)
                     {
                         SimplePool2.Despawn(GetAnimBird(idBird).lsAnimEffect[j].gameObject);
@@ -75,20 +75,7 @@ public class LevelSpawn : MonoBehaviour
 
 
 
-                //    GetAnimBird(idBird).lsAnimEffect[0].transform.DOMoveY(GetAnimBird(idBird).lsAnimEffect[0].gameObject.transform.position.y + 0.7f, 0.2f);
-                //    GetAnimBird(idBird).lsAnimEffect[1].transform.DOMoveY(GetAnimBird(idBird).lsAnimEffect[1].gameObject.transform.position.y + 0.7f, 0.2f);
-                //    GetAnimBird(idBird).lsAnimEffect[2].transform.DOMoveY(GetAnimBird(idBird).lsAnimEffect[2].gameObject.transform.position.y + 0.7f, 0.2f).OnComplete(delegate {
-
-                //        GetAnimBird(idBird).lsAnimEffect[0].transform.DOMove(GetAnimBird(idBird).lsAnimEffect[1].gameObject.transform.position, 0.2f);
-                //        GetAnimBird(idBird).lsAnimEffect[2].transform.DOMove(GetAnimBird(idBird).lsAnimEffect[1].gameObject.transform.position, 0.2f).OnComplete(delegate {
-                //            for (int j = GetAnimBird(idBird).lsAnimEffect.Count - 1; j >= 0; j--)
-                //            {
-                //                SimplePool2.Despawn(GetAnimBird(idBird).lsAnimEffect[j].gameObject);
-                //                GetAnimBird(idBird).lsAnimEffect.RemoveAt(j);
-                //            }
-                //        });
-
-                //    });
+              
             }
 
 
