@@ -9,6 +9,8 @@ public class AnimBird : MonoBehaviour
     public string IDLE = "GAMEPLAY/idle";
     public string FlY = "GAMEPLAY/fly";
     public string JUMP = "DANCE/WIN";
+    public string PRESLEEP = "GAMEPLAY/pre_sleep";
+    public string SLEEP = "GAMEPLAY/sleep";
 
     public SkeletonAnimation body;
     public Color blackColor;

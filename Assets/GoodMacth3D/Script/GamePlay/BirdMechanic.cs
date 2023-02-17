@@ -66,6 +66,7 @@ public class BirdMechanic : MonoBehaviour
             behindBird.animBird.SetOrderInLayer(1);
             behindBird.orderIndex = 1;
 
+
         }
 
     }
@@ -168,13 +169,7 @@ public class BirdMechanic : MonoBehaviour
 
         }
     }
-    private void OnDisable()
-    {
-        //this.transform.DOKill();
-        var controler = Level.Instance.levelLogic;
-  //      Level.Instance.levelSpawn.SpawnEffectBird(this.id, controler.GetPost(idElement).post);
-
-    }
+   
     //Ease easy = Ease.OutSine;
     //int random = Random.Range(1, 6);
     //        if (random == 1)

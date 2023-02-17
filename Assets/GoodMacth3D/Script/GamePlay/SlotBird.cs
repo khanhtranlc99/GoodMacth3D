@@ -36,13 +36,13 @@ public class SlotBird : MonoBehaviour
                     birdMechanic.animBird.SetAnim(birdMechanic.animBird.IDLE, true);
                 }
                );
-                Debug.LogError("vi tri moi");
+              
             }
             else
             {
                 gameObject.transform.transform.DOMove(post.finalPost.position, 0.2f);
                 birdMechanic.animBird.SetAnim(birdMechanic.animBird.IDLE, true);
-                Debug.LogError("giong vi tri cu");
+              
             }
         }
         //gameObject.transform.DOMove(paramPost.position, 0.7f).SetEase(Ease.OutQuad);
@@ -63,6 +63,13 @@ public class SlotBird : MonoBehaviour
             birdMechanic.animBird.transform.localScale = new Vector3(-tempLocalScaleBirdBeforAbs, tempLocalScaleBird.y, tempLocalScaleBird.z);
 
         }
+
+    }
+    private void OnDisable()
+    {
+        //this.transform.DOKill();
+        var controler = Level.Instance.levelLogic;
+        Level.Instance.levelSpawn.SpawnEffectBird(birdMechanic.id, this.transform);
 
     }
 }

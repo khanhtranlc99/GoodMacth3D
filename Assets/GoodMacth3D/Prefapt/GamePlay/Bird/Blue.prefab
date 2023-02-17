@@ -467,7 +467,9 @@ MonoBehaviour:
   FlY: GAMEPLAY/fly
   JUMP: DANCE/WIN
   body: {fileID: 265415139440361382}
-  blackColor: {r: 1, g: 1, b: 1, a: 0.7058824}
+  blackColor: {r: 1, g: 1, b: 1, a: 1}
+  wasFollow: 0
+  transformFollow: {fileID: 0}
 --- !u!1 &467598661579487561
 GameObject:
   m_ObjectHideFlags: 0
