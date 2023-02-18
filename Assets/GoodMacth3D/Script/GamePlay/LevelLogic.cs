@@ -28,7 +28,7 @@ public class LevelLogic : MonoBehaviour
     public Transform parentSlotBird;
     public SlotBird slotBird;
     public List<SlotBird> lsSlotBird = new List<SlotBird>();
-    public List<SlotBird> listCheckUndo_ItemTileSlots = new List<SlotBird>();
+    public List<SlotBird> lsRedoSlotBird = new List<SlotBird>();
     public List<Post> lsPost;
     public Post GetPost(int id)
     {
@@ -63,7 +63,6 @@ public class LevelLogic : MonoBehaviour
         bird.transform.parent = tempSlot.transform;
         RotateBird(bird, tempSlot.transform);
         bird.Fly(delegate { SetSlotFinished(tempSlot); });
-        listCheckUndo_ItemTileSlots.Add(tempSlot);
         lsSlotBird.Insert(indexNewSlot, tempSlot);
         StartCoroutine(SetListSlot_ResetPosition_Now(0.01f));
     }
@@ -292,6 +291,192 @@ public class LevelLogic : MonoBehaviour
             winPanel.SetActive(true);
         }
     }
+
+    public void BoosterRedo()
+    {
+        if(lsSlotBird.Count > 3)
+        {
+            lsRedoSlotBird = new List<SlotBird>();
+            for (int i = lsSlotBird.Count - 3 ; i < lsSlotBird.Count; i ++)
+            {
+                Debug.LogError("lon hon ba");
+                lsRedoSlotBird.Add(lsSlotBird[i]);        
+            }
+            foreach (var item in lsRedoSlotBird)
+            {
+                lsSlotBird.Remove(item);
+                var count = GetIdAndNumb(item.birdMechanic.id);
+                if (count.numb >0)
+                {
+                    count.numb -= 1;
+                    count.lsBird.Remove(item);
+                }
+                // item.RedoSlot(level.levelSpawn.rightPost);
+                //  RedoSlotToData(item.birdMechanic, 2);
+                RedoSlotToData2(item);
+            }
+            
+        }
+        else
+        {
+            lsRedoSlotBird = new List<SlotBird>();
+            for (int i = lsSlotBird.Count - 1; i >= 0; i--)
+            {
+                Debug.LogError("nho hon ba");
+                lsRedoSlotBird.Add(lsSlotBird[i]);
+            }
+            foreach (var item in lsRedoSlotBird)
+            {
+                lsSlotBird.Remove(item);
+                var count = GetIdAndNumb(item.birdMechanic.id);
+                if (count.numb > 0)
+                {
+                    count.numb -= 1;
+                    count.lsBird.Remove(item);
+                }
+                // item.RedoSlot(level.levelSpawn.rightPost);
+                //  RedoSlotToData(item.birdMechanic, lsRedoSlotBird.Count);
+                RedoSlotToData2(item);
+            }
+
+        }
+    }
+    public DataLevel dataLevel;
+    public DoubleBird tempDoubleBird;
+
+    public void RedoSlotToData2(SlotBird slotBird)
+    {
+        Debug.LogError("RedoSlotToData2");
+        var levelData = level.levelSpawn.levelData2.lsDataLevel;      
+        var ran = Random.RandomRange(0, levelData.Count);
+        dataLevel = new DataLevel();
+        dataLevel = levelData[ran];
+
+        if (dataLevel.lsIdItem.Count > 0)
+        {
+            dataLevel.lsIdItem.Add(slotBird.birdMechanic.id);
+            Debug.LogError("Count > 0");
+         
+        }
+        else
+        {
+             tempDoubleBird = level.levelSpawn.levelData2.GetDoubleBird(dataLevel.id);
+            if (tempDoubleBird.birdInFront == null)
+            {
+                tempDoubleBird.birdInFront = slotBird.birdMechanic;
+                slotBird.birdMechanic.transform.parent = tempDoubleBird.transform;
+                slotBird.birdMechanic.animBird.SetOrderInLayer(2);
+                slotBird.birdMechanic.transform.DOMove(tempDoubleBird.postFront, 0.3f).OnComplete(delegate
+                {
+                    slotBird.birdMechanic.UnlockClick();
+                });
+                Debug.LogError("birdInFront == null");
+                return;
+            }
+            if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack == null)
+            {
+                tempDoubleBird.birdInTheBack = slotBird.birdMechanic;
+         
+                slotBird.birdMechanic.transform.parent = tempDoubleBird.transform;
+                slotBird.birdMechanic.animBird.SetOrderInLayer(1);
+                slotBird.birdMechanic.transform.DOMove(tempDoubleBird.postInBack, 0.3f).OnComplete(delegate
+                {
+
+                });
+                Debug.LogError("birdInFront != null // birdInTheBack == null");
+                return;
+            }
+            if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack != null)
+            {
+                dataLevel.lsIdItem.Add(slotBird.birdMechanic.id);
+                slotBird.RedoSlot(level.levelSpawn.rightPost);
+                Debug.LogError("birdInFront != null // birdInTheBack != null");
+                return;
+            }
+        }
+
+    }
+
+    //public void RedoSlotToData(BirdMechanic bird, int coutnRan)
+    //{
+    //    var levelData = level.levelSpawn.levelData2.lsDataLevel;
+    //     listData = new List<DataLevel>();
+    //    var tempLsRan = new List<DataLevel>();
+    //    foreach(var item in levelData)
+    //    {
+    //        tempLsRan.Add(item);
+    //    }
+
+    //    for (int i =0; i <= coutnRan; i++ )
+    //    {
+    //        var ran = Random.RandomRange(0, tempLsRan.Count);
+    //        try
+    //        {
+    //            listData.Add(levelData[ran]);
+    //            tempLsRan.RemoveAt(ran);
+    //        }
+    //      catch
+    //        {
+
+    //        }
+    //    }
+    //    foreach(var item in listData)
+    //    {
+    //        if(item.lsIdItem.Count > 0)
+    //        {
+    //            item.lsIdItem.Add(bird.id);
+    //            Debug.LogError("Count > 0");
+    //            break;
+    //        }
+    //        else
+    //        {
+    //            var tempDoubleBird = level.levelSpawn.levelData2.GetDoubleBird(item.id);
+    //            if (tempDoubleBird.birdInFront == null)
+    //            {
+    //                tempDoubleBird.birdInFront = bird;
+    //                bird.transform.parent = tempDoubleBird.transform;
+    //                bird.animBird.SetOrderInLayer(2);
+    //                bird.transform.DOMove(tempDoubleBird.postFront.position,0.3f).OnComplete(delegate {
+    //                    bird.UnlockClick();
+    //                });
+    //                    Debug.LogError("birdInFront == null");
+    //                break;
+    //            }
+    //            if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack == null)
+    //            {
+    //                tempDoubleBird.birdInTheBack = bird;
+    //                tempDoubleBird.birdInFront.behindBird = bird;
+    //                bird.transform.parent = tempDoubleBird.transform;
+    //                bird.animBird.SetOrderInLayer(1);
+    //                bird.transform.DOMove(tempDoubleBird.postFront.position, 0.3f).OnComplete(delegate {
+
+    //                });
+    //                Debug.LogError("birdInFront != null // birdInTheBack == null");
+    //                break;
+    //            }
+    //            if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack != null)
+    //            {
+    //                item.lsIdItem.Add(bird.id);
+    //                Debug.LogError("birdInFront != null // birdInTheBack != null");
+    //                break;
+    //            }
+    //        }
+    //    }
+
+
+    //    //foreach(var item in levelData.lsDataLevel)
+    //    //{
+    //    //    if(item.lsIdItem.Count > 0)
+    //    //    {
+    //    //        listData.Add(item);
+    //    //    }
+    //    //}
+    //    //var ran = Random.RandomRange(0, listData.Count);
+    //    //listData[ran].lsIdItem.Add(idBird);
+
+
+    //}
+
 }
 [System.Serializable]
 public class IdAndNumb

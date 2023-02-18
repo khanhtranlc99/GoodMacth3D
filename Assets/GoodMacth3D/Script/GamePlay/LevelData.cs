@@ -38,10 +38,18 @@ public class LevelData : MonoBehaviour
         return tempId;
     }
 
-
-
     public List<DoubleBird> doubleBird;
-
+    public DoubleBird GetDoubleBird(int paramIdCowInData)
+    {
+        foreach (var item in doubleBird)
+        {
+            if(item.idCowInData == paramIdCowInData)
+            {
+                return item;
+            }
+        }
+        return null;
+    }
 
 
     public void Init()

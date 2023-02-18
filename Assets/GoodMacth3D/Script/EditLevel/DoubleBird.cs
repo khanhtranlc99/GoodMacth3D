@@ -8,6 +8,8 @@ public class DoubleBird : MonoBehaviour
     public bool right;
     public BirdMechanic birdInFront;
     public BirdMechanic birdInTheBack;
+    public Vector3 postFront;
+    public Vector3 postInBack;
     public void Init()
     {
         birdInFront.idCowInData = idCowInData;
@@ -15,6 +17,12 @@ public class DoubleBird : MonoBehaviour
         birdInFront.right = right;
         birdInTheBack.right = right;
         birdInFront.Init();
+        SetTranform(birdInFront, birdInTheBack);
+    }
+    public void SetTranform(BirdMechanic front, BirdMechanic back)
+    {
+        postFront = front.transform.position;
+        postInBack = back.transform.position;
     }
 }
 

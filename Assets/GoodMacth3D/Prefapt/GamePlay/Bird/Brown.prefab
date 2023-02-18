@@ -2025,6 +2025,8 @@ MonoBehaviour:
   IDLE: GAMEPLAY/idle
   FlY: GAMEPLAY/fly
   JUMP: DANCE/WIN
+  PRESLEEP: GAMEPLAY/pre_sleep
+  SLEEP: GAMEPLAY/sleep
   body: {fileID: 3309465410493349008}
   blackColor: {r: 1, g: 1, b: 1, a: 1}
   wasFollow: 0

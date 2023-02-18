@@ -48,12 +48,15 @@ public class SlotBird : MonoBehaviour
         //gameObject.transform.DOMove(paramPost.position, 0.7f).SetEase(Ease.OutQuad);
         
     }
-
+    public void RedoSlot(Transform  transform)
+    {
+        gameObject.transform.transform.DOMove(transform.position, 0.5f);
+    }
     private void RotateBird( Transform paramTranform)
     {
         var tempLocalScaleBird = birdMechanic.animBird.transform.localScale;
         var tempLocalScaleBirdBeforAbs = Math.Abs(tempLocalScaleBird.x);
-        Debug.LogError(tempLocalScaleBirdBeforAbs);
+        //Debug.LogError(tempLocalScaleBirdBeforAbs);
         birdMechanic.animBird.transform.localScale = new Vector3(tempLocalScaleBirdBeforAbs, tempLocalScaleBird.y, tempLocalScaleBird.z);
 
 

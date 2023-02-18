@@ -24,7 +24,7 @@ public class BirdMechanic : MonoBehaviour
     public Post post;
     public SlotBird slotBird;
 
-    public void Init(bool isSleep = false)
+    public void Init()
     {
         //  dot.color = new Color32(0, 0, 0, 0);
         postWhenBirdMove = new Vector3();
@@ -63,10 +63,7 @@ public class BirdMechanic : MonoBehaviour
                   animBird.transform.localScale = CurrentScale;
                   animBird.SetAnim(animBird.IDLE, true);
                   animBird.transform.position = postBird.gameObject.transform.position;
-                  if (isSleep)
-                  {
-                      animBird.SetAnim(animBird.PRESLEEP, false, delegate { animBird.SetAnim(animBird.SLEEP, true); });
-                  }
+                 
               }
            );
         }); 
@@ -76,7 +73,7 @@ public class BirdMechanic : MonoBehaviour
         if (behindBird != null)
         {
             behindBird.LockClick();
-            behindBird.Init(true);
+            behindBird.Init();
             behindBird.animBird.SetColor(true);
             behindBird.animBird.SetOrderInLayer(1);
             behindBird.orderIndex = 1;
@@ -89,10 +86,13 @@ public class BirdMechanic : MonoBehaviour
    
     public void OnMouseDown()
     {
+        Debug.Log("OnMouseDown");
         if(!wasLock)
         {
+            Debug.Log("wasLock");
             OnClick();
         }
+
     }
 
 
@@ -158,13 +158,21 @@ public class BirdMechanic : MonoBehaviour
                 behindBird.behindBird.transform.SetParent(SpawnBird.levelData2.gameObject.transform);
                 behindBird.behindBird.transform.localScale = CurrentScale;
                 behindBird.behindBird.idCowInData = behindBird.idCowInData;
-                behindBird.behindBird.Init(true);
+                behindBird.behindBird.Init();
                 behindBird.behindBird.animBird.SetColor(true);
                 behindBird.behindBird.orderIndex = behindBird.orderIndex;
                 behindBird.behindBird.animBird.SetOrderInLayer(behindBird.orderIndex);
                 behindBird.behindBird.LockClick();
+                SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInTheBack = behindBird.behindBird;
 
             }
+            else
+            {
+                SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInTheBack = null;
+            }
+            SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInFront = behindBird;
+          
+
             behindBird.orderIndex = this.orderIndex;
             behindBird.animBird.SetOrderInLayer(this.orderIndex);
             behindBird.animBird.SetAnim(animBird.IDLE, true);
@@ -175,6 +183,10 @@ public class BirdMechanic : MonoBehaviour
             });
             behindBird.animBird.SetColor(false);
 
+        }
+        else
+        {
+            SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInFront = null;
         }
     }
    
