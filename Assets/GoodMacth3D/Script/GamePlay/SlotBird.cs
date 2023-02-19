@@ -50,7 +50,7 @@ public class SlotBird : MonoBehaviour
     }
     public void RedoSlot(Transform  transform)
     {
-        gameObject.transform.transform.DOMove(transform.position, 0.5f);
+        gameObject.transform.transform.DOMove(transform.position, 1);
     }
     private void RotateBird( Transform paramTranform)
     {

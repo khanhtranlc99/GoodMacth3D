@@ -313,7 +313,7 @@ public class LevelLogic : MonoBehaviour
                 }
                 // item.RedoSlot(level.levelSpawn.rightPost);
                 //  RedoSlotToData(item.birdMechanic, 2);
-                RedoSlotToData2(item);
+                RedoSlotToData(item);
             }
             
         }
@@ -336,7 +336,7 @@ public class LevelLogic : MonoBehaviour
                 }
                 // item.RedoSlot(level.levelSpawn.rightPost);
                 //  RedoSlotToData(item.birdMechanic, lsRedoSlotBird.Count);
-                RedoSlotToData2(item);
+                RedoSlotToData(item);
             }
 
         }
@@ -344,7 +344,7 @@ public class LevelLogic : MonoBehaviour
     public DataLevel dataLevel;
     public DoubleBird tempDoubleBird;
 
-    public void RedoSlotToData2(SlotBird slotBird)
+    public void RedoSlotToData(SlotBird slotBird)
     {
         Debug.Log("RedoSlotToData2");
         var levelData = level.levelSpawn.levelData2.lsDataLevel;      
@@ -355,8 +355,10 @@ public class LevelLogic : MonoBehaviour
         if (dataLevel.lsIdItem.Count > 0)
         {
             dataLevel.lsIdItem.Add(slotBird.birdMechanic.id);
-            slotBird.RedoSlot(level.levelSpawn.rightPost);
-            Debug.LogError("Count > 0");
+            RotateBirdRedo(slotBird.birdMechanic, level.levelSpawn.leftPost.position);
+            slotBird.birdMechanic.animBird.SetAnim(slotBird.birdMechanic.animBird.FlY, true);
+            slotBird.RedoSlot(level.levelSpawn.leftPost);          
+            Debug.Log("Count > 0");
             return;
         }
         else
@@ -366,9 +368,10 @@ public class LevelLogic : MonoBehaviour
             if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack != null)
             {
                 dataLevel.lsIdItem.Add(slotBird.birdMechanic.id);
-            
-                slotBird.RedoSlot(level.levelSpawn.rightPost);
-                Debug.LogError("birdInFront != null // birdInTheBack != null");
+                slotBird.birdMechanic.animBird.SetAnim(slotBird.birdMechanic.animBird.FlY, true);
+                RotateBirdRedo(slotBird.birdMechanic, level.levelSpawn.leftPost.position);
+                slotBird.RedoSlot(level.levelSpawn.leftPost);
+                Debug.Log("birdInFront != null // birdInTheBack != null");
                 return;
             }
             if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack == null)
@@ -378,13 +381,15 @@ public class LevelLogic : MonoBehaviour
                 tempDoubleBird.birdInFront.behindBird = slotBird.birdMechanic;
                 slotBird.birdMechanic.idCowInData = tempDoubleBird.idCowInData;
                 slotBird.birdMechanic.transform.parent = tempDoubleBird.transform;
-                slotBird.birdMechanic.animBird.SetOrderInLayer(1);
-                // slotBird.birdMechanic.Fly(delegate { slotBird.birdMechanic.LockClick(); });
+                slotBird.birdMechanic.animBird.SetOrderInLayer(1);            
+                slotBird.birdMechanic.animBird.SetAnim(slotBird.birdMechanic.animBird.FlY, true);
+               // RotateBirdRedo(slotBird.birdMechanic, tempDoubleBird.postInBack);
                 slotBird.birdMechanic.transform.DOMove(tempDoubleBird.postInBack, 0.3f).OnComplete(delegate
-                {
+                {           
                     slotBird.birdMechanic.LockClick();
+                    slotBird.birdMechanic.animBird.SetAnim(slotBird.birdMechanic.animBird.IDLE, true);
                 });
-                Debug.LogError("birdInFront != null // birdInTheBack == null");
+                Debug.Log("birdInFront != null // birdInTheBack == null");
                 return;
             }
             if (tempDoubleBird.birdInFront == null)
@@ -393,13 +398,15 @@ public class LevelLogic : MonoBehaviour
                 tempDoubleBird.birdInFront = slotBird.birdMechanic;
                 slotBird.birdMechanic.idCowInData = tempDoubleBird.idCowInData;
                 slotBird.birdMechanic.transform.parent = tempDoubleBird.transform;
-                slotBird.birdMechanic.animBird.SetOrderInLayer(2);         
-                //slotBird.birdMechanic.Fly(delegate { slotBird.birdMechanic.UnlockClick(); });
+                slotBird.birdMechanic.animBird.SetOrderInLayer(2);
+                slotBird.birdMechanic.animBird.SetAnim(slotBird.birdMechanic.animBird.FlY, true);
+             //   RotateBirdRedo(slotBird.birdMechanic, tempDoubleBird.postFront);
                 slotBird.birdMechanic.transform.DOMove(tempDoubleBird.postFront, 0.3f).OnComplete(delegate
                 {
                     slotBird.birdMechanic.UnlockClick();
+                    slotBird.birdMechanic.animBird.SetAnim(slotBird.birdMechanic.animBird.IDLE, true);
                 });
-                Debug.LogError("birdInFront == null");
+                Debug.Log("birdInFront == null");
                 return;
             }
         
@@ -408,85 +415,22 @@ public class LevelLogic : MonoBehaviour
 
     }
 
-    //public void RedoSlotToData(BirdMechanic bird, int coutnRan)
-    //{
-    //    var levelData = level.levelSpawn.levelData2.lsDataLevel;
-    //     listData = new List<DataLevel>();
-    //    var tempLsRan = new List<DataLevel>();
-    //    foreach(var item in levelData)
-    //    {
-    //        tempLsRan.Add(item);
-    //    }
-
-    //    for (int i =0; i <= coutnRan; i++ )
-    //    {
-    //        var ran = Random.RandomRange(0, tempLsRan.Count);
-    //        try
-    //        {
-    //            listData.Add(levelData[ran]);
-    //            tempLsRan.RemoveAt(ran);
-    //        }
-    //      catch
-    //        {
-
-    //        }
-    //    }
-    //    foreach(var item in listData)
-    //    {
-    //        if(item.lsIdItem.Count > 0)
-    //        {
-    //            item.lsIdItem.Add(bird.id);
-    //            Debug.LogError("Count > 0");
-    //            break;
-    //        }
-    //        else
-    //        {
-    //            var tempDoubleBird = level.levelSpawn.levelData2.GetDoubleBird(item.id);
-    //            if (tempDoubleBird.birdInFront == null)
-    //            {
-    //                tempDoubleBird.birdInFront = bird;
-    //                bird.transform.parent = tempDoubleBird.transform;
-    //                bird.animBird.SetOrderInLayer(2);
-    //                bird.transform.DOMove(tempDoubleBird.postFront.position,0.3f).OnComplete(delegate {
-    //                    bird.UnlockClick();
-    //                });
-    //                    Debug.LogError("birdInFront == null");
-    //                break;
-    //            }
-    //            if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack == null)
-    //            {
-    //                tempDoubleBird.birdInTheBack = bird;
-    //                tempDoubleBird.birdInFront.behindBird = bird;
-    //                bird.transform.parent = tempDoubleBird.transform;
-    //                bird.animBird.SetOrderInLayer(1);
-    //                bird.transform.DOMove(tempDoubleBird.postFront.position, 0.3f).OnComplete(delegate {
-
-    //                });
-    //                Debug.LogError("birdInFront != null // birdInTheBack == null");
-    //                break;
-    //            }
-    //            if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack != null)
-    //            {
-    //                item.lsIdItem.Add(bird.id);
-    //                Debug.LogError("birdInFront != null // birdInTheBack != null");
-    //                break;
-    //            }
-    //        }
-    //    }
+    private void RotateBirdRedo(BirdMechanic birdMechanic,Vector3 paramTranform)
+    {
+        var tempLocalScaleBird = birdMechanic.animBird.transform.localScale;
+        var tempLocalScaleBirdBeforAbs = System.Math.Abs(tempLocalScaleBird.x);
+        //Debug.LogError(tempLocalScaleBirdBeforAbs);
+        birdMechanic.animBird.transform.localScale = new Vector3(tempLocalScaleBirdBeforAbs, tempLocalScaleBird.y, tempLocalScaleBird.z);
 
 
-    //    //foreach(var item in levelData.lsDataLevel)
-    //    //{
-    //    //    if(item.lsIdItem.Count > 0)
-    //    //    {
-    //    //        listData.Add(item);
-    //    //    }
-    //    //}
-    //    //var ran = Random.RandomRange(0, listData.Count);
-    //    //listData[ran].lsIdItem.Add(idBird);
+        if (paramTranform.x < this.transform.position.x)
+        {
 
+            birdMechanic.animBird.transform.localScale = new Vector3(-tempLocalScaleBirdBeforAbs, tempLocalScaleBird.y, tempLocalScaleBird.z);
 
-    //}
+        }
+
+    }
 
 }
 [System.Serializable]
