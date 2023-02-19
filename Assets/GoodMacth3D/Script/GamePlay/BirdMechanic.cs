@@ -175,13 +175,16 @@ public class BirdMechanic : MonoBehaviour
 
             behindBird.orderIndex = this.orderIndex;
             behindBird.animBird.SetOrderInLayer(this.orderIndex);
-            behindBird.animBird.SetAnim(animBird.IDLE, true);
+            behindBird.animBird.SetAnim(animBird.IDLE, true); 
+            behindBird.animBird.SetColor(false);
             DOTween.Kill(behindBird.transform);
             behindBird.transform.DOJump(this.transform.position, 0.5f, 1, 0.5f).OnComplete(delegate {
                 behindBird.UnlockClick();
                 behindBird.animBird.SetAnim(animBird.IDLE, true);
+                behindBird = null;
             });
-            behindBird.animBird.SetColor(false);
+         
+
 
         }
         else

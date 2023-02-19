@@ -346,26 +346,55 @@ public class LevelLogic : MonoBehaviour
 
     public void RedoSlotToData2(SlotBird slotBird)
     {
-        Debug.LogError("RedoSlotToData2");
+        Debug.Log("RedoSlotToData2");
         var levelData = level.levelSpawn.levelData2.lsDataLevel;      
         var ran = Random.RandomRange(0, levelData.Count);
         dataLevel = new DataLevel();
         dataLevel = levelData[ran];
-
+        slotBird.birdMechanic.behindBird = null;
         if (dataLevel.lsIdItem.Count > 0)
         {
             dataLevel.lsIdItem.Add(slotBird.birdMechanic.id);
+            slotBird.RedoSlot(level.levelSpawn.rightPost);
             Debug.LogError("Count > 0");
-         
+            return;
         }
         else
         {
+            tempDoubleBird = new DoubleBird();
              tempDoubleBird = level.levelSpawn.levelData2.GetDoubleBird(dataLevel.id);
+            if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack != null)
+            {
+                dataLevel.lsIdItem.Add(slotBird.birdMechanic.id);
+            
+                slotBird.RedoSlot(level.levelSpawn.rightPost);
+                Debug.LogError("birdInFront != null // birdInTheBack != null");
+                return;
+            }
+            if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack == null)
+            {
+             
+                tempDoubleBird.birdInTheBack = slotBird.birdMechanic;
+                tempDoubleBird.birdInFront.behindBird = slotBird.birdMechanic;
+                slotBird.birdMechanic.idCowInData = tempDoubleBird.idCowInData;
+                slotBird.birdMechanic.transform.parent = tempDoubleBird.transform;
+                slotBird.birdMechanic.animBird.SetOrderInLayer(1);
+                // slotBird.birdMechanic.Fly(delegate { slotBird.birdMechanic.LockClick(); });
+                slotBird.birdMechanic.transform.DOMove(tempDoubleBird.postInBack, 0.3f).OnComplete(delegate
+                {
+                    slotBird.birdMechanic.LockClick();
+                });
+                Debug.LogError("birdInFront != null // birdInTheBack == null");
+                return;
+            }
             if (tempDoubleBird.birdInFront == null)
             {
+                
                 tempDoubleBird.birdInFront = slotBird.birdMechanic;
+                slotBird.birdMechanic.idCowInData = tempDoubleBird.idCowInData;
                 slotBird.birdMechanic.transform.parent = tempDoubleBird.transform;
-                slotBird.birdMechanic.animBird.SetOrderInLayer(2);
+                slotBird.birdMechanic.animBird.SetOrderInLayer(2);         
+                //slotBird.birdMechanic.Fly(delegate { slotBird.birdMechanic.UnlockClick(); });
                 slotBird.birdMechanic.transform.DOMove(tempDoubleBird.postFront, 0.3f).OnComplete(delegate
                 {
                     slotBird.birdMechanic.UnlockClick();
@@ -373,26 +402,8 @@ public class LevelLogic : MonoBehaviour
                 Debug.LogError("birdInFront == null");
                 return;
             }
-            if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack == null)
-            {
-                tempDoubleBird.birdInTheBack = slotBird.birdMechanic;
-         
-                slotBird.birdMechanic.transform.parent = tempDoubleBird.transform;
-                slotBird.birdMechanic.animBird.SetOrderInLayer(1);
-                slotBird.birdMechanic.transform.DOMove(tempDoubleBird.postInBack, 0.3f).OnComplete(delegate
-                {
-
-                });
-                Debug.LogError("birdInFront != null // birdInTheBack == null");
-                return;
-            }
-            if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack != null)
-            {
-                dataLevel.lsIdItem.Add(slotBird.birdMechanic.id);
-                slotBird.RedoSlot(level.levelSpawn.rightPost);
-                Debug.LogError("birdInFront != null // birdInTheBack != null");
-                return;
-            }
+        
+           
         }
 
     }
