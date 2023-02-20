@@ -434,6 +434,10 @@ public class LevelLogic : MonoBehaviour
     #region BoosterSuport
     public void BoosterSuport()
     {
+        if(lsSlotBird.Count <= 0)
+        {
+            return;
+        }
         bool wasHasTwoItem = false;
         foreach (var item in lsIdAndNumb)
         {
@@ -447,7 +451,7 @@ public class LevelLogic : MonoBehaviour
                 if (tempInFront.Count > 0)
                 {
                     tempInFront[0].OnClick();
-                 
+                    Debug.LogError("co thang dang truoc");
                     break;
                     
                 }
@@ -455,12 +459,13 @@ public class LevelLogic : MonoBehaviour
                 if (tempInBack.Count > 0)
                 {
                     tempInBack[0].HandleBirdBehindByBooster();
+                    Debug.LogError("co thang dang sau ");
                     break;
                 }
 
                 if (tempInFront.Count == 0 && tempInBack.Count == 0)
                 {
-                    Debug.Log("khong co thang nao tren ban do");
+                    Debug.LogError("khong co thang nao tren ban do");
                     HandleNoSuitableBird(item.id);
                     break;
                 }
@@ -469,6 +474,7 @@ public class LevelLogic : MonoBehaviour
         if (!wasHasTwoItem)
         {
             HandleNoTwoSuitableBird();
+            Debug.LogError("chi co 1 thang");
         }
 
 
@@ -511,12 +517,13 @@ public class LevelLogic : MonoBehaviour
                     tempListBirdSuport[0].HandleBirdBehindByBooster();
                 }
                 HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
-
+                Debug.LogError("Count = 1");
             }
           else
             {
                 HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
                 HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
+                Debug.LogError("Count = 0");
             }
         }
 
