@@ -30,7 +30,7 @@ public class BirdMechanic : MonoBehaviour
         postWhenBirdMove = new Vector3();
         var SpawnBird = Level.Instance.levelSpawn;
         var CurrentScale = new Vector3();
-        id = SpawnBird.levelData2.GetDataLevel(idCowInData);
+        id = SpawnBird.levelData2.GetDataLevel(idCowInData); //lay ra va remove id khoi data
         animBird = SimplePool2.Spawn(SpawnBird.GetAnimBird(id).animBird, right ? SpawnBird.leftPost.position : SpawnBird.rightPost.position, Quaternion.identity);
         animBird.SetAnim(animBird.FlY, true);
         if (right)
@@ -104,7 +104,7 @@ public class BirdMechanic : MonoBehaviour
         controler.HandleCheckLose(this);
         controler.AddBirdToListSlot(this);
         animBird.transform.position = postBird.gameObject.transform.position;
-        animBird.SetAnim(animBird.FlY, true);
+        //animBird.SetAnim(animBird.FlY, true);
 
     
     }
@@ -114,6 +114,7 @@ public class BirdMechanic : MonoBehaviour
     {
         var controler = Level.Instance.levelLogic;
         DOTween.Kill(this.transform);
+        animBird.SetAnim(animBird.FlY, true);
         this.transform.DOLocalMove(new Vector3(0,0.2f,0), 1).OnComplete(delegate
         {
             animBird.SetAnim(animBird.IDLE, true);
@@ -192,16 +193,41 @@ public class BirdMechanic : MonoBehaviour
             SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInFront = null;
         }
     }
-   
-    //Ease easy = Ease.OutSine;
-    //int random = Random.Range(1, 6);
-    //        if (random == 1)
-    //            easy = Ease.OutQuad;
-    //        else if (random == 2)
-    //            easy = Ease.OutQuart;
-    //        else if (random == 3)
-    //            easy = Ease.OutFlash;
-    //        else if (random == 4)
-    //            easy = Ease.InOutFlash;
+    public void HandleBirdBehindByBooster()
+    {
+        var SpawnBird = Level.Instance.levelSpawn;
+        var DoubleBird = SpawnBird.levelData2.GetDoubleBird(idCowInData);
+        var CurrentScale = new Vector3();
+        var CurrentPossition = new Vector3();
+        CurrentPossition = this.transform.position;
+        if (SpawnBird.levelData2.GetCountLsDataLevel(idCowInData) > 0)
+        {
+     
+          var tempBird = SimplePool2.Spawn(SpawnBird.birdMechanic, CurrentPossition, Quaternion.identity);
+            tempBird.right = this.right;
+            CurrentScale = tempBird.transform.localScale;
+            tempBird.transform.SetParent(SpawnBird.levelData2.gameObject.transform);
+            tempBird.transform.localScale = CurrentScale;
+            tempBird.idCowInData = this.idCowInData;
+            tempBird.Init();
+            tempBird.animBird.SetColor(true);
+            tempBird.orderIndex = this.orderIndex;
+            tempBird.animBird.SetOrderInLayer(this.orderIndex);
+            tempBird.LockClick();
+            var tempBirdFront = DoubleBird.birdInFront;
+            OnClick();
+            DoubleBird.birdInFront = tempBirdFront;   
+            DoubleBird.birdInFront.behindBird = tempBird;
+            DoubleBird.birdInTheBack = tempBird;
+            Debug.LogError("tempBird");
+        }
+        else
+        {
+            OnClick();
+            Debug.LogError("OnClick");
+        }
+        
+    }    
+
 
 }

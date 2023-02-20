@@ -65,17 +65,7 @@ public class LevelSpawn : MonoBehaviour
                         SimplePool2.Despawn(GetAnimBird(idBird).lsAnimEffect[j].gameObject);
                         GetAnimBird(idBird).lsAnimEffect.RemoveAt(j);
                     }
-                });
-
-
-
-
-
-
-
-
-
-              
+                });              
             }
 
 

@@ -633,10 +633,8 @@ MonoBehaviour:
   - {fileID: 1006610581}
   - {fileID: 962150090}
   - {fileID: 944677871}
-  dataLevel:
-    id: 0
-    lsIdItem: 
-  tempDoubleBird: {fileID: 0}
+  TestFront: []
+  TestInBack: []
 --- !u!1 &260561475
 GameObject:
   m_ObjectHideFlags: 0
@@ -4440,7 +4438,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1593318547}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 213674643}
+        m_TargetAssemblyTypeName: LevelLogic, Assembly-CSharp
+        m_MethodName: BoosterSuport
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1593318547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5723,7 +5733,7 @@ MonoBehaviour:
   - id: 1
     lsIdItem: 010000000100000003000000
   - id: 2
-    lsIdItem: 01000000020000000100000003000000
+    lsIdItem: 02000000030000000100000001000000
   - id: 3
     lsIdItem: 020000000300000002000000
   - id: 4
@@ -5731,7 +5741,7 @@ MonoBehaviour:
   - id: 5
     lsIdItem: 03000000040000000400000002000000
   - id: 6
-    lsIdItem: 01000000020000000300000001000000
+    lsIdItem: 03000000020000000100000001000000
   sumBird: 0
   doubleBird:
   - {fileID: 260561477}

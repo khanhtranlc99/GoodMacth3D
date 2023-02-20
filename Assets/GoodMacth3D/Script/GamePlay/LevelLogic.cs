@@ -7,9 +7,21 @@ using System.Linq;
 
 public class LevelLogic : MonoBehaviour
 {
+    #region Var
     private Level level;
     public List<BirdMechanic> lsBirdEndGame;
-    public List<IdAndNumb> lsIdAndNumb;
+    public List<IdAndNumb> lsIdAndNumb; 
+    public GameObject losePanel;
+    public GameObject winPanel;
+    public List<IdAndNumbBirdDuplicate> lsCount;
+    private List<int> lsBirdTemp;
+    public Transform parentSlotBird;
+    public SlotBird slotBird;
+    public List<SlotBird> lsSlotBird = new List<SlotBird>();
+    public List<SlotBird> lsRedoSlotBird = new List<SlotBird>();
+    public List<Post> lsPost;
+    #endregion
+    #region Get
     public IdAndNumb GetIdAndNumb(int id)
     {
         foreach (var item in lsIdAndNumb)
@@ -21,15 +33,6 @@ public class LevelLogic : MonoBehaviour
         }
         return null;
     }
-    public GameObject losePanel;
-    public GameObject winPanel;
-    public List<IdAndNumbBirdDuplicate> lsCount;
-    private List<int> lsBirdTemp;
-    public Transform parentSlotBird;
-    public SlotBird slotBird;
-    public List<SlotBird> lsSlotBird = new List<SlotBird>();
-    public List<SlotBird> lsRedoSlotBird = new List<SlotBird>();
-    public List<Post> lsPost;
     public Post GetPost(int id)
     {
         foreach (var item in lsPost)
@@ -41,7 +44,8 @@ public class LevelLogic : MonoBehaviour
         }
         return null;
     }
-
+    #endregion
+    #region InitMethod
     public void Init(Level param)
     {
         level = param;
@@ -54,6 +58,8 @@ public class LevelLogic : MonoBehaviour
         //    lsIdAndNumb.Add(new IdAndNumb() { id = level.levelSpawn.levelData.idBlock[i], numb = 0 });
         //}
     }
+    #endregion
+    #region Sort
     public void AddBirdToListSlot(BirdMechanic bird)
     {
         int indexNewSlot = GetPostOfSlot(bird);
@@ -143,6 +149,8 @@ public class LevelLogic : MonoBehaviour
 
         }
     }
+    #endregion
+    #region EndGame
     public void HandleCheckLose(BirdMechanic paramBlock)
     {
         if (lsSlotBird.Count >= 6)
@@ -232,16 +240,12 @@ public class LevelLogic : MonoBehaviour
             {
                 lsBirdTemp.Add(item.birdMechanic.id);
             }
-
             var ienum = lsBirdTemp.Distinct();
             lsBirdTemp = ienum.ToList<int>();
-
             foreach (var item in lsBirdTemp)
             {
                 lsCount.Add(new IdAndNumbBirdDuplicate() { id = item });
             }
-
-
             for (int i = lsSlotBird.Count -1; i >=0 ; i--)
             {
                 foreach (var item in lsCount)
@@ -252,7 +256,6 @@ public class LevelLogic : MonoBehaviour
                     }
                 }
             }
-
             foreach (var item in lsCount)
             {
                 if (item.numb >= 3)
@@ -260,11 +263,8 @@ public class LevelLogic : MonoBehaviour
                     return true;
                 }
             }
-
             return false;
         }
-    
-
     }
     private bool SuportCheckLoseMethodOneBird(BirdMechanic birdMechanic)
     {
@@ -291,7 +291,10 @@ public class LevelLogic : MonoBehaviour
             winPanel.SetActive(true);
         }
     }
-
+    #endregion
+    #region BoosterRedo
+    private DataLevel dataLevel;
+    private DoubleBird tempDoubleBird;
     public void BoosterRedo()
     {
         if(lsSlotBird.Count > 3)
@@ -341,9 +344,6 @@ public class LevelLogic : MonoBehaviour
 
         }
     }
-    public DataLevel dataLevel;
-    public DoubleBird tempDoubleBird;
-
     public void RedoSlotToData(SlotBird slotBird)
     {
         Debug.Log("RedoSlotToData2");
@@ -414,7 +414,6 @@ public class LevelLogic : MonoBehaviour
         }
 
     }
-
     private void RotateBirdRedo(BirdMechanic birdMechanic,Vector3 paramTranform)
     {
         var tempLocalScaleBird = birdMechanic.animBird.transform.localScale;
@@ -431,6 +430,183 @@ public class LevelLogic : MonoBehaviour
         }
 
     }
+    #endregion
+    #region BoosterSuport
+    public void BoosterSuport()
+    {
+        bool wasHasTwoItem = false;
+        foreach (var item in lsIdAndNumb)
+        {
+            if (item.numb == 2)
+            {
+                Debug.LogError("item.numb == 2");
+                wasHasTwoItem = true;
+                var tempInBack = FindBirdInBackNeedSuportDoubleBird(item.id);
+                var tempInFront = FindBirdInFrontNeedSuportDoubleBird(item.id);
+
+                if (tempInFront.Count > 0)
+                {
+                    tempInFront[0].OnClick();
+                 
+                    break;
+                    
+                }
+
+                if (tempInBack.Count > 0)
+                {
+                    tempInBack[0].HandleBirdBehindByBooster();
+                    break;
+                }
+
+                if (tempInFront.Count == 0 && tempInBack.Count == 0)
+                {
+                    Debug.Log("khong co thang nao tren ban do");
+                    HandleNoSuitableBird(item.id);
+                    break;
+                }
+            }
+        }
+        if (!wasHasTwoItem)
+        {
+            HandleNoTwoSuitableBird();
+        }
+
+
+        Debug.LogError("BoosterSuport");
+    }
+    private void HandleNoTwoSuitableBird()
+    {
+
+        var tempListBirdSuport = FindBirdOneBird(lsSlotBird[0].birdMechanic.id);
+        if(tempListBirdSuport.Count >= 2)
+        {
+            if(tempListBirdSuport[0].behindBird != null ) //dang truoc
+            {
+                tempListBirdSuport[0].OnClick();
+            }
+            else
+            {
+                tempListBirdSuport[0].HandleBirdBehindByBooster();
+            }
+
+            if (tempListBirdSuport[1].behindBird != null) //dang truoc
+            {
+                tempListBirdSuport[1].OnClick();
+            }
+            else
+            {
+                tempListBirdSuport[1].HandleBirdBehindByBooster();
+            }
+        }
+        else
+        {
+            if(tempListBirdSuport.Count == 1)
+            {
+                if (tempListBirdSuport[0].behindBird != null) //dang truoc
+                {
+                    tempListBirdSuport[0].OnClick();
+                }
+                else
+                {
+                    tempListBirdSuport[0].HandleBirdBehindByBooster();
+                }
+                HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
+
+            }
+          else
+            {
+                HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
+                HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
+            }
+        }
+
+    }
+    [SerializeField] private List<BirdMechanic> TestFront;
+    [SerializeField] private List<BirdMechanic> TestInBack;
+    [SerializeField] private List<BirdMechanic> TestOneBird;
+    private List<BirdMechanic> FindBirdOneBird(int idBird)
+    {
+        var dataDoubleBird = level.levelSpawn.levelData2.doubleBird;
+        var lsBirdSuport = new List<BirdMechanic>();
+        foreach (var item in dataDoubleBird)
+        {
+            if (item.birdInFront != null)
+            {
+                if (item.birdInFront.id == idBird)
+                {
+                    lsBirdSuport.Add(item.birdInFront);
+                }
+            }
+            if (item.birdInTheBack != null)
+            {
+                if (item.birdInTheBack.id == idBird)
+                {
+                    lsBirdSuport.Add(item.birdInTheBack);
+                }
+            }
+        }
+        TestOneBird = lsBirdSuport;
+        return lsBirdSuport;
+    }
+    private List<BirdMechanic> FindBirdInFrontNeedSuportDoubleBird(int idBird)
+    {
+        var dataDoubleBird = level.levelSpawn.levelData2.doubleBird;
+        var lsBirdSuport = new List<BirdMechanic>();
+        foreach (var item in dataDoubleBird)
+        {
+            if(item.birdInFront != null)
+            {
+                if (item.birdInFront.id == idBird)
+                {
+                    lsBirdSuport.Add(item.birdInFront);
+                }
+            }            
+        }
+        TestFront = lsBirdSuport;
+        return lsBirdSuport;
+    }
+    private List<BirdMechanic> FindBirdInBackNeedSuportDoubleBird(int idBird)
+    {
+        var dataDoubleBird = level.levelSpawn.levelData2.doubleBird;
+        var lsBirdSuport = new List<BirdMechanic>();
+        foreach (var item in dataDoubleBird)
+        {
+            if (item.birdInTheBack != null)
+            {
+                if (item.birdInTheBack.id == idBird)
+                {
+                    lsBirdSuport.Add(item.birdInTheBack);
+                }
+            }
+        }
+        TestInBack = lsBirdSuport;
+        return lsBirdSuport;
+    }
+    private void HandleNoSuitableBird(int idBird)
+    {
+        Debug.Log("HandleNoSuitableBird");
+        foreach (var item in level.levelSpawn.levelData2.lsDataLevel)
+        {
+            for(int i = item.lsIdItem.Count -1 ; i >= 0  ; i--)
+            {
+                if(item.lsIdItem[i] == idBird)
+                {
+                    var CurrentScale = new Vector3();
+                    var tempBird = SimplePool2.Spawn(level.levelSpawn.birdMechanic, level.levelSpawn.leftPost.position, Quaternion.identity);
+                    tempBird.id = idBird;
+                    tempBird.animBird = SimplePool2.Spawn(level.levelSpawn.GetAnimBird(idBird).animBird, level.levelSpawn.leftPost.position, Quaternion.identity);
+                    tempBird.animBird.transform.SetParent(tempBird.transform);
+                    tempBird.animBird.transform.localScale = new Vector3(tempBird.animBird.transform.localScale.x, tempBird.animBird.transform.localScale.y, tempBird.animBird.transform.localScale.z);
+                    AddBirdToListSlot(tempBird);
+                    item.lsIdItem.RemoveAt(i);
+                    return;
+                }
+            }
+        }
+    }
+  
+    #endregion
+
 
 }
 [System.Serializable]
