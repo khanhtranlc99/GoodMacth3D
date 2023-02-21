@@ -13,16 +13,23 @@ public class DoubleBird : MonoBehaviour
     public void Init()
     {
         birdInFront.idCowInData = idCowInData;
-        birdInTheBack.idCowInData = idCowInData;
+        if(birdInTheBack != null)
+        {
+            birdInTheBack.idCowInData = idCowInData;
+            birdInTheBack.right = right;
+        }
         birdInFront.right = right;
-        birdInTheBack.right = right;
         birdInFront.Init();
         SetTranform(birdInFront, birdInTheBack);
     }
     public void SetTranform(BirdMechanic front, BirdMechanic back)
     {
         postFront = front.transform.position;
-        postInBack = back.transform.position;
+        if(back != null)
+        {
+            postInBack = back.transform.position;
+        }
+    
     }
 }
 

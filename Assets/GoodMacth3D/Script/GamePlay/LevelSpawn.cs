@@ -6,7 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class LevelSpawn : MonoBehaviour
 {
- 
+    public int CurrentLevelTest
+    {
+        get 
+        {
+            return PlayerPrefs.GetInt("CurrentLevelTest",0);
+        }
+        set
+        {
+             PlayerPrefs.SetInt("CurrentLevelTest", value);
+        }
+    }
     public List<AnimBirdWithId> prefaptBird;
     public LevelData levelData2;
     public Transform rightPost;
@@ -23,13 +33,18 @@ public class LevelSpawn : MonoBehaviour
         }
         return null;
     }
-
+    public List<LevelData> lsLevelDatas;
 
 
     public void Init()
     {
-        SetUpPrefaptBird();
-        levelData2.Init();
+        levelData2 = Instantiate(lsLevelDatas[CurrentLevelTest]);
+        if(levelData2 != null)
+        {
+            SetUpPrefaptBird();
+            levelData2.Init();
+        }
+      
     }
     public void SetUpPrefaptBird()
     {

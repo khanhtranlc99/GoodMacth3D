@@ -26,7 +26,7 @@ public class BirdMechanic : MonoBehaviour
 
     public void Init()
     {
-        //  dot.color = new Color32(0, 0, 0, 0);
+          dot.color = new Color32(0, 0, 0, 0);
         postWhenBirdMove = new Vector3();
         var SpawnBird = Level.Instance.levelSpawn;
         var CurrentScale = new Vector3();

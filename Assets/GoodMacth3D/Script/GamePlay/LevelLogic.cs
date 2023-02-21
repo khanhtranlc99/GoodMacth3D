@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System.Linq;
-
+using UnityEngine.SceneManagement;
 
 public class LevelLogic : MonoBehaviour
 {
@@ -292,6 +292,19 @@ public class LevelLogic : MonoBehaviour
             winPanel.SetActive(true);
         }
     }
+    public void TestNext()
+    { 
+        level.levelSpawn.CurrentLevelTest += 1;
+        if (level.levelSpawn.CurrentLevelTest >= level.levelSpawn.lsLevelDatas.Count)
+        {
+            level.levelSpawn.CurrentLevelTest = 0;
+        }
+            SceneManager.LoadScene("SceneGamePlayTest");
+    }
+    public void Retry()
+    {
+        SceneManager.LoadScene("SceneGamePlayTest");
+    }
     #endregion
     #region BoosterRedo
     private DataLevel dataLevel;
@@ -374,7 +387,7 @@ public class LevelLogic : MonoBehaviour
             {
                 dataLevel.lsIdItem.Add(slotBird.birdMechanic.id);
                 slotBird.birdMechanic.animBird.SetAnim(slotBird.birdMechanic.animBird.FlY, true);
-                RotateBirdRedo(slotBird.birdMechanic, level.levelSpawn.leftPost.position);
+                //RotateBirdRedo(slotBird.birdMechanic, level.levelSpawn.leftPost.position);
                 slotBird.RedoSlot(level.levelSpawn.leftPost);
                 Debug.Log("birdInFront != null // birdInTheBack != null");
                 return;
@@ -572,6 +585,7 @@ public class LevelLogic : MonoBehaviour
         {
             if(item.birdInFront != null)
             {
+             
                 if (item.birdInFront.id == idBird)
                 {
                     lsBirdSuport.Add(item.birdInFront);
