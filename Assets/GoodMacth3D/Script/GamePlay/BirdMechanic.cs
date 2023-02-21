@@ -115,11 +115,16 @@ public class BirdMechanic : MonoBehaviour
         var controler = Level.Instance.levelLogic;
         DOTween.Kill(this.transform);
         animBird.SetAnim(animBird.FlY, true);
+        Level.Instance.levelLogic.lsLoockBooster.Add(1);
         this.transform.DOLocalMove(new Vector3(0,0.2f,0), 1).OnComplete(delegate
         {
             animBird.SetAnim(animBird.IDLE, true);
             this.transform.DOLocalMove(new Vector3(0, 0, 0), 0.2f).OnComplete(
             delegate {
+                if (Level.Instance.levelLogic.lsLoockBooster.Count > 0)
+                {
+                    Level.Instance.levelLogic.lsLoockBooster.Remove(Level.Instance.levelLogic.lsLoockBooster[0]);
+                }
                 if (action != null)
                 {
                     action?.Invoke();

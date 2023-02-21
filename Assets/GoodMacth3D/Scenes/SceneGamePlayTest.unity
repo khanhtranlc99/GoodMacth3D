@@ -708,6 +708,7 @@ MonoBehaviour:
   - {fileID: 1006610581}
   - {fileID: 962150090}
   - {fileID: 944677871}
+  lsLoockBooster: 
   TestFront: []
   TestInBack: []
   TestOneBird: []
@@ -757,7 +758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idCowInData: 1
-  right: 1
+  right: 0
   birdInFront: {fileID: 429202139}
   birdInTheBack: {fileID: 1082726714}
   postFront: {x: 0, y: 0, z: 0}
@@ -1113,6 +1114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackPanel: {fileID: 1748499652}
+  level: {fileID: 213674643}
 --- !u!1 &429202136
 GameObject:
   m_ObjectHideFlags: 0
@@ -2756,7 +2758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idCowInData: 3
-  right: 1
+  right: 0
   birdInFront: {fileID: 1447760380}
   birdInTheBack: {fileID: 572065797}
   postFront: {x: 0, y: 0, z: 0}
@@ -4899,6 +4901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackPanel: {fileID: 211259153}
+  level: {fileID: 213674643}
 --- !u!1 &1658275983
 GameObject:
   m_ObjectHideFlags: 0
@@ -5509,7 +5512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idCowInData: 2
-  right: 1
+  right: 0
   birdInFront: {fileID: 2066082703}
   birdInTheBack: {fileID: 1008884740}
   postFront: {x: 0, y: 0, z: 0}
@@ -6416,19 +6419,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e8f4a97e860b34dadb4a00cc0288f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
+  numOfPost: 6
+  lsDataEdit:
+  - id: 1
+    count: 6
+  - id: 2
+    count: 3
+  - id: 3
+    count: 6
+  - id: 4
+    count: 3
+  tempID: 
   lsDataLevel:
   - id: 1
-    lsIdItem: 010000000100000003000000
+    lsIdItem: 01000000020000000400000003000000
   - id: 2
-    lsIdItem: 02000000030000000100000001000000
+    lsIdItem: 0100000004000000
   - id: 3
-    lsIdItem: 020000000300000002000000
+    lsIdItem: 0300000001000000
   - id: 4
-    lsIdItem: 030000000400000002000000
+    lsIdItem: 010000000100000002000000
   - id: 5
-    lsIdItem: 03000000040000000400000002000000
+    lsIdItem: 030000000300000001000000
   - id: 6
-    lsIdItem: 03000000020000000100000001000000
+    lsIdItem: 03000000020000000300000004000000
   sumBird: 0
   doubleBird:
   - {fileID: 260561477}

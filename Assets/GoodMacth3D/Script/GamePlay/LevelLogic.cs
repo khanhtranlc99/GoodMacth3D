@@ -20,6 +20,7 @@ public class LevelLogic : MonoBehaviour
     public List<SlotBird> lsSlotBird = new List<SlotBird>();
     public List<SlotBird> lsRedoSlotBird = new List<SlotBird>();
     public List<Post> lsPost;
+    public List<int> lsLoockBooster;
     #endregion
     #region Get
     public IdAndNumb GetIdAndNumb(int id)
@@ -297,6 +298,10 @@ public class LevelLogic : MonoBehaviour
     private DoubleBird tempDoubleBird;
     public void BoosterRedo()
     {
+        if (lsLoockBooster.Count > 0)
+        {
+            return;
+        }
         if(lsSlotBird.Count > 3)
         {
             lsRedoSlotBird = new List<SlotBird>();
@@ -434,7 +439,11 @@ public class LevelLogic : MonoBehaviour
     #region BoosterSuport
     public void BoosterSuport()
     {
-        if(lsSlotBird.Count <= 0)
+        if (lsLoockBooster.Count > 0)
+        {
+            return;
+        }
+        if (lsSlotBird.Count <= 0)
         {
             return;
         }
