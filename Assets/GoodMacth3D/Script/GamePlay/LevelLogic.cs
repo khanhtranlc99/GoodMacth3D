@@ -104,6 +104,7 @@ public class LevelLogic : MonoBehaviour
                 for (int i = 2; i >= 0; i--)
                 {
                     item.lsBird[i].gameObject.SetActive(false);
+                    item.lsBird[i].SpawnVFX();
                     item.lsBird.RemoveAt(i);
                     item.numb -= 1;
                     level.levelSpawn.levelData2.sumBird -= 1;
@@ -381,7 +382,7 @@ public class LevelLogic : MonoBehaviour
         }
         else
         {
-            tempDoubleBird = new DoubleBird();
+            tempDoubleBird = null;
              tempDoubleBird = level.levelSpawn.levelData2.GetDoubleBird(dataLevel.id);
             if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack != null)
             {
@@ -452,6 +453,7 @@ public class LevelLogic : MonoBehaviour
     #region BoosterSuport
     public void BoosterSuport()
     {
+        Debug.Log("BoosterSuport");
         if (lsLoockBooster.Count > 0)
         {
             return;
@@ -495,12 +497,13 @@ public class LevelLogic : MonoBehaviour
         }
         if (!wasHasTwoItem)
         {
+            Debug.LogError("chi co 1 thang o duoi can 2 thang de ghep thanh cong");
             HandleNoTwoSuitableBird();
-            Debug.LogError("chi co 1 thang");
+         
         }
 
 
-        Debug.LogError("BoosterSuport");
+      
     }
     private void HandleNoTwoSuitableBird()
     {
@@ -508,23 +511,31 @@ public class LevelLogic : MonoBehaviour
         var tempListBirdSuport = FindBirdOneBird(lsSlotBird[0].birdMechanic.id);
         if(tempListBirdSuport.Count >= 2)
         {
-            if(tempListBirdSuport[0].behindBird != null ) //dang truoc
+            Debug.LogError("co 2 thang tren map");
+            if (tempListBirdSuport[0].behindBird != null ) //dang truoc
             {
                 tempListBirdSuport[0].OnClick();
+                Debug.LogError("222222");
             }
             else
             {
+                Debug.LogError("11111111111111111");
                 tempListBirdSuport[0].HandleBirdBehindByBooster();
+              
             }
 
-            if (tempListBirdSuport[1].behindBird != null) //dang truoc
+            if (tempListBirdSuport[1].behindBird != null) //dang sau
             {
                 tempListBirdSuport[1].OnClick();
+                Debug.LogError("22222");
             }
             else
             {
+                Debug.LogError("11111111111111111");
                 tempListBirdSuport[1].HandleBirdBehindByBooster();
+        
             }
+       
         }
         else
         {
@@ -547,6 +558,7 @@ public class LevelLogic : MonoBehaviour
                 HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
                 Debug.LogError("Count = 0");
             }
+            Debug.LogError("co 1 thang tren map ");
         }
 
     }

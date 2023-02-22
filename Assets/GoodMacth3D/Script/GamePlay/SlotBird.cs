@@ -68,11 +68,15 @@ public class SlotBird : MonoBehaviour
         }
 
     }
+    public void SpawnVFX()
+    {
+        var controler = Level.Instance.levelLogic;
+        Level.Instance.levelSpawn.SpawnEffectBird(birdMechanic.id, this.transform);
+    }
     private void OnDisable()
     {
         //this.transform.DOKill();
-        var controler = Level.Instance.levelLogic;
-        Level.Instance.levelSpawn.SpawnEffectBird(birdMechanic.id, this.transform);
+    
 
     }
 }

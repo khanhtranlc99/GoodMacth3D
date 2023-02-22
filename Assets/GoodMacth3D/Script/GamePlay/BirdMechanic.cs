@@ -150,7 +150,7 @@ public class BirdMechanic : MonoBehaviour
     {
         var SpawnBird = Level.Instance.levelSpawn;
         
-        if (behindBird != null )
+        if (behindBird != null)
         {
 
             var CurrentScale = new Vector3();
@@ -228,11 +228,25 @@ public class BirdMechanic : MonoBehaviour
         }
         else
         {
-            OnClick();
-            Debug.LogError("OnClick");
+            OnClickBirdBehindByBooser();
+            Debug.LogError("OnClickBirdBehindByBooser");
         }
         
     }    
+    private void OnClickBirdBehindByBooser()
+    {
+        wasLock = true;
+        UnlockClickBlockBehideBooster();
+        var controler = Level.Instance.levelLogic;
+        controler.HandleCheckLose(this);
+        controler.AddBirdToListSlot(this);
+        animBird.transform.position = postBird.gameObject.transform.position;
+    }
+    public void UnlockClickBlockBehideBooster()
+    {
+        var SpawnBird = Level.Instance.levelSpawn;
 
-
+        SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInTheBack = null;
+        SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInFront.behindBird = null;
+    }
 }

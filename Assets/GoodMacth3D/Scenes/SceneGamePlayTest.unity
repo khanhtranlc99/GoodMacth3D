@@ -1095,7 +1095,7 @@ MonoBehaviour:
   leftPost: {fileID: 329075165}
   birdMechanic: {fileID: 8291598191684639508, guid: abcdccbe8d5b2304b9a47b47f15f5626, type: 3}
   lsLevelDatas:
-  - {fileID: 7084758004834495196, guid: 4ff240d1e277b0145865df81e20c628d, type: 3}
+  - {fileID: 5365791495803448362, guid: 7a8e2bf50b829034fb8c4b57f6d399a2, type: 3}
   - {fileID: 2274416936368573104, guid: a5d95358beb2d7f43b126f9ec0e2f337, type: 3}
   - {fileID: 7084758004834495196, guid: 4ff240d1e277b0145865df81e20c628d, type: 3}
   - {fileID: 6037002213803223632, guid: b1ae1adfe87fb9643bca24196bdb5901, type: 3}
@@ -3082,8 +3082,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 152.63, y: 471}
-  m_SizeDelta: {x: 123.26, y: 99.29}
+  m_AnchoredPosition: {x: 182.22998, y: 527.16}
+  m_SizeDelta: {x: 182.45, y: 211.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1593318546
 MonoBehaviour:
