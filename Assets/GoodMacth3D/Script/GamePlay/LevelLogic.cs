@@ -512,26 +512,30 @@ public class LevelLogic : MonoBehaviour
         if(tempListBirdSuport.Count >= 2)
         {
             Debug.LogError("co 2 thang tren map");
-            if (tempListBirdSuport[0].behindBird != null ) //dang truoc
+            var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
+            var temp1 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[1].idCowInData);
+            Debug.LogError("temp0 " + temp0.gameObject.name);
+            Debug.LogError("temp0 " + temp0.gameObject.name);
+            if (temp0.birdInFront == tempListBirdSuport[0]) //dang truoc
             {
                 tempListBirdSuport[0].OnClick();
-                Debug.LogError("222222");
+                Debug.LogError("dang truoc " + tempListBirdSuport[0].gameObject.name);
             }
             else
             {
-                Debug.LogError("11111111111111111");
+                Debug.LogError("dang sau " + tempListBirdSuport[0].gameObject.name);
                 tempListBirdSuport[0].HandleBirdBehindByBooster();
               
             }
 
-            if (tempListBirdSuport[1].behindBird != null) //dang sau
+            if (temp1.birdInFront == tempListBirdSuport[1]) //dang sau
             {
                 tempListBirdSuport[1].OnClick();
-                Debug.LogError("22222");
+                Debug.LogError("dang truoc " + tempListBirdSuport[1].gameObject.name);
             }
             else
             {
-                Debug.LogError("11111111111111111");
+                Debug.LogError("dang sau " + tempListBirdSuport[1].gameObject.name);
                 tempListBirdSuport[1].HandleBirdBehindByBooster();
         
             }
@@ -541,7 +545,8 @@ public class LevelLogic : MonoBehaviour
         {
             if(tempListBirdSuport.Count == 1)
             {
-                if (tempListBirdSuport[0].behindBird != null) //dang truoc
+                var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
+                if (temp0.birdInFront == tempListBirdSuport[0]) //dang truoc
                 {
                     tempListBirdSuport[0].OnClick();
                 }
@@ -576,6 +581,7 @@ public class LevelLogic : MonoBehaviour
                 if (item.birdInFront.id == idBird)
                 {
                     lsBirdSuport.Add(item.birdInFront);
+                    //Debug.LogError("dang truoc " + item.birdInFront.gameObject.name);
                 }
             }
             if (item.birdInTheBack != null)
@@ -583,6 +589,7 @@ public class LevelLogic : MonoBehaviour
                 if (item.birdInTheBack.id == idBird)
                 {
                     lsBirdSuport.Add(item.birdInTheBack);
+                 //   Debug.LogError("dang sau " + item.birdInTheBack.gameObject.name);
                 }
             }
         }

@@ -41,7 +41,7 @@ public class BirdMechanic : MonoBehaviour
         {
             CurrentScale = animBird.transform.localScale;
         }
-
+        this.gameObject.name = animBird.name + "row " + idCowInData;
         animBird.transform.SetParent(this.transform);
         animBird.transform.localScale = CurrentScale;
         Ease easy = Ease.OutSine;
@@ -77,7 +77,7 @@ public class BirdMechanic : MonoBehaviour
             behindBird.animBird.SetColor(true);
             behindBird.animBird.SetOrderInLayer(1);
             behindBird.orderIndex = 1;
-
+            behindBird.gameObject.name = behindBird.animBird.name + "row " + idCowInData;
 
         }
 
