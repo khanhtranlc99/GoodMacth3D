@@ -8,7 +8,6 @@ using System;
 public class BirdMechanic : MonoBehaviour
 {
     [HideInInspector] public int idCowInData;
-
     public int id;
    [HideInInspector] public int idElement;
     public bool wasLock;
@@ -17,13 +16,14 @@ public class BirdMechanic : MonoBehaviour
     public AnimBird animBird;
     public BoxCollider2D boxCollider2;
     public SpriteRenderer note;
+    public bool standing;
     public bool right;
     public int orderIndex;
     public SpriteRenderer dot;
     public Vector3 postWhenBirdMove;
     public Post post;
     public SlotBird slotBird;
-
+    
     public void Init()
     {
           dot.color = new Color32(0, 0, 0, 0);
@@ -31,8 +31,36 @@ public class BirdMechanic : MonoBehaviour
         var SpawnBird = Level.Instance.levelSpawn;
         var CurrentScale = new Vector3();
         id = SpawnBird.levelData2.GetDataLevel(idCowInData); //lay ra va remove id khoi data
+        if(standing == false)
+        {
+            SetMoveAnimBird(SpawnBird);
+        }
+        else
+        {
+            SetStandAnimBird(SpawnBird);
+        }
+  
+    
+        animBird.SetOrderInLayer(2);
+        orderIndex = 2;
+
+        if (behindBird != null)
+        {
+            behindBird.LockClick();
+            behindBird.Init();
+            behindBird.animBird.SetColor(true);
+            behindBird.animBird.SetOrderInLayer(1);
+            behindBird.orderIndex = 1;
+            behindBird.gameObject.name = behindBird.animBird.name + "row " + idCowInData;
+
+        }
+
+    }
+    private void SetMoveAnimBird(LevelSpawn SpawnBird)
+    {
         animBird = SimplePool2.Spawn(SpawnBird.GetAnimBird(id).animBird, right ? SpawnBird.leftPost.position : SpawnBird.rightPost.position, Quaternion.identity);
         animBird.SetAnim(animBird.FlY, true);
+        var CurrentScale = new Vector3();
         if (right)
         {
             CurrentScale = new Vector3(-animBird.transform.localScale.x, animBird.transform.localScale.y, animBird.transform.localScale.z);
@@ -55,7 +83,7 @@ public class BirdMechanic : MonoBehaviour
         else if (random == 4)
             easy = Ease.InOutFlash;
 
-        animBird.transform.DOMove(new Vector3(postBird.transform.position.x, postBird.transform.position.y+0.15f, postBird.transform.position.z), 1.5f).SetEase(easy).OnComplete(delegate {
+        animBird.transform.DOMove(new Vector3(postBird.transform.position.x, postBird.transform.position.y + 0.15f, postBird.transform.position.z), 1.7f).SetEase(easy).OnComplete(delegate {
             animBird.transform.DOMove(postBird.transform.position, 0.2f).OnComplete(
               delegate
               {
@@ -63,26 +91,32 @@ public class BirdMechanic : MonoBehaviour
                   animBird.transform.localScale = CurrentScale;
                   animBird.SetAnim(animBird.IDLE, true);
                   animBird.transform.position = postBird.gameObject.transform.position;
-                 
+
               }
            );
-        }); 
-        animBird.SetOrderInLayer(2);
-        orderIndex = 2;
-
-        if (behindBird != null)
-        {
-            behindBird.LockClick();
-            behindBird.Init();
-            behindBird.animBird.SetColor(true);
-            behindBird.animBird.SetOrderInLayer(1);
-            behindBird.orderIndex = 1;
-            behindBird.gameObject.name = behindBird.animBird.name + "row " + idCowInData;
-
-        }
-
+        });
     }
-
+    private void SetStandAnimBird(LevelSpawn SpawnBird)
+    {
+        var CurrentScale = new Vector3();
+        animBird = SimplePool2.Spawn(SpawnBird.GetAnimBird(id).animBird, postBird.transform.position, Quaternion.identity);
+        animBird.SetAnim(animBird.IDLE, true);
+        if (right)
+        {
+            CurrentScale = new Vector3(-animBird.transform.localScale.x, animBird.transform.localScale.y, animBird.transform.localScale.z);
+        }
+        else
+        {
+            CurrentScale = animBird.transform.localScale;
+        }
+        this.gameObject.name = animBird.name + "row " + idCowInData;
+        //animBird.transform.SetParent(this.transform);
+        animBird.transform.localScale = CurrentScale;
+        animBird.transform.SetParent(postBird.transform);
+        animBird.transform.localScale = CurrentScale;
+        animBird.SetAnim(animBird.IDLE, true);
+        animBird.transform.position = postBird.gameObject.transform.position;
+    }
    
     public void OnMouseDown()
     {

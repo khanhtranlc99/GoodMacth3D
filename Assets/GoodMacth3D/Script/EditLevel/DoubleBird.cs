@@ -6,17 +6,21 @@ public class DoubleBird : MonoBehaviour
 {
     public int idCowInData;
     public bool right;
+    public bool stadingFront;
+    public bool stadingBehind;
     public BirdMechanic birdInFront;
     public BirdMechanic birdInTheBack;
-    public Vector3 postFront;
-    public Vector3 postInBack;
+    [HideInInspector]  public Vector3 postFront;
+    [HideInInspector] public Vector3 postInBack;
     public void Init()
     {
         birdInFront.idCowInData = idCowInData;
-        if(birdInTheBack != null)
+        birdInFront.standing = stadingFront;
+        if (birdInTheBack != null)
         {
             birdInTheBack.idCowInData = idCowInData;
             birdInTheBack.right = right;
+            birdInTheBack.standing  = stadingBehind;
         }
         birdInFront.right = right;
         birdInFront.Init();

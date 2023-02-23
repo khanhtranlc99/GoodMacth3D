@@ -55,6 +55,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 1828357346413287586}
   note: {fileID: 5022287793175136167}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 5022287793175136167}
@@ -223,6 +224,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 3005430803663844644}
   note: {fileID: 3408538019064907281}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 3408538019064907281}
@@ -353,6 +355,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 2
   right: 0
+  stadingFront: 0
+  stadingBehind: 1
   birdInFront: {fileID: 809426121302166640}
   birdInTheBack: {fileID: 3614030273943757593}
   postFront: {x: 0, y: 0, z: 0}
@@ -472,6 +476,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 7084758003244672856}
   note: {fileID: 7084758003244672862}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 7084758003244672862}
@@ -602,6 +607,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 1
   right: 0
+  stadingFront: 1
+  stadingBehind: 0
   birdInFront: {fileID: 7084758003244672857}
   birdInTheBack: {fileID: 7084758004706124984}
   postFront: {x: 0, y: 0, z: 0}
@@ -661,6 +668,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 7084758003645681048}
   note: {fileID: 7084758003645681051}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 7084758003645681051}
@@ -791,6 +799,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 3
   right: 0
+  stadingFront: 1
+  stadingBehind: 0
   birdInFront: {fileID: 7084758004349742206}
   birdInTheBack: {fileID: 7084758004143043975}
   postFront: {x: 0, y: 0, z: 0}
@@ -842,6 +852,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 4
   right: 1
+  stadingFront: 0
+  stadingBehind: 1
   birdInFront: {fileID: 7084758004858691868}
   birdInTheBack: {fileID: 7084758003645681050}
   postFront: {x: 0, y: 0, z: 0}
@@ -961,6 +973,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 7084758004143043974}
   note: {fileID: 7084758004143043969}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 7084758004143043969}
@@ -1099,6 +1112,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 7084758004349742201}
   note: {fileID: 7084758004349742200}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 7084758004349742200}
@@ -1297,6 +1311,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 7084758004706124990}
   note: {fileID: 7084758004706124985}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 7084758004706124985}
@@ -1508,6 +1523,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 7084758004858691871}
   note: {fileID: 7084758004858691870}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 7084758004858691870}

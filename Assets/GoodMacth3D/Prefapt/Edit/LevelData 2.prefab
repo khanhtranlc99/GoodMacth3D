@@ -55,6 +55,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 8733844092643904516}
   note: {fileID: 1036437103778166891}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 1036437103778166891}
@@ -185,6 +186,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 2
   right: 0
+  stadingFront: 0
+  stadingBehind: 1
   birdInFront: {fileID: 2864728544438939317}
   birdInTheBack: {fileID: 605155693130927684}
   postFront: {x: 0, y: 0, z: 0}
@@ -274,6 +277,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 6037002213046365429}
   note: {fileID: 6037002213046365428}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 6037002213046365428}
@@ -412,6 +416,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 6037002213055802648}
   note: {fileID: 6037002213055802651}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 6037002213055802651}
@@ -640,6 +645,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 6037002213347574926}
   note: {fileID: 6037002213347574897}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 6037002213347574897}
@@ -778,6 +784,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 6037002213403010098}
   note: {fileID: 6037002213403010101}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 6037002213403010101}
@@ -1029,6 +1036,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 6037002213820866963}
   note: {fileID: 6037002213820866962}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 6037002213820866962}
@@ -1249,6 +1257,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 6037002214023401073}
   note: {fileID: 6037002214023401072}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 6037002214023401072}
@@ -1477,6 +1486,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 6037002214335913050}
   note: {fileID: 6037002214335913053}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 6037002214335913053}
@@ -1615,6 +1625,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 6037002214361147348}
   note: {fileID: 6037002214361147346}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 6037002214361147346}
@@ -1753,6 +1764,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 6037002214488608020}
   note: {fileID: 6037002214488608023}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 6037002214488608023}
@@ -1883,6 +1895,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 1
   right: 0
+  stadingFront: 1
+  stadingBehind: 0
   birdInFront: {fileID: 6037002214361147349}
   birdInTheBack: {fileID: 6037002213403010100}
   postFront: {x: 0, y: 0, z: 0}
@@ -1934,6 +1948,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 6
   right: 1
+  stadingFront: 0
+  stadingBehind: 1
   birdInFront: {fileID: 6037002213055802649}
   birdInTheBack: {fileID: 6037002214335913052}
   postFront: {x: 0, y: 0, z: 0}
@@ -1985,6 +2001,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 3
   right: 0
+  stadingFront: 1
+  stadingBehind: 0
   birdInFront: {fileID: 6037002213046365426}
   birdInTheBack: {fileID: 6037002214989509899}
   postFront: {x: 0, y: 0, z: 0}
@@ -2036,6 +2054,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 4
   right: 1
+  stadingFront: 0
+  stadingBehind: 1
   birdInFront: {fileID: 6037002213820866960}
   birdInTheBack: {fileID: 6037002214488608022}
   postFront: {x: 0, y: 0, z: 0}
@@ -2125,6 +2145,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 6037002214989509898}
   note: {fileID: 6037002214989509901}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 6037002214989509901}
@@ -2255,6 +2276,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 5
   right: 1
+  stadingFront: 1
+  stadingBehind: 0
   birdInFront: {fileID: 6037002214023401102}
   birdInTheBack: {fileID: 6037002213347574896}
   postFront: {x: 0, y: 0, z: 0}
@@ -2374,6 +2397,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 3572892586063186136}
   note: {fileID: 3421924092158840648}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 3421924092158840648}

@@ -460,6 +460,7 @@ public class LevelLogic : MonoBehaviour
         }
         if (lsSlotBird.Count <= 0)
         {
+            HandleFindThreeBird();
             return;
         }
         bool wasHasTwoItem = false;
@@ -511,31 +512,31 @@ public class LevelLogic : MonoBehaviour
         var tempListBirdSuport = FindBirdOneBird(lsSlotBird[0].birdMechanic.id);
         if(tempListBirdSuport.Count >= 2)
         {
-            Debug.LogError("co 2 thang tren map");
+          //  Debug.LogError("co 2 thang tren map");
             var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
             var temp1 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[1].idCowInData);
-            Debug.LogError("temp0 " + temp0.gameObject.name);
-            Debug.LogError("temp0 " + temp0.gameObject.name);
-            if (temp0.birdInFront == tempListBirdSuport[0]) //dang truoc
+            //Debug.LogError("temp0 " + temp0.gameObject.name);
+            //Debug.LogError("temp0 " + temp0.gameObject.name);
+            if (temp0.birdInFront == tempListBirdSuport[0]) 
             {
                 tempListBirdSuport[0].OnClick();
-                Debug.LogError("dang truoc " + tempListBirdSuport[0].gameObject.name);
+              //  Debug.LogError("dang truoc " + tempListBirdSuport[0].gameObject.name);
             }
             else
             {
-                Debug.LogError("dang sau " + tempListBirdSuport[0].gameObject.name);
+           //     Debug.LogError("dang sau " + tempListBirdSuport[0].gameObject.name);
                 tempListBirdSuport[0].HandleBirdBehindByBooster();
               
             }
 
-            if (temp1.birdInFront == tempListBirdSuport[1]) //dang sau
+            if (temp1.birdInFront == tempListBirdSuport[1]) 
             {
                 tempListBirdSuport[1].OnClick();
-                Debug.LogError("dang truoc " + tempListBirdSuport[1].gameObject.name);
+           //     Debug.LogError("dang truoc " + tempListBirdSuport[1].gameObject.name);
             }
             else
             {
-                Debug.LogError("dang sau " + tempListBirdSuport[1].gameObject.name);
+           //     Debug.LogError("dang sau " + tempListBirdSuport[1].gameObject.name);
                 tempListBirdSuport[1].HandleBirdBehindByBooster();
         
             }
@@ -546,7 +547,7 @@ public class LevelLogic : MonoBehaviour
             if(tempListBirdSuport.Count == 1)
             {
                 var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
-                if (temp0.birdInFront == tempListBirdSuport[0]) //dang truoc
+                if (temp0.birdInFront == tempListBirdSuport[0]) 
                 {
                     tempListBirdSuport[0].OnClick();
                 }
@@ -555,21 +556,22 @@ public class LevelLogic : MonoBehaviour
                     tempListBirdSuport[0].HandleBirdBehindByBooster();
                 }
                 HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
-                Debug.LogError("Count = 1");
+              //  Debug.LogError("Count = 1");
             }
           else
             {
                 HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
                 HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
-                Debug.LogError("Count = 0");
+             //   Debug.LogError("Count = 0");
             }
-            Debug.LogError("co 1 thang tren map ");
+         //   Debug.LogError("co 1 thang tren map ");
         }
 
     }
     [SerializeField] private List<BirdMechanic> TestFront;
     [SerializeField] private List<BirdMechanic> TestInBack;
     [SerializeField] private List<BirdMechanic> TestOneBird;
+   
     private List<BirdMechanic> FindBirdOneBird(int idBird)
     {
         var dataDoubleBird = level.levelSpawn.levelData2.doubleBird;
@@ -653,12 +655,114 @@ public class LevelLogic : MonoBehaviour
             }
         }
     }
-  
-    #endregion
+    private void HandleFindThreeBird()
+    {
+        var dataDoubleBird = level.levelSpawn.levelData2.doubleBird;
+        var tempBird = new BirdMechanic();
+        var lsBirdSuport = new List<BirdMechanic>();
+
+        foreach (var item in dataDoubleBird)
+        {
+            if (item.birdInFront != null)
+            {
+                tempBird = item.birdInFront;
+                break;
+            }
+            if (item.birdInTheBack != null)
+            {
+                tempBird = item.birdInTheBack;
+                break;
+            }
+        }
+        if (tempBird != null)
+        {
+            var tempListBirdSuport = FindBirdOneBird(tempBird.id);
+            if (tempListBirdSuport.Count >= 3)
+            {
+                var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
+                var temp1 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[1].idCowInData);
+                var temp2 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[2].idCowInData);
+                if (temp0.birdInFront == tempListBirdSuport[0])
+                {
+                    tempListBirdSuport[0].OnClick();
+                }
+                else
+                {
+                    tempListBirdSuport[0].HandleBirdBehindByBooster();
+                }
+
+                if (temp1.birdInFront == tempListBirdSuport[1])
+                {
+                    tempListBirdSuport[1].OnClick();
+                }
+                else
+                {
+                    tempListBirdSuport[1].HandleBirdBehindByBooster();
+
+                }
+
+                if (temp2.birdInFront == tempListBirdSuport[2])
+                {
+                    tempListBirdSuport[2].OnClick();
+                }
+                else
+                {
+                    tempListBirdSuport[2].HandleBirdBehindByBooster();
+
+                }
+                Debug.LogError("Count >= 3");
+                return;
+            }
+            if (tempListBirdSuport.Count == 2)
+            {
+                var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
+                var temp1 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[1].idCowInData);
+                if (temp0.birdInFront == tempListBirdSuport[0])
+                {
+                    tempListBirdSuport[0].OnClick();
+                }
+                else
+                {
+                    tempListBirdSuport[0].HandleBirdBehindByBooster();
+                }
+
+                if (temp1.birdInFront == tempListBirdSuport[1])
+                {
+                    tempListBirdSuport[1].OnClick();
+                }
+                else
+                {
+                    tempListBirdSuport[1].HandleBirdBehindByBooster();
+
+                }
+                HandleNoSuitableBird(tempListBirdSuport[0].id);
+                Debug.LogError("Count >= 2");
+                return;
+            }
+            if (tempListBirdSuport.Count == 1)
+            {
+                var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
+                if (temp0.birdInFront == tempListBirdSuport[0])
+                {
+                    tempListBirdSuport[0].OnClick();
+                }
+                else
+                {
+                    tempListBirdSuport[0].HandleBirdBehindByBooster();
+                }
+                HandleNoSuitableBird(tempListBirdSuport[0].id);
+                HandleNoSuitableBird(tempListBirdSuport[0].id);
+                Debug.LogError("Count >= 1");
+                return;
+            }
+
+        }
+    }
 
 
-}
-[System.Serializable]
+        #endregion
+    }
+    [System.Serializable]
 public class IdAndNumb
 {
     public int id;

@@ -55,6 +55,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 7751756644741085077}
   note: {fileID: 2279744097552661493}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 2279744097552661493}
@@ -193,6 +194,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 2274416935384859858}
   note: {fileID: 2274416935384859861}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 2274416935384859861}
@@ -391,6 +393,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 2274416935749635093}
   note: {fileID: 2274416935749635092}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 2274416935749635092}
@@ -611,6 +614,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 2274416936338538867}
   note: {fileID: 2274416936338538866}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 2274416936338538866}
@@ -822,6 +826,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 2274416936450944500}
   note: {fileID: 2274416936450944503}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 2274416936450944503}
@@ -952,6 +957,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 1
   right: 0
+  stadingFront: 1
+  stadingBehind: 0
   birdInFront: {fileID: 2274416936876197685}
   birdInTheBack: {fileID: 2274416935384859860}
   postFront: {x: 0, y: 0, z: 0}
@@ -1011,6 +1018,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 2274416936876197684}
   note: {fileID: 2274416936876197682}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 2274416936876197682}
@@ -1209,6 +1217,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 2274416937019594218}
   note: {fileID: 2274416937019594221}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 2274416937019594221}
@@ -1399,6 +1408,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 4
   right: 1
+  stadingFront: 0
+  stadingBehind: 1
   birdInFront: {fileID: 2274416936338538864}
   birdInTheBack: {fileID: 2274416936450944502}
   postFront: {x: 0, y: 0, z: 0}
@@ -1450,6 +1461,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 3
   right: 0
+  stadingFront: 1
+  stadingBehind: 0
   birdInFront: {fileID: 2274416935749635090}
   birdInTheBack: {fileID: 2274416937019594219}
   postFront: {x: 0, y: 0, z: 0}
@@ -1501,6 +1514,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idCowInData: 2
   right: 0
+  stadingFront: 0
+  stadingBehind: 1
   birdInFront: {fileID: 4293608626087561677}
   birdInTheBack: {fileID: 6145065578574327076}
   postFront: {x: 0, y: 0, z: 0}
@@ -1560,6 +1575,7 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 8934593128702194219}
   note: {fileID: 1773203981461929882}
+  standing: 0
   right: 1
   orderIndex: 0
   dot: {fileID: 1773203981461929882}
