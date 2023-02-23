@@ -31,7 +31,16 @@ public class BirdMechanic : MonoBehaviour
         var SpawnBird = Level.Instance.levelSpawn;
         var CurrentScale = new Vector3();
         id = SpawnBird.levelData2.GetDataLevel(idCowInData); //lay ra va remove id khoi data
-        if(standing == false)
+        if (id == 0)
+        {
+            LockClick();
+            behindBird.LockClick();
+            behindBird = null;
+            SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInFront = null;
+            SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInTheBack = null;
+            return;
+        }
+        if (standing == false)
         {
             SetMoveAnimBird(SpawnBird);
         }
@@ -43,11 +52,22 @@ public class BirdMechanic : MonoBehaviour
     
         animBird.SetOrderInLayer(2);
         orderIndex = 2;
-
+        var tempCheckNullIdBeHideBird = SpawnBird.levelData2.GetDataLevelToCheckNull(idCowInData);
+        if(tempCheckNullIdBeHideBird == 0)
+        {
+            if(behindBird != null)
+            {
+                behindBird.LockClick();
+                behindBird = null;
+                SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInTheBack = null;
+                return;
+            }    
+         
+        }
         if (behindBird != null)
         {
             behindBird.LockClick();
-            behindBird.Init();
+            behindBird.Init();        
             behindBird.animBird.SetColor(true);
             behindBird.animBird.SetOrderInLayer(1);
             behindBird.orderIndex = 1;

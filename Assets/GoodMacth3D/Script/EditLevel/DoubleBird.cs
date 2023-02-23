@@ -23,8 +23,9 @@ public class DoubleBird : MonoBehaviour
             birdInTheBack.standing  = stadingBehind;
         }
         birdInFront.right = right;
-        birdInFront.Init();
         SetTranform(birdInFront, birdInTheBack);
+        birdInFront.Init();
+    
     }
     public void SetTranform(BirdMechanic front, BirdMechanic back)
     {

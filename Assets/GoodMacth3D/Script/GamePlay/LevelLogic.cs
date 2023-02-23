@@ -546,6 +546,7 @@ public class LevelLogic : MonoBehaviour
         {
             if(tempListBirdSuport.Count == 1)
             {
+                HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
                 var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
                 if (temp0.birdInFront == tempListBirdSuport[0]) 
                 {
@@ -555,7 +556,7 @@ public class LevelLogic : MonoBehaviour
                 {
                     tempListBirdSuport[0].HandleBirdBehindByBooster();
                 }
-                HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
+              
               //  Debug.LogError("Count = 1");
             }
           else
@@ -715,6 +716,7 @@ public class LevelLogic : MonoBehaviour
             }
             if (tempListBirdSuport.Count == 2)
             {
+                HandleNoSuitableBird(tempListBirdSuport[0].id);
                 var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
                 var temp1 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[1].idCowInData);
                 if (temp0.birdInFront == tempListBirdSuport[0])
@@ -735,12 +737,14 @@ public class LevelLogic : MonoBehaviour
                     tempListBirdSuport[1].HandleBirdBehindByBooster();
 
                 }
-                HandleNoSuitableBird(tempListBirdSuport[0].id);
+            
                 Debug.LogError("Count >= 2");
                 return;
             }
             if (tempListBirdSuport.Count == 1)
             {
+                HandleNoSuitableBird(tempListBirdSuport[0].id);
+                HandleNoSuitableBird(tempListBirdSuport[0].id);
                 var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
                 if (temp0.birdInFront == tempListBirdSuport[0])
                 {
@@ -750,8 +754,7 @@ public class LevelLogic : MonoBehaviour
                 {
                     tempListBirdSuport[0].HandleBirdBehindByBooster();
                 }
-                HandleNoSuitableBird(tempListBirdSuport[0].id);
-                HandleNoSuitableBird(tempListBirdSuport[0].id);
+       
                 Debug.LogError("Count >= 1");
                 return;
             }

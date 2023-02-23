@@ -56,6 +56,22 @@ public class LevelData : MonoBehaviour
         }
         return tempId;
     }
+    public int GetDataLevelToCheckNull (int idCown)
+    {
+        int tempId = 0;
+        foreach (var item in lsDataLevel)
+        {
+            if (item.id == idCown)
+            {
+                for (int i = item.lsIdItem.Count - 1; i >= 0; i--)
+                {
+                    tempId = item.lsIdItem[0];
+                    return tempId;
+                }
+            }
+        }
+        return tempId;
+    }
     public int GetCountLsDataLevel(int idCown)
     {
         int tempId = 0;
@@ -87,6 +103,7 @@ public class LevelData : MonoBehaviour
 
     public void Init()
     {
+        ShufferId();
         foreach (var item in lsDataLevel)
         {
             sumBird += item.lsIdItem.Count;
