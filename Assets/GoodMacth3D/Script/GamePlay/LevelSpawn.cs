@@ -34,7 +34,7 @@ public class LevelSpawn : MonoBehaviour
         return null;
     }
     public List<LevelData> lsLevelDatas;
-
+    public GameObject vfx;
     public bool AllBirdisReady
     {
         get
@@ -52,7 +52,7 @@ public class LevelSpawn : MonoBehaviour
     public void Init()
     {
    
-        levelData = Instantiate(lsLevelDatas[CurrentLevelTest]);
+    //    levelData = Instantiate(lsLevelDatas[CurrentLevelTest]);
         if(levelData != null)
         {
             SetUpPrefaptBird();
@@ -74,27 +74,46 @@ public class LevelSpawn : MonoBehaviour
     public void SpawnEffectBird(int idBird, Transform transform)
     {
         var temp = SimplePool2.Spawn(GetAnimBird(idBird).animBird, transform.position, Quaternion.identity);
-        //temp.SetAnim(temp.FlY, true);
-        //  temp.transform.localScale = transform.localScale;
-        //temp.transformFollow = transform;
-        //temp.wasFollow = true;
          temp.transform.position = transform.position;
         if (GetAnimBird(idBird).lsAnimEffect.Count < 3)
         {
-            GetAnimBird(idBird).lsAnimEffect.Add(temp.gameObject);
-
+            GetAnimBird(idBird).lsAnimEffect.Add(temp);
+          
 
             if (GetAnimBird(idBird).lsAnimEffect.Count == 3)
             {
+                GetAnimBird(idBird).lsAnimEffect[1].SetOrderInLayer(2);
+                GetAnimBird(idBird).lsAnimEffect[0].SetOrderInLayer(1);
+                GetAnimBird(idBird).lsAnimEffect[2].SetOrderInLayer(1);
+                var bird0 = GetAnimBird(idBird).lsAnimEffect[0];
+                var bird1 = GetAnimBird(idBird).lsAnimEffect[1];
+                var bird2 = GetAnimBird(idBird).lsAnimEffect[2];
 
-                GetAnimBird(idBird).lsAnimEffect[0].transform.DOMove(GetAnimBird(idBird).lsAnimEffect[1].gameObject.transform.position, 0.1f);
-                GetAnimBird(idBird).lsAnimEffect[2].transform.DOMove(GetAnimBird(idBird).lsAnimEffect[1].gameObject.transform.position, 0.1f).OnComplete(delegate {
-                    for (int j = GetAnimBird(idBird).lsAnimEffect.Count - 1; j >= 0; j--)
-                    {
-                        SimplePool2.Despawn(GetAnimBird(idBird).lsAnimEffect[j].gameObject);
-                        GetAnimBird(idBird).lsAnimEffect.RemoveAt(j);
-                    }
-                });              
+                bird0.transform.DOMoveY(bird0.gameObject.transform.position.y+0.75f, 0.2f);
+                bird1.transform.DOMoveY(bird0.gameObject.transform.position.y + 0.75f, 0.2f);
+                bird2.transform.DOMoveY(bird0.gameObject.transform.position.y + 0.75f, 0.2f).OnComplete(delegate {
+
+                    bird0.transform.DOMove(bird1.gameObject.transform.position, 0.2f);
+                    bird2.transform.DOMove(bird1.gameObject.transform.position, 0.2f).OnComplete(delegate {
+                        bird0.gameObject.SetActive(false);
+                        bird2.gameObject.SetActive(false);
+                        var tempScale = bird1.gameObject.transform.localScale;
+                        bird1.transform.DOScale(tempScale * 1.1f, 0.2f).OnComplete(delegate {
+                            bird1.transform.DOScale(tempScale, 0.2f).OnComplete(delegate {
+                                var vecVfx = bird1.transform.position;
+                                SimplePool2.Spawn(vfx, new Vector3(vecVfx.x, vecVfx.y + 0.2f, vecVfx.z), Quaternion.identity);
+                                for (int j = GetAnimBird(idBird).lsAnimEffect.Count - 1; j >= 0; j--)
+                                {
+                                    SimplePool2.Despawn(GetAnimBird(idBird).lsAnimEffect[j].gameObject);
+                                    GetAnimBird(idBird).lsAnimEffect.RemoveAt(j);
+                                }
+                            });
+                        });
+                    });
+
+                });
+
+                         
             }
 
 
@@ -103,7 +122,7 @@ public class LevelSpawn : MonoBehaviour
       
     }
 
-
+   
 
 }
 [System.Serializable]
@@ -111,5 +130,5 @@ public class AnimBirdWithId
 {
     public int id;
     public AnimBird animBird;
-    public List<GameObject> lsAnimEffect;
+    public List<AnimBird> lsAnimEffect;
 }

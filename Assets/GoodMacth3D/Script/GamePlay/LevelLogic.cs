@@ -309,7 +309,7 @@ public class LevelLogic : MonoBehaviour
 
     #endregion
     #region BoosterRedo
-    private DataLevel dataLevel;
+    private TotalNumberOfBirdAtLocation dataLevel;
     private DoubleBird tempDoubleBird;
     public void BoosterRedo()
     {
@@ -371,9 +371,9 @@ public class LevelLogic : MonoBehaviour
     public void RedoSlotToData(SlotBird slotBird)
     {
         Debug.Log("RedoSlotToData2");
-        var levelData = level.levelSpawn.levelData.lsDataLevel;      
+        var levelData = level.levelSpawn.levelData.lsTotalNumberOfBirdAtLocation;      
         var ran = Random.RandomRange(0, levelData.Count);
-        dataLevel = new DataLevel();
+        dataLevel = new TotalNumberOfBirdAtLocation();
         dataLevel = levelData[ran];
         slotBird.birdMechanic.behindBird = null;
         if (dataLevel.lsIdItem.Count > 0)
@@ -646,7 +646,7 @@ public class LevelLogic : MonoBehaviour
     private void HandleNoSuitableBird(int idBird)
     {
         Debug.Log("HandleNoSuitableBird");
-        foreach (var item in level.levelSpawn.levelData.lsDataLevel)
+        foreach (var item in level.levelSpawn.levelData.lsTotalNumberOfBirdAtLocation)
         {
             for(int i = item.lsIdItem.Count -1 ; i >= 0  ; i--)
             {

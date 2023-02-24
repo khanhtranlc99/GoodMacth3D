@@ -15,7 +15,7 @@ public class LevelData : MonoBehaviour
     private void ShufferId()
     {
         tempID = new List<int>();
-        lsDataLevel = new List<DataLevel>();
+        lsTotalNumberOfBirdAtLocation = new List<TotalNumberOfBirdAtLocation>();
         foreach (var item in lsDataEdit)
         {
             for (int i = 0; i < item.count; i++)
@@ -27,22 +27,22 @@ public class LevelData : MonoBehaviour
         Debug.LogError(tempID.Count);
         for (int i = 1; i <= numOfPost; i++)
         {
-            lsDataLevel.Add(new DataLevel() { id = i, lsIdItem = new List<int>() }); ;
+            lsTotalNumberOfBirdAtLocation.Add(new TotalNumberOfBirdAtLocation() { id = i, lsIdItem = new List<int>() }); ;
         }
 
         for (int i = tempID.Count - 1; i >= 0; i--)
         {
-            var ran = Random.RandomRange(0, lsDataLevel.Count);
-            lsDataLevel[ran].lsIdItem.Add(tempID[i]);
+            var ran = Random.RandomRange(0, lsTotalNumberOfBirdAtLocation.Count);
+            lsTotalNumberOfBirdAtLocation[ran].lsIdItem.Add(tempID[i]);
             tempID.RemoveAt(i);
         }
     }
-    public List<DataLevel> lsDataLevel;
+    public List<TotalNumberOfBirdAtLocation> lsTotalNumberOfBirdAtLocation;
     public int sumBird;
-    public int GetDataLevel(int idCown)
+    public int GetTotalNumberOfBirdAtLocation(int idCown)
     {
         int tempId = 0;
-        foreach(var item in lsDataLevel)
+        foreach(var item in lsTotalNumberOfBirdAtLocation)
         {
             if(item.id == idCown)
             {
@@ -59,7 +59,7 @@ public class LevelData : MonoBehaviour
     public int GetDataLevelToCheckNull (int idCown)
     {
         int tempId = 0;
-        foreach (var item in lsDataLevel)
+        foreach (var item in lsTotalNumberOfBirdAtLocation)
         {
             if (item.id == idCown)
             {
@@ -75,7 +75,7 @@ public class LevelData : MonoBehaviour
     public int GetCountLsDataLevel(int idCown)
     {
         int tempId = 0;
-        foreach (var item in lsDataLevel)
+        foreach (var item in lsTotalNumberOfBirdAtLocation)
         {
             if (item.id == idCown)
             {
@@ -104,7 +104,7 @@ public class LevelData : MonoBehaviour
     public void Init()
     {
         ShufferId();
-        foreach (var item in lsDataLevel)
+        foreach (var item in lsTotalNumberOfBirdAtLocation)
         {
             sumBird += item.lsIdItem.Count;
         }
@@ -132,7 +132,7 @@ public class LevelData : MonoBehaviour
 
 }
 [System.Serializable]
-public class DataLevel
+public class TotalNumberOfBirdAtLocation
 {
     public int id;
     public List<int> lsIdItem;

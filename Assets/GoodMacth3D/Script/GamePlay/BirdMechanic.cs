@@ -31,7 +31,7 @@ public class BirdMechanic : MonoBehaviour
         postWhenBirdMove = new Vector3();
         var SpawnBird = Level.Instance.levelSpawn;
         var CurrentScale = new Vector3();
-        id = SpawnBird.levelData.GetDataLevel(idCowInData); //lay ra va remove id khoi data
+        id = SpawnBird.levelData.GetTotalNumberOfBirdAtLocation(idCowInData); //lay ra va remove id khoi data
         if (id == 0)
         {
             LockClick();
