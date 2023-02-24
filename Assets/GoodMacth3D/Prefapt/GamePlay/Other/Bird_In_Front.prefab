@@ -85,9 +85,14 @@ MonoBehaviour:
   animBird: {fileID: 0}
   boxCollider2: {fileID: 8291598191684639509}
   note: {fileID: 4929872289302269230}
+  standing: 0
   right: 0
   orderIndex: 0
   dot: {fileID: 4929872289302269230}
+  postWhenBirdMove: {x: 0, y: 0, z: 0}
+  post: {fileID: 0}
+  slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &8291598191684639509
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -155,7 +160,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -18,7 +18,7 @@ public class LevelSpawn : MonoBehaviour
         }
     }
     public List<AnimBirdWithId> prefaptBird;
-    public LevelData levelData2;
+    public LevelData levelData;
     public Transform rightPost;
     public Transform leftPost;
     public BirdMechanic birdMechanic;
@@ -35,15 +35,28 @@ public class LevelSpawn : MonoBehaviour
     }
     public List<LevelData> lsLevelDatas;
 
-
+    public bool AllBirdisReady
+    {
+        get
+        {
+            foreach(var item in levelData.lsAllBird)
+            {
+                if(item.isReady == false)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
     public void Init()
     {
    
-        levelData2 = Instantiate(lsLevelDatas[CurrentLevelTest]);
-        if(levelData2 != null)
+        levelData = Instantiate(lsLevelDatas[CurrentLevelTest]);
+        if(levelData != null)
         {
             SetUpPrefaptBird();
-            levelData2.Init();
+            levelData.Init();
         }
       
     }

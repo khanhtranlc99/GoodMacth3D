@@ -23,21 +23,23 @@ public class BirdMechanic : MonoBehaviour
     public Vector3 postWhenBirdMove;
     public Post post;
     public SlotBird slotBird;
-    
+    public bool isReady;
     public void Init()
     {
+        isReady = false;
           dot.color = new Color32(0, 0, 0, 0);
         postWhenBirdMove = new Vector3();
         var SpawnBird = Level.Instance.levelSpawn;
         var CurrentScale = new Vector3();
-        id = SpawnBird.levelData2.GetDataLevel(idCowInData); //lay ra va remove id khoi data
+        id = SpawnBird.levelData.GetDataLevel(idCowInData); //lay ra va remove id khoi data
         if (id == 0)
         {
             LockClick();
             behindBird.LockClick();
             behindBird = null;
-            SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInFront = null;
-            SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInTheBack = null;
+            SpawnBird.levelData.GetDoubleBird(idCowInData).birdInFront = null;
+            SpawnBird.levelData.GetDoubleBird(idCowInData).birdInTheBack.dot.color = new Color32(0, 0, 0, 0);
+            SpawnBird.levelData.GetDoubleBird(idCowInData).birdInTheBack = null;
             return;
         }
         if (standing == false)
@@ -52,14 +54,15 @@ public class BirdMechanic : MonoBehaviour
     
         animBird.SetOrderInLayer(2);
         orderIndex = 2;
-        var tempCheckNullIdBeHideBird = SpawnBird.levelData2.GetDataLevelToCheckNull(idCowInData);
+        var tempCheckNullIdBeHideBird = SpawnBird.levelData.GetDataLevelToCheckNull(idCowInData);
         if(tempCheckNullIdBeHideBird == 0)
         {
             if(behindBird != null)
             {
-                behindBird.LockClick();
+                behindBird.dot.color = new Color32(0, 0, 0, 0);
+                behindBird.LockClick();              
                 behindBird = null;
-                SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInTheBack = null;
+                SpawnBird.levelData.GetDoubleBird(idCowInData).birdInTheBack = null;
                 return;
             }    
          
@@ -111,7 +114,7 @@ public class BirdMechanic : MonoBehaviour
                   animBird.transform.localScale = CurrentScale;
                   animBird.SetAnim(animBird.IDLE, true);
                   animBird.transform.position = postBird.gameObject.transform.position;
-
+                  isReady = true;
               }
            );
         });
@@ -136,11 +139,16 @@ public class BirdMechanic : MonoBehaviour
         animBird.transform.localScale = CurrentScale;
         animBird.SetAnim(animBird.IDLE, true);
         animBird.transform.position = postBird.gameObject.transform.position;
+        isReady = true;
     }
    
     public void OnMouseDown()
     {
         Debug.Log("OnMouseDown");
+        if(Level.Instance.levelSpawn.AllBirdisReady == false)
+        {
+            return;
+        }
         if(!wasLock)
         {
             Debug.Log("wasLock");
@@ -210,12 +218,12 @@ public class BirdMechanic : MonoBehaviour
             var CurrentScale = new Vector3();
             var CurrentPossition = new Vector3();
             CurrentPossition = behindBird.transform.position;
-            if (SpawnBird.levelData2.GetCountLsDataLevel(idCowInData) > 0)
+            if (SpawnBird.levelData.GetCountLsDataLevel(idCowInData) > 0)
             {
                 behindBird.behindBird = SimplePool2.Spawn(SpawnBird.birdMechanic, CurrentPossition, Quaternion.identity);
                 behindBird.behindBird.right = behindBird.right;        
                 CurrentScale = behindBird.behindBird.transform.localScale;
-                behindBird.behindBird.transform.SetParent(SpawnBird.levelData2.gameObject.transform);
+                behindBird.behindBird.transform.SetParent(SpawnBird.levelData.gameObject.transform);
                 behindBird.behindBird.transform.localScale = CurrentScale;
                 behindBird.behindBird.idCowInData = behindBird.idCowInData;
                 behindBird.behindBird.Init();
@@ -223,14 +231,14 @@ public class BirdMechanic : MonoBehaviour
                 behindBird.behindBird.orderIndex = behindBird.orderIndex;
                 behindBird.behindBird.animBird.SetOrderInLayer(behindBird.orderIndex);
                 behindBird.behindBird.LockClick();
-                SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInTheBack = behindBird.behindBird;
+                SpawnBird.levelData.GetDoubleBird(idCowInData).birdInTheBack = behindBird.behindBird;
 
             }
             else
             {
-                SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInTheBack = null;
+                SpawnBird.levelData.GetDoubleBird(idCowInData).birdInTheBack = null;
             }
-            SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInFront = behindBird;
+            SpawnBird.levelData.GetDoubleBird(idCowInData).birdInFront = behindBird;
           
 
             behindBird.orderIndex = this.orderIndex;
@@ -249,23 +257,23 @@ public class BirdMechanic : MonoBehaviour
         }
         else
         {
-            SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInFront = null;
+            SpawnBird.levelData.GetDoubleBird(idCowInData).birdInFront = null;
         }
     }
     public void HandleBirdBehindByBooster()
     {
         var SpawnBird = Level.Instance.levelSpawn;
-        var DoubleBird = SpawnBird.levelData2.GetDoubleBird(idCowInData);
+        var DoubleBird = SpawnBird.levelData.GetDoubleBird(idCowInData);
         var CurrentScale = new Vector3();
         var CurrentPossition = new Vector3();
         CurrentPossition = this.transform.position;
-        if (SpawnBird.levelData2.GetCountLsDataLevel(idCowInData) > 0)
+        if (SpawnBird.levelData.GetCountLsDataLevel(idCowInData) > 0)
         {
      
           var tempBird = SimplePool2.Spawn(SpawnBird.birdMechanic, CurrentPossition, Quaternion.identity);
             tempBird.right = this.right;
             CurrentScale = tempBird.transform.localScale;
-            tempBird.transform.SetParent(SpawnBird.levelData2.gameObject.transform);
+            tempBird.transform.SetParent(SpawnBird.levelData.gameObject.transform);
             tempBird.transform.localScale = CurrentScale;
             tempBird.idCowInData = this.idCowInData;
             tempBird.Init();
@@ -300,7 +308,7 @@ public class BirdMechanic : MonoBehaviour
     {
         var SpawnBird = Level.Instance.levelSpawn;
 
-        SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInTheBack = null;
-        SpawnBird.levelData2.GetDoubleBird(idCowInData).birdInFront.behindBird = null;
+        SpawnBird.levelData.GetDoubleBird(idCowInData).birdInTheBack = null;
+        SpawnBird.levelData.GetDoubleBird(idCowInData).birdInFront.behindBird = null;
     }
 }

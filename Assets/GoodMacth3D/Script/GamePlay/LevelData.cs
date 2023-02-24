@@ -9,7 +9,7 @@ public class LevelData : MonoBehaviour
     public int numOfPost;
     public List<NumbEditLevel> lsDataEdit;
     public List<int> tempID;
-
+    
 
     [Button]
     private void ShufferId()
@@ -99,7 +99,7 @@ public class LevelData : MonoBehaviour
         }
         return null;
     }
-
+    public List<BirdMechanic> lsAllBird;
 
     public void Init()
     {
@@ -112,7 +112,20 @@ public class LevelData : MonoBehaviour
         {
             item.Init();
         }
-      
+
+        foreach (var item in doubleBird)
+        {
+            if(item.birdInFront != null)
+            {
+                lsAllBird.Add(item.birdInFront);
+            }
+            if (item.birdInTheBack != null)
+            {
+                lsAllBird.Add(item.birdInFront);
+
+            }
+        }
+
     }
 
  

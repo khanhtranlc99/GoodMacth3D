@@ -107,7 +107,7 @@ public class LevelLogic : MonoBehaviour
                     item.lsBird[i].SpawnVFX();
                     item.lsBird.RemoveAt(i);
                     item.numb -= 1;
-                    level.levelSpawn.levelData2.sumBird -= 1;
+                    level.levelSpawn.levelData.sumBird -= 1;
                 }
                
                 StartCoroutine(SetListSlot_ResetPosition_Now(0.01f));
@@ -288,7 +288,7 @@ public class LevelLogic : MonoBehaviour
     }
     public void HandleWin()
     {
-        if (level.levelSpawn.levelData2.sumBird <= 0)
+        if (level.levelSpawn.levelData.sumBird <= 0)
         {
             winPanel.SetActive(true);
         }
@@ -306,12 +306,17 @@ public class LevelLogic : MonoBehaviour
     {
         SceneManager.LoadScene("SceneGamePlayTest");
     }
+
     #endregion
     #region BoosterRedo
     private DataLevel dataLevel;
     private DoubleBird tempDoubleBird;
     public void BoosterRedo()
     {
+        if(level.levelSpawn.AllBirdisReady == false)
+        {
+            return;
+        }
         if (lsLoockBooster.Count > 0)
         {
             return;
@@ -366,7 +371,7 @@ public class LevelLogic : MonoBehaviour
     public void RedoSlotToData(SlotBird slotBird)
     {
         Debug.Log("RedoSlotToData2");
-        var levelData = level.levelSpawn.levelData2.lsDataLevel;      
+        var levelData = level.levelSpawn.levelData.lsDataLevel;      
         var ran = Random.RandomRange(0, levelData.Count);
         dataLevel = new DataLevel();
         dataLevel = levelData[ran];
@@ -383,7 +388,7 @@ public class LevelLogic : MonoBehaviour
         else
         {
             tempDoubleBird = null;
-             tempDoubleBird = level.levelSpawn.levelData2.GetDoubleBird(dataLevel.id);
+             tempDoubleBird = level.levelSpawn.levelData.GetDoubleBird(dataLevel.id);
             if (tempDoubleBird.birdInFront != null && tempDoubleBird.birdInTheBack != null)
             {
                 dataLevel.lsIdItem.Add(slotBird.birdMechanic.id);
@@ -453,6 +458,10 @@ public class LevelLogic : MonoBehaviour
     #region BoosterSuport
     public void BoosterSuport()
     {
+        if (level.levelSpawn.AllBirdisReady == false)
+        {
+            return;
+        }
         Debug.Log("BoosterSuport");
         if (lsLoockBooster.Count > 0)
         {
@@ -513,8 +522,8 @@ public class LevelLogic : MonoBehaviour
         if(tempListBirdSuport.Count >= 2)
         {
           //  Debug.LogError("co 2 thang tren map");
-            var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
-            var temp1 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[1].idCowInData);
+            var temp0 = level.levelSpawn.levelData.GetDoubleBird(tempListBirdSuport[0].idCowInData);
+            var temp1 = level.levelSpawn.levelData.GetDoubleBird(tempListBirdSuport[1].idCowInData);
             //Debug.LogError("temp0 " + temp0.gameObject.name);
             //Debug.LogError("temp0 " + temp0.gameObject.name);
             if (temp0.birdInFront == tempListBirdSuport[0]) 
@@ -547,7 +556,7 @@ public class LevelLogic : MonoBehaviour
             if(tempListBirdSuport.Count == 1)
             {
                 HandleNoSuitableBird(lsSlotBird[0].birdMechanic.id);
-                var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
+                var temp0 = level.levelSpawn.levelData.GetDoubleBird(tempListBirdSuport[0].idCowInData);
                 if (temp0.birdInFront == tempListBirdSuport[0]) 
                 {
                     tempListBirdSuport[0].OnClick();
@@ -575,7 +584,7 @@ public class LevelLogic : MonoBehaviour
    
     private List<BirdMechanic> FindBirdOneBird(int idBird)
     {
-        var dataDoubleBird = level.levelSpawn.levelData2.doubleBird;
+        var dataDoubleBird = level.levelSpawn.levelData.doubleBird;
         var lsBirdSuport = new List<BirdMechanic>();
         foreach (var item in dataDoubleBird)
         {
@@ -601,7 +610,7 @@ public class LevelLogic : MonoBehaviour
     }
     private List<BirdMechanic> FindBirdInFrontNeedSuportDoubleBird(int idBird)
     {
-        var dataDoubleBird = level.levelSpawn.levelData2.doubleBird;
+        var dataDoubleBird = level.levelSpawn.levelData.doubleBird;
         var lsBirdSuport = new List<BirdMechanic>();
         foreach (var item in dataDoubleBird)
         {
@@ -619,7 +628,7 @@ public class LevelLogic : MonoBehaviour
     }
     private List<BirdMechanic> FindBirdInBackNeedSuportDoubleBird(int idBird)
     {
-        var dataDoubleBird = level.levelSpawn.levelData2.doubleBird;
+        var dataDoubleBird = level.levelSpawn.levelData.doubleBird;
         var lsBirdSuport = new List<BirdMechanic>();
         foreach (var item in dataDoubleBird)
         {
@@ -637,7 +646,7 @@ public class LevelLogic : MonoBehaviour
     private void HandleNoSuitableBird(int idBird)
     {
         Debug.Log("HandleNoSuitableBird");
-        foreach (var item in level.levelSpawn.levelData2.lsDataLevel)
+        foreach (var item in level.levelSpawn.levelData.lsDataLevel)
         {
             for(int i = item.lsIdItem.Count -1 ; i >= 0  ; i--)
             {
@@ -658,7 +667,7 @@ public class LevelLogic : MonoBehaviour
     }
     private void HandleFindThreeBird()
     {
-        var dataDoubleBird = level.levelSpawn.levelData2.doubleBird;
+        var dataDoubleBird = level.levelSpawn.levelData.doubleBird;
         var tempBird = new BirdMechanic();
         var lsBirdSuport = new List<BirdMechanic>();
 
@@ -680,9 +689,9 @@ public class LevelLogic : MonoBehaviour
             var tempListBirdSuport = FindBirdOneBird(tempBird.id);
             if (tempListBirdSuport.Count >= 3)
             {
-                var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
-                var temp1 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[1].idCowInData);
-                var temp2 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[2].idCowInData);
+                var temp0 = level.levelSpawn.levelData.GetDoubleBird(tempListBirdSuport[0].idCowInData);
+                var temp1 = level.levelSpawn.levelData.GetDoubleBird(tempListBirdSuport[1].idCowInData);
+                var temp2 = level.levelSpawn.levelData.GetDoubleBird(tempListBirdSuport[2].idCowInData);
                 if (temp0.birdInFront == tempListBirdSuport[0])
                 {
                     tempListBirdSuport[0].OnClick();
@@ -717,8 +726,8 @@ public class LevelLogic : MonoBehaviour
             if (tempListBirdSuport.Count == 2)
             {
                 HandleNoSuitableBird(tempListBirdSuport[0].id);
-                var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
-                var temp1 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[1].idCowInData);
+                var temp0 = level.levelSpawn.levelData.GetDoubleBird(tempListBirdSuport[0].idCowInData);
+                var temp1 = level.levelSpawn.levelData.GetDoubleBird(tempListBirdSuport[1].idCowInData);
                 if (temp0.birdInFront == tempListBirdSuport[0])
                 {
                     tempListBirdSuport[0].OnClick();
@@ -745,7 +754,7 @@ public class LevelLogic : MonoBehaviour
             {
                 HandleNoSuitableBird(tempListBirdSuport[0].id);
                 HandleNoSuitableBird(tempListBirdSuport[0].id);
-                var temp0 = level.levelSpawn.levelData2.GetDoubleBird(tempListBirdSuport[0].idCowInData);
+                var temp0 = level.levelSpawn.levelData.GetDoubleBird(tempListBirdSuport[0].idCowInData);
                 if (temp0.birdInFront == tempListBirdSuport[0])
                 {
                     tempListBirdSuport[0].OnClick();
