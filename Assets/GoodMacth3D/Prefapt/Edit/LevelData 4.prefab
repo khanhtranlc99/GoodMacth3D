@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7751756644741085077}
   - component: {fileID: 2279744097552661493}
   m_Layer: 0
-  m_Name: Bird_In_Front
+  m_Name: Blue (7)row 2
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910c8066e7758e94db6bcda8f1d2dd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idCowInData: 0
-  id: 0
+  idCowInData: 2
+  id: 2
   idElement: 0
   wasLock: 0
   behindBird: {fileID: 6145065578574327076}
@@ -56,12 +56,13 @@ MonoBehaviour:
   boxCollider2: {fileID: 7751756644741085077}
   note: {fileID: 2279744097552661493}
   standing: 0
-  right: 1
-  orderIndex: 0
+  right: 0
+  orderIndex: 2
   dot: {fileID: 2279744097552661493}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 1
 --- !u!61 &7751756644741085077
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -129,7 +130,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -152,7 +153,7 @@ GameObject:
   - component: {fileID: 2274416935384859858}
   - component: {fileID: 2274416935384859861}
   m_Layer: 0
-  m_Name: Bird_In_The_Back
+  m_Name: Brown (10)row 1
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -185,22 +186,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910c8066e7758e94db6bcda8f1d2dd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idCowInData: 0
-  id: 0
+  idCowInData: 1
+  id: 3
   idElement: 0
-  wasLock: 0
+  wasLock: 1
   behindBird: {fileID: 0}
   postBird: {fileID: 2274416937155143056}
   animBird: {fileID: 0}
   boxCollider2: {fileID: 2274416935384859858}
   note: {fileID: 2274416935384859861}
   standing: 0
-  right: 1
-  orderIndex: 0
+  right: 0
+  orderIndex: 1
   dot: {fileID: 2274416935384859861}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 1
 --- !u!61 &2274416935384859858
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -208,7 +210,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2274416935384859863}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -268,7 +270,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.100138426, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -351,7 +353,7 @@ GameObject:
   - component: {fileID: 2274416935749635093}
   - component: {fileID: 2274416935749635092}
   m_Layer: 0
-  m_Name: Bird_In_Front
+  m_Name: Brown (12)row 3
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -384,22 +386,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910c8066e7758e94db6bcda8f1d2dd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idCowInData: 0
-  id: 0
+  idCowInData: 3
+  id: 3
   idElement: 0
   wasLock: 0
-  behindBird: {fileID: 2274416937019594219}
+  behindBird: {fileID: 0}
   postBird: {fileID: 2274416935655315741}
   animBird: {fileID: 0}
   boxCollider2: {fileID: 2274416935749635093}
   note: {fileID: 2274416935749635092}
-  standing: 0
-  right: 1
-  orderIndex: 0
+  standing: 1
+  right: 0
+  orderIndex: 2
   dot: {fileID: 2274416935749635092}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 1
 --- !u!61 &2274416935749635093
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -467,7 +470,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -605,11 +608,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910c8066e7758e94db6bcda8f1d2dd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idCowInData: 0
+  idCowInData: 4
   id: 0
   idElement: 0
-  wasLock: 0
-  behindBird: {fileID: 2274416936450944502}
+  wasLock: 1
+  behindBird: {fileID: 0}
   postBird: {fileID: 2274416936979142034}
   animBird: {fileID: 0}
   boxCollider2: {fileID: 2274416936338538867}
@@ -621,6 +624,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &2274416936338538867
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -628,7 +632,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2274416936338538868}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -688,7 +692,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -756,21 +760,29 @@ MonoBehaviour:
   - id: 3
     count: 6
   tempID: 
-  lsDataLevel:
+  lsTotalNumberOfBirdAtLocation:
   - id: 1
-    lsIdItem: 01000000020000000300000001000000030000000100000003000000
+    lsIdItem: 
   - id: 2
-    lsIdItem: 0100000003000000
+    lsIdItem: 03000000
   - id: 3
-    lsIdItem: 030000000300000002000000
+    lsIdItem: 030000000200000001000000
   - id: 4
-    lsIdItem: 010000000200000001000000
-  sumBird: 0
+    lsIdItem: 01000000030000000100000001000000030000000300000002000000
+  sumBird: 45
   doubleBird:
   - {fileID: 2274416936709359531}
   - {fileID: 8450547702989657050}
   - {fileID: 2274416937355820657}
   - {fileID: 2274416937303150354}
+  lsAllBird:
+  - {fileID: 2274416936876197685}
+  - {fileID: 2274416936876197685}
+  - {fileID: 4293608626087561677}
+  - {fileID: 4293608626087561677}
+  - {fileID: 2274416935749635090}
+  - {fileID: 2274416935749635090}
+  nextStep: {fileID: 0}
 --- !u!1 &2274416936450944505
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,22 +829,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910c8066e7758e94db6bcda8f1d2dd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idCowInData: 0
+  idCowInData: 4
   id: 0
   idElement: 0
-  wasLock: 0
+  wasLock: 1
   behindBird: {fileID: 0}
   postBird: {fileID: 2274416937192883160}
   animBird: {fileID: 0}
   boxCollider2: {fileID: 2274416936450944500}
   note: {fileID: 2274416936450944503}
-  standing: 0
+  standing: 1
   right: 1
   orderIndex: 0
   dot: {fileID: 2274416936450944503}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &2274416936450944500
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -840,7 +853,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2274416936450944505}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -900,7 +913,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.100138426, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -960,9 +973,9 @@ MonoBehaviour:
   stadingFront: 1
   stadingBehind: 0
   birdInFront: {fileID: 2274416936876197685}
-  birdInTheBack: {fileID: 2274416935384859860}
-  postFront: {x: 0, y: 0, z: 0}
-  postInBack: {x: 0, y: 0, z: 0}
+  birdInTheBack: {fileID: 0}
+  postFront: {x: -0.125, y: 0.16600001, z: 0}
+  postInBack: {x: -0.331, y: 0.32099998, z: 0}
 --- !u!1 &2274416936876197686
 GameObject:
   m_ObjectHideFlags: 0
@@ -976,7 +989,7 @@ GameObject:
   - component: {fileID: 2274416936876197684}
   - component: {fileID: 2274416936876197682}
   m_Layer: 0
-  m_Name: Bird_In_Front
+  m_Name: Red (10)row 1
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1009,22 +1022,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910c8066e7758e94db6bcda8f1d2dd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idCowInData: 0
-  id: 0
+  idCowInData: 1
+  id: 1
   idElement: 0
   wasLock: 0
-  behindBird: {fileID: 2274416935384859860}
+  behindBird: {fileID: 0}
   postBird: {fileID: 2274416936882299463}
   animBird: {fileID: 0}
   boxCollider2: {fileID: 2274416936876197684}
   note: {fileID: 2274416936876197682}
-  standing: 0
-  right: 1
-  orderIndex: 0
+  standing: 1
+  right: 0
+  orderIndex: 2
   dot: {fileID: 2274416936876197682}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 1
 --- !u!61 &2274416936876197684
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1092,7 +1106,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1175,7 +1189,7 @@ GameObject:
   - component: {fileID: 2274416937019594218}
   - component: {fileID: 2274416937019594221}
   m_Layer: 0
-  m_Name: Bird_In_The_Back
+  m_Name: Red (14)row 3
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1208,22 +1222,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910c8066e7758e94db6bcda8f1d2dd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idCowInData: 0
-  id: 0
+  idCowInData: 3
+  id: 1
   idElement: 0
-  wasLock: 0
+  wasLock: 1
   behindBird: {fileID: 0}
   postBird: {fileID: 2274416935694470802}
   animBird: {fileID: 0}
   boxCollider2: {fileID: 2274416937019594218}
   note: {fileID: 2274416937019594221}
   standing: 0
-  right: 1
-  orderIndex: 0
+  right: 0
+  orderIndex: 1
   dot: {fileID: 2274416937019594221}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 1
 --- !u!61 &2274416937019594218
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1231,7 +1246,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2274416937019594223}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -1291,7 +1306,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.100138426, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1410,10 +1425,10 @@ MonoBehaviour:
   right: 1
   stadingFront: 0
   stadingBehind: 1
-  birdInFront: {fileID: 2274416936338538864}
-  birdInTheBack: {fileID: 2274416936450944502}
-  postFront: {x: 0, y: 0, z: 0}
-  postInBack: {x: 0, y: 0, z: 0}
+  birdInFront: {fileID: 0}
+  birdInTheBack: {fileID: 0}
+  postFront: {x: 0.63799995, y: 2.62, z: 0}
+  postInBack: {x: 0.824, y: 2.775, z: 0}
 --- !u!1 &2274416937355820659
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,9 +1479,9 @@ MonoBehaviour:
   stadingFront: 1
   stadingBehind: 0
   birdInFront: {fileID: 2274416935749635090}
-  birdInTheBack: {fileID: 2274416937019594219}
-  postFront: {x: 0, y: 0, z: 0}
-  postInBack: {x: 0, y: 0, z: 0}
+  birdInTheBack: {fileID: 0}
+  postFront: {x: -0.73899996, y: 1.158, z: 0}
+  postInBack: {x: -0.98399997, y: 1.313, z: 0}
 --- !u!1 &4941732830578560443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,8 +1533,8 @@ MonoBehaviour:
   stadingBehind: 1
   birdInFront: {fileID: 4293608626087561677}
   birdInTheBack: {fileID: 6145065578574327076}
-  postFront: {x: 0, y: 0, z: 0}
-  postInBack: {x: 0, y: 0, z: 0}
+  postFront: {x: 1.201, y: 0.047, z: 0}
+  postInBack: {x: 0.95600003, y: 0.20199999, z: 0}
 --- !u!1 &5042267545838663191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,7 +1548,7 @@ GameObject:
   - component: {fileID: 8934593128702194219}
   - component: {fileID: 1773203981461929882}
   m_Layer: 0
-  m_Name: Bird_In_The_Back
+  m_Name: Red (12)row 2
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1566,22 +1581,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910c8066e7758e94db6bcda8f1d2dd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idCowInData: 0
-  id: 0
+  idCowInData: 2
+  id: 1
   idElement: 0
-  wasLock: 0
+  wasLock: 1
   behindBird: {fileID: 0}
   postBird: {fileID: 6829091734741405401}
   animBird: {fileID: 0}
   boxCollider2: {fileID: 8934593128702194219}
   note: {fileID: 1773203981461929882}
-  standing: 0
-  right: 1
-  orderIndex: 0
+  standing: 1
+  right: 0
+  orderIndex: 1
   dot: {fileID: 1773203981461929882}
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 1
 --- !u!61 &8934593128702194219
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1589,7 +1605,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5042267545838663191}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -1649,7 +1665,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.100138426, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

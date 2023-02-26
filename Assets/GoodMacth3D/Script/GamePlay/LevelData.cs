@@ -9,8 +9,6 @@ public class LevelData : MonoBehaviour
     public int numOfPost;
     public List<NumbEditLevel> lsDataEdit;
     public List<int> tempID;
-    
-
     [Button]
     private void ShufferId()
     {
@@ -101,6 +99,7 @@ public class LevelData : MonoBehaviour
     }
     public List<BirdMechanic> lsAllBird;
 
+    public LevelData nextStep;
     public void Init()
     {
         ShufferId();

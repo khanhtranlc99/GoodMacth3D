@@ -290,7 +290,18 @@ public class LevelLogic : MonoBehaviour
     {
         if (level.levelSpawn.levelData.sumBird <= 0)
         {
-            winPanel.SetActive(true);
+           
+            if(level.levelSpawn.levelData.nextStep != null)
+            {
+                level.levelSpawn.levelData.gameObject.SetActive(false);
+                level.levelSpawn.levelData = Instantiate(level.levelSpawn.levelData.nextStep);
+                level.levelSpawn.levelData.Init();
+            }
+            else
+            {
+                winPanel.SetActive(true);
+            }
+
         }
     }
     public void TestNext()
