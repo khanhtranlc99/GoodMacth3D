@@ -92,6 +92,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &5736344223018688242
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -261,6 +262,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &5365791495072901986
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -400,6 +402,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &5365791495082338959
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -629,6 +632,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &5365791495314309876
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -768,6 +772,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &5365791495397040712
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -937,6 +942,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &5365791495781345257
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1076,19 +1082,7 @@ MonoBehaviour:
   - id: 4
     count: 3
   tempID: 
-  lsDataLevel:
-  - id: 1
-    lsIdItem: 0100000002000000040000000300000004000000
-  - id: 2
-    lsIdItem: 010000000400000003000000
-  - id: 3
-    lsIdItem: 0300000001000000
-  - id: 4
-    lsIdItem: 0100000001000000
-  - id: 5
-    lsIdItem: 030000000300000001000000
-  - id: 6
-    lsIdItem: 030000000200000002000000
+  lsTotalNumberOfBirdAtLocation: []
   sumBird: 0
   doubleBird:
   - {fileID: 5365791496555274545}
@@ -1097,6 +1091,8 @@ MonoBehaviour:
   - {fileID: 5365791496745953672}
   - {fileID: 5365791497014808458}
   - {fileID: 5365791496574096503}
+  lsAllBird: []
+  nextStep: {fileID: 2339412116887555445, guid: 3f70fdf76208b1849953724764a52373, type: 3}
 --- !u!1 &5365791495981713416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,6 +1155,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &5365791495981713419
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1440,6 +1437,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &5365791496319525294
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1579,6 +1577,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &5365791496344492576
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1748,6 +1747,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &5365791496455244654
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2182,6 +2182,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &5365791497031775088
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2381,6 +2382,7 @@ MonoBehaviour:
   postWhenBirdMove: {x: 0, y: 0, z: 0}
   post: {fileID: 0}
   slotBird: {fileID: 0}
+  isReady: 0
 --- !u!61 &4994919969254163529
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -52,7 +52,7 @@ public class LevelSpawn : MonoBehaviour
     public void Init()
     {
    
-    //    levelData = Instantiate(lsLevelDatas[CurrentLevelTest]);
+        levelData = Instantiate(lsLevelDatas[CurrentLevelTest]);
         if(levelData != null)
         {
             SetUpPrefaptBird();

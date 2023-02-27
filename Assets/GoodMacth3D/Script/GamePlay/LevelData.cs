@@ -8,35 +8,9 @@ public class LevelData : MonoBehaviour
     public int id;
     public int numOfPost;
     public List<NumbEditLevel> lsDataEdit;
-    public List<int> tempID;
-    [Button]
-    private void ShufferId()
-    {
-        tempID = new List<int>();
-        lsTotalNumberOfBirdAtLocation = new List<TotalNumberOfBirdAtLocation>();
-        foreach (var item in lsDataEdit)
-        {
-            for (int i = 0; i < item.count; i++)
-            {
-                tempID.Add(item.id);
-            }
-        }
-        tempID.Shuffle();
-        Debug.LogError(tempID.Count);
-        for (int i = 1; i <= numOfPost; i++)
-        {
-            lsTotalNumberOfBirdAtLocation.Add(new TotalNumberOfBirdAtLocation() { id = i, lsIdItem = new List<int>() }); ;
-        }
-
-        for (int i = tempID.Count - 1; i >= 0; i--)
-        {
-            var ran = Random.RandomRange(0, lsTotalNumberOfBirdAtLocation.Count);
-            lsTotalNumberOfBirdAtLocation[ran].lsIdItem.Add(tempID[i]);
-            tempID.RemoveAt(i);
-        }
-    }
-    public List<TotalNumberOfBirdAtLocation> lsTotalNumberOfBirdAtLocation;
-    public int sumBird;
+    [HideInInspector] public List<int> tempID;
+    [HideInInspector] public List<TotalNumberOfBirdAtLocation> lsTotalNumberOfBirdAtLocation;
+   [HideInInspector] public int sumBird;
     public int GetTotalNumberOfBirdAtLocation(int idCown)
     {
         int tempId = 0;
@@ -97,9 +71,10 @@ public class LevelData : MonoBehaviour
         }
         return null;
     }
-    public List<BirdMechanic> lsAllBird;
+    [HideInInspector] public List<BirdMechanic> lsAllBird;
 
     public LevelData nextStep;
+
     public void Init()
     {
         ShufferId();
@@ -126,8 +101,32 @@ public class LevelData : MonoBehaviour
         }
 
     }
+    private void ShufferId()
+    {
+        tempID = new List<int>();
+        lsTotalNumberOfBirdAtLocation = new List<TotalNumberOfBirdAtLocation>();
+        foreach (var item in lsDataEdit)
+        {
+            for (int i = 0; i < item.count; i++)
+            {
+                tempID.Add(item.id);
+            }
+        }
+        tempID.Shuffle();
+        Debug.LogError(tempID.Count);
+        for (int i = 1; i <= numOfPost; i++)
+        {
+            lsTotalNumberOfBirdAtLocation.Add(new TotalNumberOfBirdAtLocation() { id = i, lsIdItem = new List<int>() }); ;
+        }
 
- 
+        for (int i = tempID.Count - 1; i >= 0; i--)
+        {
+            var ran = Random.RandomRange(0, lsTotalNumberOfBirdAtLocation.Count);
+            lsTotalNumberOfBirdAtLocation[ran].lsIdItem.Add(tempID[i]);
+            tempID.RemoveAt(i);
+        }
+    }
+
 
 }
 [System.Serializable]

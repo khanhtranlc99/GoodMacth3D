@@ -301,8 +301,9 @@ public class LevelLogic : MonoBehaviour
             {
                 winPanel.SetActive(true);
             }
-
+            
         }
+      
     }
     public void TestNext()
     { 
@@ -316,6 +317,28 @@ public class LevelLogic : MonoBehaviour
     public void Retry()
     {
         SceneManager.LoadScene("SceneGamePlayTest");
+    }
+    public void Continue()
+    {
+        lsRedoSlotBird = new List<SlotBird>();
+        for (int i = 0; i < lsSlotBird.Count; i++)
+        {
+            Debug.LogError("lon hon ba");
+            lsRedoSlotBird.Add(lsSlotBird[i]);
+        }
+        foreach (var item in lsRedoSlotBird)
+        {
+            lsSlotBird.Remove(item);
+            var count = GetIdAndNumb(item.birdMechanic.id);
+            if (count.numb > 0)
+            {
+                count.numb -= 1;
+                count.lsBird.Remove(item);
+            }
+
+            RedoSlotToData(item);
+        }
+        losePanel.SetActive(false);
     }
 
     #endregion
@@ -465,6 +488,7 @@ public class LevelLogic : MonoBehaviour
         }
 
     }
+
     #endregion
     #region BoosterSuport
     public void BoosterSuport()
